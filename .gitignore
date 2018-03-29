@@ -1,7 +1,5 @@
-# 忽略workspace
-.idea/workspace.xml
-.idea/misc.xml
-.idea/uiDesigner.xml
+# 忽略.idea目录
+.idea/
 
 
 # 忽略out下文件
