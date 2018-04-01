@@ -1,5 +1,6 @@
 package top.minecode.po;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -17,6 +18,26 @@ public class FirstLevelTaskPO {
     private String taskName;
 
     private List<Integer> secondLevelTaskIds;
+
+    private Double totalScore;
+
+    private LocalDate endDate;
+
+    public Double getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(Double totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
 
     public Integer getId() {
         return id;

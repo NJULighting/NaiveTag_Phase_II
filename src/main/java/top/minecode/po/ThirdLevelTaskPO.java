@@ -1,5 +1,7 @@
 package top.minecode.po;
 
+import java.time.LocalDate;
+
 /**
  * Created on 2018/4/1.
  * Description:
@@ -8,6 +10,16 @@ package top.minecode.po;
  */
 public class ThirdLevelTaskPO {
 
-    private String suffix = "-111";
+    private Integer id;
+
+    private Integer secondLevelTaskId;
+
+    private String taskName;
+
+    private Double standardScore;
+
+    private LocalDate endDate;
+
+    private Integer taskDetailsId;
 
 }
