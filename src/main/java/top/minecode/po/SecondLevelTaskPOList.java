@@ -1,7 +1,5 @@
 package top.minecode.po;
 
-import com.sun.istack.internal.Nullable;
-
 import java.util.List;
 
 /**
@@ -22,7 +20,7 @@ public class SecondLevelTaskPOList {
         this.secondLevelTaskPOS = secondLevelTaskPOS;
     }
 
-    public @Nullable SecondLevelTaskPO findSecondLevelTaskPOById(Integer id) {
+    public SecondLevelTaskPO findSecondLevelTaskPOById(Integer id) {
         return secondLevelTaskPOS.stream().filter(e -> e.getId().equals(id)).findFirst()
                 .orElse(null);
     }

@@ -1,8 +1,5 @@
 package top.minecode.po;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +21,7 @@ public class ThirdLevelTaskResultPOList {
         this.thirdLevelTaskResultPOS = thirdLevelTaskResultPOS;
     }
 
-    public @Nullable ThirdLevelTaskResultPO getThirdLevelTaskResultById(Integer id) {
+    public ThirdLevelTaskResultPO getThirdLevelTaskResultById(Integer id) {
         return thirdLevelTaskResultPOS.stream().filter(e -> e.getId().equals(id))
                 .findFirst().orElse(null);
     }
@@ -33,7 +30,7 @@ public class ThirdLevelTaskResultPOList {
         return thirdLevelTaskResultPOS.size() + 1;
     }
 
-    public @NotNull List<ThirdLevelTaskResultPO> getThirdLevelTaskResultByDoerId(Integer id) {
+    public List<ThirdLevelTaskResultPO> getThirdLevelTaskResultByDoerId(Integer id) {
         return thirdLevelTaskResultPOS.stream().filter(e -> e.getDoerId().equals(id))
                 .collect(Collectors.toList());
     }

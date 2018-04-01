@@ -1,8 +1,5 @@
 package top.minecode.po;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
-
 import java.util.List;
 
 /**
@@ -23,12 +20,12 @@ public class RequesterPOList {
         this.requesterPOS = requesterPOS;
     }
 
-    public @Nullable RequesterPO getRequesterById(Integer requesterId) {
+    public RequesterPO getRequesterById(Integer requesterId) {
         return requesterPOS.stream().filter(e -> e.getId().equals(requesterId))
                 .findFirst().orElse(null);
     }
 
-    public boolean addRequesterPO(@NotNull RequesterPO po) {
+    public boolean addRequesterPO(RequesterPO po) {
         if (getRequesterById(po.getId()) != null)
             return false;
         else

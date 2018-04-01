@@ -1,7 +1,5 @@
 package top.minecode.po;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 
 import java.util.List;
 
@@ -23,12 +21,12 @@ public class AdministratorPOList {
         this.administratorPOS = administratorPOS;
     }
 
-    public @Nullable AdministratorPO getAdministratorById(Integer administratorId) {
+    public AdministratorPO getAdministratorById(Integer administratorId) {
         return administratorPOS.stream().filter(e -> e.getId().equals(administratorId))
                 .findFirst().orElse(null);
     }
 
-    public boolean addAdministratorPO(@NotNull AdministratorPO po) {
+    public boolean addAdministratorPO(AdministratorPO po) {
         if (getAdministratorById(po.getId()) != null)
             return false;
         else

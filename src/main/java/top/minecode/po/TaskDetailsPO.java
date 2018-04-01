@@ -1,7 +1,5 @@
 package top.minecode.po;
 
-import com.sun.istack.internal.Nullable;
-
 import java.util.List;
 
 /**
@@ -20,7 +18,7 @@ public class TaskDetailsPO {
 
     private String taskDescription;
 
-    private @Nullable List<String> targetClasses;
+    private List<String> targetClasses;
 
     public Integer getId() {
         return id;

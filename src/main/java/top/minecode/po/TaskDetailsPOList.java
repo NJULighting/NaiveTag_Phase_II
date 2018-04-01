@@ -1,7 +1,5 @@
 package top.minecode.po;
 
-import com.sun.istack.internal.Nullable;
-
 import java.util.List;
 
 /**
@@ -22,7 +20,7 @@ public class TaskDetailsPOList {
         this.taskDetailsPOS = taskDetailsPOS;
     }
 
-    public @Nullable TaskDetailsPO getTaskDetailsById(Integer id) {
+    public TaskDetailsPO getTaskDetailsById(Integer id) {
         return taskDetailsPOS.stream().filter(e -> e.getId().equals(id))
                 .findFirst().orElse(null);
     }

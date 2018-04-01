@@ -1,7 +1,5 @@
 package top.minecode.po;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 
 import java.time.LocalDate;
 
@@ -26,7 +24,6 @@ public class WorkerFilterPO {
         this.endTime = endTime;
     }
 
-    @Nullable
     public Integer getWorkerRank() {
         return workerRank;
     }
@@ -35,7 +32,6 @@ public class WorkerFilterPO {
         this.workerRank = workerRank;
     }
 
-    @Nullable
     public Double getScore() {
         return score;
     }
@@ -48,7 +44,7 @@ public class WorkerFilterPO {
         return startTime;
     }
 
-    public void setStartTime(@NotNull LocalDate startTime) {
+    public void setStartTime(LocalDate startTime) {
         this.startTime = startTime;
     }
 
@@ -56,7 +52,7 @@ public class WorkerFilterPO {
         return endTime;
     }
 
-    public void setEndTime(@NotNull LocalDate endTime) {
+    public void setEndTime(LocalDate endTime) {
         this.endTime = endTime;
     }
 
