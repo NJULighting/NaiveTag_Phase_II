@@ -1,5 +1,7 @@
 package top.minecode.po;
 
+import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
 import top.minecode.utils.Pair;
 
 import java.util.List;
@@ -21,5 +23,12 @@ public class RankPO {
     public void setRank(List<Pair<String, Double>> rank) {
         this.rank = rank;
     }
-    
+
+    public @Nullable Integer getRankByName(@NotNull String name) {
+        for (int i = 0; i < rank.size(); i++)
+            if (rank.get(i).getLeft().equals(name))
+                return i + 1;
+        return null;
+    }
+
 }
