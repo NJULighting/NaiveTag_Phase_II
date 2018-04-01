@@ -14,6 +14,15 @@ public class AdministratorPO {
 
     private String password;
 
+    public AdministratorPO() {
+    }
+
+    public AdministratorPO(Integer id, String userName, String password) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+    }
+
     public Integer getId() {
         return id;
     }
