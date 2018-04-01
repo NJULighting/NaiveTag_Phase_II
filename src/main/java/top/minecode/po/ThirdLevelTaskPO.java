@@ -8,6 +8,6 @@ package top.minecode.po;
  */
 public class ThirdLevelTaskPO {
 
-
+    private String suffix = "-111";
 
 }

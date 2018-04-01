@@ -1,5 +1,7 @@
 package top.minecode.po;
 
+import com.sun.istack.internal.Nullable;
+
 import java.util.List;
 
 /**
@@ -9,4 +11,24 @@ import java.util.List;
  * @author iznauy
  */
 public class FirstLevelTaskPOList {
+
+    private List<FirstLevelTaskPO> firstLevelTaskPOS;
+
+    public List<FirstLevelTaskPO> getFirstLevelTaskPOS() {
+        return firstLevelTaskPOS;
+    }
+
+    public void setFirstLevelTaskPOS(List<FirstLevelTaskPO> firstLevelTaskPOS) {
+        this.firstLevelTaskPOS = firstLevelTaskPOS;
+    }
+
+    public @Nullable FirstLevelTaskPO findFirstLevelTaskPOById(Integer id) {
+        return firstLevelTaskPOS.stream().filter(e -> e.getId().equals(id)).findFirst()
+                .orElse(null);
+    }
+
+    public Integer getNextFirstLevelTaskId() {
+        return firstLevelTaskPOS.size() + 1;
+    }
+
 }
