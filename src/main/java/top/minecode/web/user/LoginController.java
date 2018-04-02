@@ -42,9 +42,10 @@ public class LoginController extends BaseController {
     public @ResponseBody String login(HttpServletRequest request, User user) {
         LoginResponse loginResponse = new LoginResponse();
         try {
-            userService.login(user);
+            user = userService.login(user);
             loginResponse.setResult(LoginResponse.SUCCESS);
             loginResponse.setUserType(user.getUserType().toString());
+            setSessionUser(request, user);
         } catch (InvalidUserNameException e) {
             loginResponse.setResult(LoginResponse.INVALID_NAME);
         } catch (InvalidPasswordException e) {
