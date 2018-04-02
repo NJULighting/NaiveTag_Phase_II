@@ -1,5 +1,8 @@
 package top.minecode.po;
 
+import top.minecode.domain.user.Administrator;
+import top.minecode.domain.user.UserType;
+
 /**
  * Created on 2018/4/1.
  * Description:
@@ -12,15 +15,26 @@ public class AdministratorPO {
 
     private String userName;
 
+    private String name;
+
     private String password;
 
     public AdministratorPO() {
     }
 
-    public AdministratorPO(Integer id, String userName, String password) {
+    public AdministratorPO(Integer id, String userName, String name, String password) {
         this.id = id;
         this.userName = userName;
+        this.name = name;
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getId() {
@@ -46,4 +60,15 @@ public class AdministratorPO {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Administrator toAdministrator() {
+        Administrator administrator = new Administrator();
+        administrator.setId(id);
+        administrator.setName(name);
+        administrator.setUsername(userName);
+        administrator.setPassword(password);
+        administrator.setUserType(UserType.admin);
+        return administrator;
+    }
+
 }

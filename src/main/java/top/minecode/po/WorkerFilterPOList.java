@@ -13,12 +13,6 @@ public class WorkerFilterPOList {
 
     private List<WorkerFilterPO> workerFilterList;
 
-    public WorkerFilterPOList(List<WorkerFilterPO> workerFilterList) {
-        this.workerFilterList = workerFilterList;
-    }
-
-    public WorkerFilterPO getWorkerFilter(int id) {
-        return workerFilterList.stream().filter(f -> f.getId() == id)
-                .findFirst().orElseThrow(NoSuchElementException::new);
+    public WorkerFilterPOList() {
     }
 }

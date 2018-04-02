@@ -1,5 +1,6 @@
 package top.minecode.po;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,15 +9,50 @@ import java.util.List;
  * Description:
  * @author iznauy
  */
-public class WorkerPOList {
+public class WorkerPOList extends Table {
+
     private List<WorkerPO> workerList;
 
-    public WorkerPOList(List<WorkerPO> workerList) {
+    public WorkerPOList() {
+        super();
+    }
+
+    public List<WorkerPO> getWorkerList() {
+        return workerList;
+    }
+
+    public void setWorkerList(List<WorkerPO> workerList) {
         this.workerList = workerList;
     }
 
-    public boolean loginValid(String username, String password) {
-        return workerList.stream()
-                .anyMatch(w -> w.getUsername().equals(username) && w.getPassword().equals(password));
+    public boolean addWorkerPO(WorkerPO po) {
+        workerList.add(po);
+        return true;
+    }
+
+    public Integer getNextWorkerId() {
+        return workerList.size() + 1;
+    }
+
+    @Override
+    protected String getFileName() {
+        return "work.json";
+    }
+
+    @Override
+    protected void load() {
+        String json = loadFromFile();
+        if (json == null)
+            workerList = new ArrayList<>();
+        else {
+            WorkerPOList list = POConfig.gson.fromJson(json, WorkerPOList.class);
+            this.workerList = list.workerList;
+        }
+    }
+
+    @Override
+    protected void save() {
+        String json = POConfig.gson.toJson(this);
+        writeToFile(json);
     }
 }

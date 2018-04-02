@@ -1,6 +1,7 @@
 package top.minecode.po;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,9 +10,13 @@ import java.util.List;
  *
  * @author iznauy
  */
-public class AdministratorPOList {
+public class AdministratorPOList extends Table {
 
     private List<AdministratorPO> administratorPOS;
+
+    public AdministratorPOList() {
+        super();
+    }
 
     public List<AdministratorPO> getAdministratorPOS() {
         return administratorPOS;
@@ -38,6 +43,25 @@ public class AdministratorPOList {
         return administratorPOS.size() + 1;
     }
 
+    @Override
+    protected String getFileName() {
+        return "admin.json";
+    }
 
+    @Override
+    protected void save() {
+        String json = POConfig.gson.toJson(this);
+        writeToFile(json);
+    }
 
+    @Override
+    protected void load() {
+        String json = loadFromFile();
+        if (json == null)
+            administratorPOS = new ArrayList<>();
+        else {
+            AdministratorPOList temp = POConfig.gson.fromJson(json, AdministratorPOList.class);
+            this.administratorPOS = temp.administratorPOS;
+        }
+    }
 }

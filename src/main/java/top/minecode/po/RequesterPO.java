@@ -1,6 +1,7 @@
 package top.minecode.po;
 
-import java.util.List;
+import top.minecode.domain.user.Requester;
+import top.minecode.domain.user.UserType;
 
 /**
  * Created on 2018/4/1.
@@ -18,9 +19,17 @@ public class RequesterPO {
 
     private String password;
 
+    private Double score;
+
     private String email;
 
-    private List<Integer> ownedFirstLevelTaskPOIdsList;
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
 
     public Integer getId() {
         return id;
@@ -62,13 +71,18 @@ public class RequesterPO {
         this.email = email;
     }
 
-    public List<Integer> getOwnedFirstLevelTaskPOIdsList() {
-        return ownedFirstLevelTaskPOIdsList;
+    public Requester toRequester() {
+        Requester requester = new Requester();
+        requester.setUserType(UserType.requester);
+        requester.setId(id);
+        requester.setUsername(userName);
+        requester.setName(name);
+        requester.setName(password);
+        requester.setEmail(email);
+        requester.setScore(score);
+        return requester;
     }
 
-    public void setOwnedFirstLevelTaskPOIdsList(List<Integer> ownedFirstLevelTaskPOIdsList) {
-        this.ownedFirstLevelTaskPOIdsList = ownedFirstLevelTaskPOIdsList;
-    }
 }
 
 

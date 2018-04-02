@@ -1,5 +1,6 @@
 package top.minecode.po;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  *
  * @author iznauy
  */
-public class RequesterPOList {
+public class RequesterPOList extends Table {
 
     private List<RequesterPO> requesterPOS;
 
@@ -37,4 +38,25 @@ public class RequesterPOList {
         return requesterPOS.size() + 1;
     }
 
+    @Override
+    protected String getFileName() {
+        return "requester.json";
+    }
+
+    @Override
+    protected void load() {
+        String json = loadFromFile();
+        if (json == null)
+            requesterPOS = new ArrayList<>();
+        else {
+            RequesterPOList temp = POConfig.gson.fromJson(json, RequesterPOList.class);
+            this.requesterPOS = temp.requesterPOS;
+        }
+    }
+
+    @Override
+    protected void save() {
+        String json = POConfig.gson.toJson(this);
+        writeToFile(json);
+    }
 }

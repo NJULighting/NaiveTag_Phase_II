@@ -17,8 +17,6 @@ public class SecondLevelTaskPO {
 
     private String taskName;
 
-    private List<Integer> thirdLevelTaskIds;
-
     private Double totalScore;
 
     private LocalDate endDate;
@@ -47,14 +45,6 @@ public class SecondLevelTaskPO {
 
     public void setTaskName(String taskName) {
         this.taskName = taskName;
-    }
-
-    public List<Integer> getThirdLevelTaskIds() {
-        return thirdLevelTaskIds;
-    }
-
-    public void setThirdLevelTaskIds(List<Integer> thirdLevelTaskIds) {
-        this.thirdLevelTaskIds = thirdLevelTaskIds;
     }
 
     public Double getTotalScore() {

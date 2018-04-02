@@ -1,6 +1,8 @@
 package top.minecode.po;
 
-import java.util.List;
+
+import top.minecode.domain.user.UserType;
+import top.minecode.domain.user.Worker;
 
 /**
  * Created on 2018/4/1.
@@ -16,12 +18,13 @@ public class WorkerPO {
     private String email;
     private Double scores;
     private Double averageScoreRatio;
-    private List<Integer> thirdLevelTasks;
-    private List<Integer> thirdLevelTasksResults;
+
+    public WorkerPO() {
+
+    }
 
     public WorkerPO(Integer id, String username, String password, String name, String email,
-                    Double scores, Double averageScoreRatio, List<Integer> thirdLevelTasks,
-                    List<Integer> thirdLevelTasksResults) {
+                    Double scores, Double averageScoreRatio) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -29,8 +32,6 @@ public class WorkerPO {
         this.email = email;
         this.scores = scores;
         this.averageScoreRatio = averageScoreRatio;
-        this.thirdLevelTasks = thirdLevelTasks;
-        this.thirdLevelTasksResults = thirdLevelTasksResults;
     }
 
     public String getName() {
@@ -55,22 +56,6 @@ public class WorkerPO {
 
     public void setAverageScoreRatio(Double averageScoreRatio) {
         this.averageScoreRatio = averageScoreRatio;
-    }
-
-    public List<Integer> getThirdLevelTasks() {
-        return thirdLevelTasks;
-    }
-
-    public void setThirdLevelTasks(List<Integer> thirdLevelTasks) {
-        this.thirdLevelTasks = thirdLevelTasks;
-    }
-
-    public List<Integer> getThirdLevelTasksResults() {
-        return thirdLevelTasksResults;
-    }
-
-    public void setThirdLevelTasksResults(List<Integer> thirdLevelTasksResults) {
-        this.thirdLevelTasksResults = thirdLevelTasksResults;
     }
 
     public Integer getId() {
@@ -104,4 +89,18 @@ public class WorkerPO {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Worker toWorker() {
+        Worker worker = new Worker();
+        worker.setScore(scores);
+        worker.setUserType(UserType.worker);
+        worker.setEmail(email);
+        worker.setUsername(username);
+        worker.setId(id);
+        worker.setName(name);
+        worker.setPassword(password);
+        worker.setAverageScoreRatio(averageScoreRatio);
+        return worker;
+    }
+
 }

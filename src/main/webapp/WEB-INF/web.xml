@@ -28,4 +28,8 @@
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
 
+    <session-config>
+        <session-timeout>15</session-timeout> <!-- session 15分钟自动过期 -->
+    </session-config>
+
 </web-app>
