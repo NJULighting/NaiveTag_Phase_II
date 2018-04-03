@@ -38,7 +38,7 @@ public class LoginController extends BaseController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody String login(HttpServletRequest request, User user) {
         LoginResponse loginResponse = new LoginResponse();
         try {

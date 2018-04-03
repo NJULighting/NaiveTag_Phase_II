@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created on 2018/4/2.
- * Description:
+ * Description: Worker and requester
  *
  * @author iznauy
  */

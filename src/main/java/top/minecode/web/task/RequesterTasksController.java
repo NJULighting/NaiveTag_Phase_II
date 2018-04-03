@@ -1,0 +1,35 @@
+package top.minecode.web.task;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Created on 2018/4/3.
+ * Description:
+ * @author Liao
+ */
+@Controller
+@RequestMapping("/requester")
+public class RequesterTasksController {
+
+    @RequestMapping("/index")
+    @ResponseBody
+    public String getTasks(HttpServletRequest request) {
+        return null;
+    }
+
+    @RequestMapping("/detail")
+    @ResponseBody
+    public String getTaskDetail(HttpServletRequest request) {
+        return null;
+    }
+
+    @RequestMapping("/new")
+    @ResponseBody
+    public String newTask(HttpServletRequest request) {
+        return null;
+    }
+}
