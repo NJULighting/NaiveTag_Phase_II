@@ -1,7 +1,9 @@
 package top.minecode.po;
 
 import top.minecode.domain.TagResult;
+import top.minecode.domain.task.ThirdLevelTaskResultType;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +23,36 @@ public class ThirdLevelTaskResultPO {
     private Integer doerId;
 
     private Double actualScore;
+
+    private LocalDateTime acceptTime;
+
+    private LocalDateTime expireTime;
+
+    private ThirdLevelTaskResultType state;
+
+    public LocalDateTime getAcceptTime() {
+        return acceptTime;
+    }
+
+    public void setAcceptTime(LocalDateTime acceptTime) {
+        this.acceptTime = acceptTime;
+    }
+
+    public LocalDateTime getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(LocalDateTime expireTime) {
+        this.expireTime = expireTime;
+    }
+
+    public ThirdLevelTaskResultType getState() {
+        return state;
+    }
+
+    public void setState(ThirdLevelTaskResultType state) {
+        this.state = state;
+    }
 
     public Integer getId() {
         return id;
