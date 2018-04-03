@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/task")
 public class TaskDetailController {
 
-    @RequestMapping("/detail")
+    @RequestMapping("/details")
     @ResponseBody
     public String getTaskDetail(HttpServletRequest request) {
         return null;
