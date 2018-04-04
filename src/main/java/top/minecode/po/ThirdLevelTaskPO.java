@@ -1,6 +1,7 @@
 package top.minecode.po;
 
 import top.minecode.domain.task.ThirdLevelTaskState;
+import top.minecode.domain.task.WorkerGeneralTaskInfo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,8 +14,6 @@ import java.util.List;
  */
 public class ThirdLevelTaskPO {
 
-    private Integer taskSize; // equals to picList.size();
-
     private Integer id;
 
     private Integer secondLevelTaskId;
@@ -23,7 +22,7 @@ public class ThirdLevelTaskPO {
 
     private Double standardScore;
 
-    private LocalDate endDate;
+    private LocalDate endDate; //任务本身的截止日期，也就是payDay
 
     private Integer taskDetailsId;
 
@@ -70,14 +69,6 @@ public class ThirdLevelTaskPO {
 
     public void setState(ThirdLevelTaskState state) {
         this.state = state;
-    }
-
-    public Integer getTaskSize() {
-        return taskSize;
-    }
-
-    public void setTaskSize(Integer taskSize) {
-        this.taskSize = taskSize;
     }
 
     public Integer getTaskType() {
@@ -142,5 +133,16 @@ public class ThirdLevelTaskPO {
 
     public void setPicList(List<String> picList) {
         this.picList = picList;
+    }
+
+    public WorkerGeneralTaskInfo toGeneralTaskInfo() {
+        WorkerGeneralTaskInfo info = new WorkerGeneralTaskInfo();
+        info.setAverageScore(standardScore);
+        info.setTaskId(id);
+        info.setTaskName(taskName);
+        info.setTaskType(taskType);
+        info.setPayDay(endDate);
+        info.setPicAmount(picList.size());
+        info.setCover(picList.get(0)); //默认封面就是0
     }
 }
