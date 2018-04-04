@@ -15,4 +15,12 @@ public class WorkerFilterPOList {
 
     public WorkerFilterPOList() {
     }
+
+    public List<WorkerFilterPO> getWorkerFilterList() {
+        return workerFilterList;
+    }
+
+    public void setWorkerFilterList(List<WorkerFilterPO> workerFilterList) {
+        this.workerFilterList = workerFilterList;
+    }
 }

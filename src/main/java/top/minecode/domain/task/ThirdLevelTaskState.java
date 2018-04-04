@@ -7,4 +7,8 @@ package top.minecode.domain.task;
  * @author iznauy
  */
 public enum ThirdLevelTaskState {
+
+    doing,
+    locked, // 接满了
+    finished
 }

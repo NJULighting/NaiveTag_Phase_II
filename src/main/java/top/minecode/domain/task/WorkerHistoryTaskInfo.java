@@ -1,4 +1,6 @@
-package top.minecode.json.task;
+package top.minecode.domain.task;
+
+import top.minecode.domain.task.WorkerGeneralTaskInfo;
 
 import java.time.LocalDate;
 

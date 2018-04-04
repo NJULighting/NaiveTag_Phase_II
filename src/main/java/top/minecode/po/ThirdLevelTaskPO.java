@@ -29,29 +29,40 @@ public class ThirdLevelTaskPO {
 
     private List<String> picList;
 
-    private Integer currentAcceptedCount = 0; // 这个任务当前有多少人接受了，且正在进行。
+    private List<Integer> currentDoingWorkerIds; //当前正在做这个任务的Worker的集合
 
-    private Integer finishCount = 0;  // 这个任务已经被多少人完成了
+    private List<Integer> finishedWorkerIds; // 完成过这个任务的Worker的集合
+
+    private Integer workerFilterId;
 
     private Integer taskType;
 
     private ThirdLevelTaskState state;
 
-    public Integer getCurrentAcceptedCount() {
-        return currentAcceptedCount;
+    public Integer getWorkerFilterId() {
+        return workerFilterId;
     }
 
-    public void setCurrentAcceptedCount(Integer currentAcceptedCount) {
-        this.currentAcceptedCount = currentAcceptedCount;
+    public void setWorkerFilterId(Integer workerFilterId) {
+        this.workerFilterId = workerFilterId;
     }
 
-    public Integer getFinishCount() {
-        return finishCount;
+    public List<Integer> getCurrentDoingWorkerIds() {
+        return currentDoingWorkerIds;
     }
 
-    public void setFinishCount(Integer finishCount) {
-        this.finishCount = finishCount;
+    public void setCurrentDoingWorkerIds(List<Integer> currentDoingWorkerIds) {
+        this.currentDoingWorkerIds = currentDoingWorkerIds;
     }
+
+    public List<Integer> getFinishedWorkerIds() {
+        return finishedWorkerIds;
+    }
+
+    public void setFinishedWorkerIds(List<Integer> finishedWorkerIds) {
+        this.finishedWorkerIds = finishedWorkerIds;
+    }
+
 
     public ThirdLevelTaskState getState() {
         return state;

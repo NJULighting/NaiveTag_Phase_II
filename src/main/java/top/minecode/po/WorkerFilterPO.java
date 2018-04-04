@@ -11,33 +11,16 @@ import java.time.LocalDate;
 public class WorkerFilterPO {
 
     private Integer id;
-    private Integer workerRank;
-    private Double score;
+    private Double workerRankRatio;
     private LocalDate startTime;
     private LocalDate endTime;
 
-    public WorkerFilterPO(Integer id, Integer workerRank, Double score, LocalDate startTime, LocalDate endTime) {
-        this.id = id;
-        this.workerRank = workerRank;
-        this.score = score;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public Double getWorkerRankRatio() {
+        return workerRankRatio;
     }
 
-    public Integer getWorkerRank() {
-        return workerRank;
-    }
-
-    public void setWorkerRank(Integer workerRank) {
-        this.workerRank = workerRank;
-    }
-
-    public Double getScore() {
-        return score;
-    }
-
-    public void setScore(Double score) {
-        this.score = score;
+    public void setWorkerRankRatio(Double workerRankRatio) {
+        this.workerRankRatio = workerRankRatio;
     }
 
     public LocalDate getStartTime() {
