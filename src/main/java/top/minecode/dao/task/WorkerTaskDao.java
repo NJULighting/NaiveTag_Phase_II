@@ -35,8 +35,23 @@ public class WorkerTaskDao {
                 .filter( e -> workerFilterPOS.stream()
                     .filter( t -> t.getId().equals(e.getWorkerFilterId()))
                         .findFirst().get().getWorkerRankRatio() >= ratio
-                ).filter(e -> e.getFinishedWorkerIds().contains(user.getId())
-                    || e.getCurrentDoingWorkerIds().contains(user.getId()))
+                ).filter(e -> !(e.getFinishedWorkerIds().contains(user.getId())
+                    || e.getCurrentDoingWorkerIds().contains(user.getId())))
+                .collect(Collectors.toList());
+    }
+
+    public List<ThirdLevelTaskPO> searchingTaskByKey(User user, String key) {
+
+        // 所有的任务
+        List<ThirdLevelTaskPO> allThirdLevelTaskPOS = DataBase.thirdLevelTaskPOList.getThirdLevelTaskPOS();
+
+
+        // 字符串匹配
+        // 不会柔性匹配算法，就完全匹配了..
+        return allThirdLevelTaskPOS.stream().filter(e -> e.getState() == ThirdLevelTaskState.doing)
+                .filter(e -> e.getTaskName().contains(key))
+                .filter(e -> !(e.getFinishedWorkerIds().contains(user.getId())
+                        || e.getCurrentDoingWorkerIds().contains(user.getId())))
                 .collect(Collectors.toList());
     }
 
