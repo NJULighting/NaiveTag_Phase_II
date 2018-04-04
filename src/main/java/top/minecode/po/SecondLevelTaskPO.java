@@ -1,5 +1,7 @@
 package top.minecode.po;
 
+import top.minecode.domain.task.TaskInfo;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,6 +24,16 @@ public class SecondLevelTaskPO {
     private LocalDate endDate;
 
     private Integer taskDetailsId;
+
+    private TaskInfo taskInfo;
+
+    public TaskInfo getTaskInfo() {
+        return taskInfo;
+    }
+
+    public void setTaskInfo(TaskInfo taskInfo) {
+        this.taskInfo = taskInfo;
+    }
 
     public Integer getId() {
         return id;

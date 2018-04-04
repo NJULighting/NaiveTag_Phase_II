@@ -1,4 +1,4 @@
-package top.minecode.domain;
+package top.minecode.domain.tag;
 
 /**
  * Created on 2018/4/2.

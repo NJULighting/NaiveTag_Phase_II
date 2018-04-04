@@ -27,6 +27,9 @@ public class WorkerPOList extends Table {
 
     public boolean addWorkerPO(WorkerPO po) {
         workerList.add(po);
+
+        // 增加用户后保存
+        save();
         return true;
     }
 

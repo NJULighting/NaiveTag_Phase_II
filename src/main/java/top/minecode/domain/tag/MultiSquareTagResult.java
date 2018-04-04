@@ -1,4 +1,4 @@
-package top.minecode.domain;
+package top.minecode.domain.tag;
 
 import top.minecode.utils.Pair;
 
@@ -9,7 +9,7 @@ import java.util.Map;
  * Description:
  * @author Liao
  */
-public class MultiSquareTagResult extends TagResult{
+public class MultiSquareTagResult extends TagResult {
     private Map<String, Pair<Point, Point>> labelPointsTable;
 
     public MultiSquareTagResult(Integer id, String dataUrl, Map<String, Pair<Point, Point>> labelPointsTable) {

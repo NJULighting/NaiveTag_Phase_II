@@ -1,5 +1,7 @@
 package top.minecode.po;
 
+import top.minecode.domain.task.ThirdLevelTaskState;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,7 +29,37 @@ public class ThirdLevelTaskPO {
 
     private List<String> picList;
 
+    private Integer currentAcceptedCount = 0; // 这个任务当前有多少人接受了，且正在进行。
+
+    private Integer finishCount = 0;  // 这个任务已经被多少人完成了
+
     private Integer taskType;
+
+    private ThirdLevelTaskState state;
+
+    public Integer getCurrentAcceptedCount() {
+        return currentAcceptedCount;
+    }
+
+    public void setCurrentAcceptedCount(Integer currentAcceptedCount) {
+        this.currentAcceptedCount = currentAcceptedCount;
+    }
+
+    public Integer getFinishCount() {
+        return finishCount;
+    }
+
+    public void setFinishCount(Integer finishCount) {
+        this.finishCount = finishCount;
+    }
+
+    public ThirdLevelTaskState getState() {
+        return state;
+    }
+
+    public void setState(ThirdLevelTaskState state) {
+        this.state = state;
+    }
 
     public Integer getTaskSize() {
         return taskSize;

@@ -1,10 +1,9 @@
 package top.minecode.po;
 
-import top.minecode.domain.TagResult;
+import top.minecode.domain.tag.TagResult;
 import top.minecode.domain.task.ThirdLevelTaskResultType;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 /**

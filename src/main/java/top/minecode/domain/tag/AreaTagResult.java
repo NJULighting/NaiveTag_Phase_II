@@ -1,4 +1,4 @@
-package top.minecode.domain;
+package top.minecode.domain.tag;
 
 import java.util.List;
 
