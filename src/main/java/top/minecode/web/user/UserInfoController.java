@@ -31,8 +31,16 @@ public class UserInfoController extends BaseController {
         this.userService = userService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public @ResponseBody String getUserInfo(HttpServletRequest request) {
+        return null;
+    }
+
+
+    // 调用逻辑层的 statistic 包中的 service 来计算得到结果
+    @RequestMapping("/ability")
+    @ResponseBody
+    public String getAbilityGraph(HttpServletRequest request) {
         return null;
     }
 

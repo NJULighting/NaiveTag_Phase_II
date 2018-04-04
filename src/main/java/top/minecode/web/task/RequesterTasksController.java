@@ -3,6 +3,7 @@ package top.minecode.web.task;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import top.minecode.web.common.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/requester")
-public class RequesterTasksController {
+public class RequesterTasksController extends BaseController {
 
     @RequestMapping("/index")
     @ResponseBody
@@ -21,7 +22,7 @@ public class RequesterTasksController {
         return null;
     }
 
-    @RequestMapping("/detail")
+    @RequestMapping("/details")
     @ResponseBody
     public String getTaskDetail(HttpServletRequest request) {
         return null;

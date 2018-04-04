@@ -3,6 +3,7 @@ package top.minecode.web.task;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import top.minecode.web.common.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/tag")
-public class TagController {
+public class TagController extends BaseController {
 
     @RequestMapping("/save")
     @ResponseBody
@@ -27,15 +28,28 @@ public class TagController {
         return null;
     }
 
+    @RequestMapping("/getLabelInfo")
+    @ResponseBody
+    public String getLabelInformation(HttpServletRequest request) {
+        return null;
+    }
+
     @RequestMapping("/previous")
     @ResponseBody
     public String previous(HttpServletRequest request) {
+
         return null;
     }
 
     @ResponseBody
     @RequestMapping("/commit")
     public String commit(HttpServletRequest request) {
+        return null;
+    }
+
+    @RequestMapping("/taskInfo")
+    @ResponseBody
+    public String getTaskInformation(HttpServletRequest request) {
         return null;
     }
 }

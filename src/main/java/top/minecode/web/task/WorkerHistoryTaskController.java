@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.minecode.service.taskmanage.WorkerHistoryTaskService;
+import top.minecode.web.common.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/worker")
-public class WorkerHistoryTaskController {
+public class WorkerHistoryTaskController extends BaseController {
 
     private WorkerHistoryTaskService service;
 

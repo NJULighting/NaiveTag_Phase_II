@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import top.minecode.web.common.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/admin")
-public class WebsiteInfoController {
+public class WebsiteInfoController extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
