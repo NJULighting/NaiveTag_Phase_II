@@ -20,14 +20,6 @@ public class Requester extends GeneralUser{
     }
 
     public RequesterPO toRequesterPO() {
-
-        RequesterPO requester = new RequesterPO();
-        requester.setId(id);
-        requester.setUserName(username);
-        requester.setName(name);
-        requester.setName(password);
-        requester.setEmail(email);
-        requester.setScore(score);
-        return requester;
+        return new RequesterPO(id, username, name, password, score, email);
     }
 }

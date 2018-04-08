@@ -5,17 +5,14 @@ import top.minecode.domain.user.Requester;
 import top.minecode.domain.user.User;
 import top.minecode.domain.user.UserType;
 import top.minecode.domain.user.Worker;
-import top.minecode.po.AdministratorPO;
-import top.minecode.po.DataBase;
-import top.minecode.po.RequesterPO;
-import top.minecode.po.WorkerPO;
+import top.minecode.po.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created on 2018/4/2.
  * Description:
- *
  * @author iznauy
  */
 @Repository
@@ -25,91 +22,69 @@ public class UserDao {
 
         // 查数据库，迭代三替换成数据库查询代码
         List<WorkerPO> workerPOS = DataBase.workerPOList.getWorkerList();
-        WorkerPO workerPO = workerPOS.stream()
-                .filter(e -> e.getUsername().equals(userName))
-                .findFirst().orElse(null);
+        WorkerPO workerPO = TableFactory.workerTable().getBy(userName, WorkerPO::getUsername);
         if (workerPO != null)
             return workerPO.toWorker();
 
-        List<AdministratorPO> administratorPOS = DataBase.administratorPOList.getAdministratorPOS();
-        AdministratorPO administratorPO = administratorPOS.stream()
-                .filter(e -> e.getUserName().equals(userName))
-                .findFirst().orElse(null);
+        AdministratorPO administratorPO = TableFactory.administratorTable()
+                .getBy(userName, AdministratorPO::getUserName);
         if (administratorPO != null)
             return administratorPO.toAdministrator();
 
-        List<RequesterPO> requesterPOS = DataBase.requesterPOList.getRequesterPOS();
-        RequesterPO requesterPO = requesterPOS.stream()
-                .filter(e -> e.getUserName().equals(userName))
-                .findFirst().orElse(null);
+        RequesterPO requesterPO = TableFactory.requesterTable().getBy(userName, RequesterPO::getUserName);
         if (requesterPO != null)
             return requesterPO.toRequester();
 
-        return null;
+        throw new NoSuchElementException("Username is invalid");
     }
 
     public User getUserByName(String name) {
 
         // 查数据库，迭代三替换成数据库查询代码
-        List<WorkerPO> workerPOS = DataBase.workerPOList.getWorkerList();
-        WorkerPO workerPO = workerPOS.stream()
-                .filter(e -> e.getName().equals(name))
-                .findFirst().orElse(null);
+        WorkerPO workerPO = TableFactory.workerTable().getBy(name, WorkerPO::getName);
         if (workerPO != null)
             return workerPO.toWorker();
 
-        List<AdministratorPO> administratorPOS = DataBase.administratorPOList.getAdministratorPOS();
-        AdministratorPO administratorPO = administratorPOS.stream()
-                .filter(e -> e.getName().equals(name))
-                .findFirst().orElse(null);
+        AdministratorPO administratorPO = TableFactory.administratorTable().getBy(name, AdministratorPO::getName);
         if (administratorPO != null)
             return administratorPO.toAdministrator();
 
-        List<RequesterPO> requesterPOS = DataBase.requesterPOList.getRequesterPOS();
-        RequesterPO requesterPO = requesterPOS.stream()
-                .filter(e -> e.getName().equals(name))
-                .findFirst().orElse(null);
+        RequesterPO requesterPO = TableFactory.requesterTable().getBy(name, RequesterPO::getName);
         if (requesterPO != null)
             return requesterPO.toRequester();
 
-        return null;
+        throw new NoSuchElementException("Name is invalid");
     }
 
     public User getUserByEmail(String email) {
 
         // 查数据库，迭代三替换成数据库查询代码
-        List<WorkerPO> workerPOS = DataBase.workerPOList.getWorkerList();
-        WorkerPO workerPO = workerPOS.stream()
-                .filter(e -> e.getEmail().equals(email))
-                .findFirst().orElse(null);
+        WorkerPO workerPO = TableFactory.workerTable().getBy(email, WorkerPO::getEmail);
         if (workerPO != null)
             return workerPO.toWorker();
 
-        List<RequesterPO> requesterPOS = DataBase.requesterPOList.getRequesterPOS();
-        RequesterPO requesterPO = requesterPOS.stream()
-                .filter(e -> e.getEmail().equals(email))
-                .findFirst().orElse(null);
+        RequesterPO requesterPO = TableFactory.requesterTable().getBy(email, RequesterPO::getEmail);
         if (requesterPO != null)
             return requesterPO.toRequester();
 
-        return null;
+        throw new NoSuchElementException("Email is invalid");
     }
 
     public void addUser(User user) {
         if (user.getUserType() == UserType.requester) {
             Requester requester = (Requester) user;
             RequesterPO requesterPO = requester.toRequesterPO();
-            Integer id = DataBase.requesterPOList.getNextRequesterId();
+            Integer id = TableFactory.requesterTable().getNextId();
             requesterPO.setId(id);
             requester.setId(id);
-            DataBase.requesterPOList.addRequesterPO(requesterPO);
+            TableFactory.requesterTable().add(requesterPO);
         } else if (user.getUserType() == UserType.worker) {
             Worker worker = (Worker) user;
             WorkerPO workerPO = worker.toWorkerPO();
-            Integer id = DataBase.workerPOList.getNextWorkerId();
+            Integer id = TableFactory.workerTable().getNextId();
             worker.setId(id);
             workerPO.setId(id);
-            DataBase.workerPOList.addWorkerPO(workerPO);
+            TableFactory.workerTable().add(workerPO);
         }
     }
 

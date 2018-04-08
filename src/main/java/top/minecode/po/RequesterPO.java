@@ -23,6 +23,15 @@ public class RequesterPO {
 
     private String email;
 
+    public RequesterPO(Integer id, String userName, String name, String password, Double score, String email) {
+        this.id = id;
+        this.userName = userName;
+        this.name = name;
+        this.password = password;
+        this.score = score;
+        this.email = email;
+    }
+
     public Double getScore() {
         return score;
     }
