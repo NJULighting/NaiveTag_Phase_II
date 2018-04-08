@@ -14,6 +14,37 @@ public abstract class WorkerTaskDetail {
 
     private int taskType;
 
+    private String taskDescription;
 
+    public WorkerTaskState getState() {
+        return state;
+    }
 
+    public void setState(WorkerTaskState state) {
+        this.state = state;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public int getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(int taskType) {
+        this.taskType = taskType;
+    }
+
+    public String getTaskDescription() {
+        return taskDescription;
+    }
+
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
+    }
 }
