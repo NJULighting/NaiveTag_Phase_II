@@ -10,11 +10,21 @@ public abstract class WorkerTaskDetail {
 
     private WorkerTaskState state;
 
+    private String cover;
+
     private String taskName;
 
     private int taskType;
 
     private String taskDescription;
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
 
     public WorkerTaskState getState() {
         return state;
