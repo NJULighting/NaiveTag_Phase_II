@@ -94,6 +94,10 @@ public class TableCandidate<PO> {
     public void add(PO po) {
         // Add to the collection and update to the file
         pos.add(po);
+        save();
+    }
+
+    public void save() {
         write(JsonConfig.getGson().toJson(pos));
     }
 }
