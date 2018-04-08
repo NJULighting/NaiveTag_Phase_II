@@ -144,5 +144,6 @@ public class ThirdLevelTaskPO {
         info.setPayDay(endDate);
         info.setPicAmount(picList.size());
         info.setCover(picList.get(0)); //默认封面就是0
+        return info;
     }
 }

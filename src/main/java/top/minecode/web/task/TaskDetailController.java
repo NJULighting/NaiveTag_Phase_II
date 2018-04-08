@@ -17,7 +17,7 @@ public class TaskDetailController {
 
     @RequestMapping("/details")
     @ResponseBody
-    public String getTaskDetail(HttpServletRequest request) {
+    public String getTaskDetail(HttpServletRequest request, int taskId) {
         return null;
     }
 }
