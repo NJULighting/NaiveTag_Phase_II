@@ -47,7 +47,7 @@ public class TableCandidate<PO> {
     }
 
     public <T> List<PO> getPOsBy(T condition, Function<PO, T> function) {
-        return filter(e -> function.apply(e).equals(e));
+        return filter(e -> function.apply(e).equals(condition));
     }
 
     public List<PO> filter(Predicate<PO> filter) {
@@ -98,6 +98,12 @@ public class TableCandidate<PO> {
     public void add(PO po) {
         // Add to the collection and update to the file
         pos.add(po);
+        save();
+    }
+
+
+    @SuppressWarnings("WeakerAccess")
+    public void save() {
         write(JsonConfig.getGson().toJson(pos));
     }
 }

@@ -15,7 +15,6 @@ import java.util.List;
 public class RequesterTaskDao {
 
     public List<FirstLevelTaskPO> getTasks(int ownerId) {
-        return TableFactory.firstLevelTaskTable().filter(po -> po.getOwnerId() == ownerId);
+        return TableFactory.firstLevelTaskTable().getPOsBy(ownerId, FirstLevelTaskPO::getOwnerId);
     }
-
 }
