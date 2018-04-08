@@ -7,14 +7,12 @@ import top.minecode.po.RankPO;
 import top.minecode.service.statistic.StatisticConstant;
 import top.minecode.utils.Pair;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * Created on 2018/4/4.
  * Description:
- *
  * @author iznauy
  */
 @Repository
@@ -29,9 +27,9 @@ public class WorkerStatisticDao {
                 ? poRanks.size() : StatisticConstant.RANK_BOARD_SHOW_COUNT;
 
         // 获取排行榜信息
-        return poRanks.subList(0, length).stream().map(
-                e -> new RankItem(e.getRight(), e.getLeft())
-        ).collect(Collectors.toList());
+        return poRanks.subList(0, length).stream()
+                .map(e -> new RankItem(e.getRight(), e.getLeft()))
+                .collect(Collectors.toList());
     }
 
 }

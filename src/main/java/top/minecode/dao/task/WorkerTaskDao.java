@@ -10,6 +10,7 @@ import top.minecode.po.ThirdLevelTaskResultPO;
 import top.minecode.po.WorkerFilterPO;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -51,6 +52,9 @@ public class WorkerTaskDao {
         // 所有的任务
         List<ThirdLevelTaskPO> allThirdLevelTaskPOS = DataBase.thirdLevelTaskPOList.getThirdLevelTaskPOS();
 
+//        Predicate<ThirdLevelTaskPO> filter = e -> e.getState() == ThirdLevelTaskState.doing;
+//        filter.and(e -> e.getTaskName().contains(key)).and(e -> !(e.getFinishedWorkerIds().contains(user.getId())
+//                || e.getCurrentDoingWorkerIds().contains(user.getId())));
 
         // 字符串匹配
         // 不会柔性匹配算法，就完全匹配了..

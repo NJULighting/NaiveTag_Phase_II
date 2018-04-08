@@ -5,10 +5,9 @@ import java.io.*;
 /**
  * Created on 2018/4/2.
  * Description:
- *
  * @author iznauy
  */
-public abstract class Table{
+public abstract class Table {
 
     // 存放所有数据库表位置
     protected static final String GENERAL_FILE_PATH = Table.class.getResource("/").getPath();
@@ -45,7 +44,7 @@ public abstract class Table{
         if (!file.exists())
             return null; //文件不存在，意味着此前没有存储过数据
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String temp = null;
             while ((temp = bufferedReader.readLine()) != null)

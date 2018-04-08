@@ -56,9 +56,6 @@ public class TaskRecommendationService {
         // 从index到WorkerGeneralTaskInfo
         return targetTasksIndex.stream().map(e -> possibleTasks.get(e).toGeneralTaskInfo())
                 .collect(Collectors.toList());
-
-
-
     }
 
 }
