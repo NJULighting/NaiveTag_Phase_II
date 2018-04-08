@@ -28,6 +28,8 @@ public class ThirdLevelTaskPO {
 
     private List<String> picList;
 
+    private String taskDescription;
+
     private List<Integer> currentDoingWorkerIds; //当前正在做这个任务的Worker的集合
 
     private List<Integer> finishedWorkerIds; // 完成过这个任务的Worker的集合
@@ -44,6 +46,14 @@ public class ThirdLevelTaskPO {
 
     public void setWorkerFilterId(Integer workerFilterId) {
         this.workerFilterId = workerFilterId;
+    }
+
+    public String getTaskDescription() {
+        return taskDescription;
+    }
+
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
     }
 
     public List<Integer> getCurrentDoingWorkerIds() {
@@ -133,6 +143,10 @@ public class ThirdLevelTaskPO {
 
     public void setPicList(List<String> picList) {
         this.picList = picList;
+    }
+
+    public String getCover() {
+        return picList.get(0);
     }
 
     public WorkerGeneralTaskInfo toGeneralTaskInfo() {
