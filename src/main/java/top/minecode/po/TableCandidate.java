@@ -41,9 +41,13 @@ public class TableCandidate<PO> {
         return pos;
     }
 
-    public <T> PO getBy(T condition, Function<PO, T> function) {
+    public <T> PO getPOBy(T condition, Function<PO, T> function) {
         return pos.stream().filter(e -> function.apply(e).equals(condition))
                 .findFirst().orElse(null);
+    }
+
+    public <T> List<PO> getPOsBy(T condition, Function<PO, T> function) {
+        return filter(e -> function.apply(e).equals(e));
     }
 
     public List<PO> filter(Predicate<PO> filter) {

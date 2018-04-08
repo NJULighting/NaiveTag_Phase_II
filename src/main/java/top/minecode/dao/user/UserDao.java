@@ -22,16 +22,16 @@ public class UserDao {
 
         // 查数据库，迭代三替换成数据库查询代码
         List<WorkerPO> workerPOS = DataBase.workerPOList.getWorkerList();
-        WorkerPO workerPO = TableFactory.workerTable().getBy(userName, WorkerPO::getUsername);
+        WorkerPO workerPO = TableFactory.workerTable().getPOBy(userName, WorkerPO::getUsername);
         if (workerPO != null)
             return workerPO.toWorker();
 
         AdministratorPO administratorPO = TableFactory.administratorTable()
-                .getBy(userName, AdministratorPO::getUserName);
+                .getPOBy(userName, AdministratorPO::getUserName);
         if (administratorPO != null)
             return administratorPO.toAdministrator();
 
-        RequesterPO requesterPO = TableFactory.requesterTable().getBy(userName, RequesterPO::getUserName);
+        RequesterPO requesterPO = TableFactory.requesterTable().getPOBy(userName, RequesterPO::getUserName);
         if (requesterPO != null)
             return requesterPO.toRequester();
 
@@ -41,15 +41,15 @@ public class UserDao {
     public User getUserByName(String name) {
 
         // 查数据库，迭代三替换成数据库查询代码
-        WorkerPO workerPO = TableFactory.workerTable().getBy(name, WorkerPO::getName);
+        WorkerPO workerPO = TableFactory.workerTable().getPOBy(name, WorkerPO::getName);
         if (workerPO != null)
             return workerPO.toWorker();
 
-        AdministratorPO administratorPO = TableFactory.administratorTable().getBy(name, AdministratorPO::getName);
+        AdministratorPO administratorPO = TableFactory.administratorTable().getPOBy(name, AdministratorPO::getName);
         if (administratorPO != null)
             return administratorPO.toAdministrator();
 
-        RequesterPO requesterPO = TableFactory.requesterTable().getBy(name, RequesterPO::getName);
+        RequesterPO requesterPO = TableFactory.requesterTable().getPOBy(name, RequesterPO::getName);
         if (requesterPO != null)
             return requesterPO.toRequester();
 
@@ -59,11 +59,11 @@ public class UserDao {
     public User getUserByEmail(String email) {
 
         // 查数据库，迭代三替换成数据库查询代码
-        WorkerPO workerPO = TableFactory.workerTable().getBy(email, WorkerPO::getEmail);
+        WorkerPO workerPO = TableFactory.workerTable().getPOBy(email, WorkerPO::getEmail);
         if (workerPO != null)
             return workerPO.toWorker();
 
-        RequesterPO requesterPO = TableFactory.requesterTable().getBy(email, RequesterPO::getEmail);
+        RequesterPO requesterPO = TableFactory.requesterTable().getPOBy(email, RequesterPO::getEmail);
         if (requesterPO != null)
             return requesterPO.toRequester();
 
