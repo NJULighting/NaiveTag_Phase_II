@@ -5,6 +5,7 @@ import top.minecode.domain.task.ThirdLevelTaskResultType;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,11 +15,11 @@ import java.util.Map;
  */
 public class ThirdLevelTaskResultPO implements Serializable {
 
-    private Integer id;
+    private Integer id; // 可以放空
 
     private Integer thirdLevelTaskId;
 
-    private Map<String, TagResult> tagResults;
+    private Map<String, TagResult> tagResults = new HashMap<>();
 
     private Integer doerId;
 
@@ -28,10 +29,32 @@ public class ThirdLevelTaskResultPO implements Serializable {
 
     private LocalDate expireTime;
 
-    private ThirdLevelTaskResultType state;
+    private LocalDate endTime; //做完的时间
+
+    private ThirdLevelTaskResultType state = ThirdLevelTaskResultType.doing;
 
     public LocalDate getAcceptTime() {
         return acceptTime;
+    }
+
+    public LocalDate getEndTime() {
+        return endTime;
+    }
+
+    public ThirdLevelTaskResultPO() {
+    }
+
+    public ThirdLevelTaskResultPO(Integer thirdLevelTaskId,
+                                  Integer doerId,
+                                  LocalDate acceptTime, LocalDate expireTime) {
+        this.thirdLevelTaskId = thirdLevelTaskId;
+        this.doerId = doerId;
+        this.acceptTime = acceptTime;
+        this.expireTime = expireTime;
+    }
+
+    public void setEndTime(LocalDate endTime) {
+        this.endTime = endTime;
     }
 
     public void setAcceptTime(LocalDate acceptTime) {

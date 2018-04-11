@@ -1,11 +1,13 @@
 package top.minecode.dao.task;
 
 import org.springframework.stereotype.Repository;
+import top.minecode.domain.task.ThirdLevelTaskResultType;
 import top.minecode.domain.task.ThirdLevelTaskState;
 import top.minecode.domain.user.User;
 import top.minecode.domain.user.Worker;
 import top.minecode.po.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class WorkerTaskDao {
+
+    private WorkerTaskUtils workerTaskUtils = new WorkerTaskUtils();
 
     public List<ThirdLevelTaskPO> getAccessibleTaskList(User user) {
 
@@ -84,11 +88,71 @@ public class WorkerTaskDao {
         double ratio = getUserRatio(user);
         if (taskPO == null)
             return false;
-        Double lowBound =  DataBase.workerFilterPOList.getWorkerFilterList().stream()
+        Double lowBound =  TableFactory.workerFilterTable().getAll().stream()
                 .filter(e -> e.getId().equals(taskPO.getWorkerFilterId())).findFirst()
                 .orElse(null).getWorkerRankRatio();
         return lowBound == null || lowBound > ratio;
 
+    }
+
+    public boolean commit(User user, int taskId) {
+
+        TableCandidate<ThirdLevelTaskPO> thirdLevelTaskPOTableCandidate
+                = TableFactory.thirdLevelTaskTable();
+
+        ThirdLevelTaskResultPO thirdLevelTaskResultPO = workerTaskUtils.getResultPOByUserIdAndTaskId(user.getId(), taskId);
+        ThirdLevelTaskPO thirdLevelTaskPO = thirdLevelTaskPOTableCandidate.getPOBy(taskId, ThirdLevelTaskPO::getId);
+        // 如果任务没有做完
+        if (thirdLevelTaskResultPO.getTagResults().size() != thirdLevelTaskPO.getPicList().size())
+            return false;
+
+        // 改变 taskresult的状态
+        thirdLevelTaskResultPO.setEndTime(LocalDate.now());
+        thirdLevelTaskResultPO.setState(ThirdLevelTaskResultType.unpay);
+
+        // 改变 task的状态
+        List<Integer> finishUser = thirdLevelTaskPO.getFinishedWorkerIds();
+        finishUser.add(user.getId());
+        List<Integer> acceptedUser = thirdLevelTaskPO.getCurrentDoingWorkerIds();
+        acceptedUser.remove(user.getId());
+
+        if (finishUser.size() == 3) //假定每个任务派发给3个人，那么就设置为完成
+            thirdLevelTaskPO.setState(ThirdLevelTaskState.finished);
+
+        thirdLevelTaskPOTableCandidate.save();
+
+        return true;
+    }
+
+    public boolean acceptTask(User user, int taskId) {
+        if (!canAcceptTask(user, taskId))
+            return false;
+
+        TableCandidate<ThirdLevelTaskPO> thirdLevelTaskPOTableCandidate =
+                TableFactory.thirdLevelTaskTable();
+
+        ThirdLevelTaskPO thirdLevelTaskPO = thirdLevelTaskPOTableCandidate.getPOBy(taskId,
+                ThirdLevelTaskPO::getId);
+
+        if (thirdLevelTaskPO.getFinishedWorkerIds().contains(user.getId()))
+            return false;
+
+
+        thirdLevelTaskPO.getCurrentDoingWorkerIds().add(user.getId());
+        thirdLevelTaskPOTableCandidate.save();
+
+        LocalDate endDate = thirdLevelTaskPO.getEndDate();
+        LocalDate acceptDate = LocalDate.now();
+        LocalDate expiredDate = endDate.isBefore(acceptDate.plusDays(3)) ? endDate : acceptDate.plusDays(3);
+        ThirdLevelTaskResultPO thirdLevelTaskResultPO = new ThirdLevelTaskResultPO(
+            taskId, user.getId(), acceptDate, expiredDate
+        );
+
+        TableCandidate<ThirdLevelTaskResultPO> thirdLevelTaskResultPOTableCandidate =
+                TableFactory.thirdLevelTaskResultTable();
+        thirdLevelTaskResultPOTableCandidate.add(thirdLevelTaskResultPO);
+
+        return true;
     }
 
 

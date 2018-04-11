@@ -8,6 +8,7 @@ import top.minecode.po.TableFactory;
 import top.minecode.po.ThirdLevelTaskPO;
 import top.minecode.po.ThirdLevelTaskResultPO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -19,31 +20,24 @@ import java.util.List;
 @Repository
 public class TagDao {
 
-    private TableCandidate<ThirdLevelTaskResultPO> thirdLevelTaskResultPOTableCandidate
-             = TableFactory.thirdLevelTaskResultTable();
-
-    private TableCandidate<ThirdLevelTaskPO> thirdLevelTaskPOTableCandidate
-             = TableFactory.thirdLevelTaskTable();
-
-    private ThirdLevelTaskResultPO getResultPOByUserIdAndTaskId(int userId, int taskId) {
-         return thirdLevelTaskResultPOTableCandidate
-                .getAll().stream().filter(e -> e.getDoerId().equals(userId)
-                        && e.getThirdLevelTaskId().equals(taskId)).findFirst()
-                .get();
-    }
+    private WorkerTaskUtils workerTaskUtils = new WorkerTaskUtils();
 
     public void saveTag(int taskId, User user, String url, TagResult tagResult) {
-        ThirdLevelTaskResultPO resultPO = getResultPOByUserIdAndTaskId(user.getId(), taskId);
+        TableCandidate<ThirdLevelTaskResultPO> thirdLevelTaskResultPOTableCandidate
+                = TableFactory.thirdLevelTaskResultTable();
+        ThirdLevelTaskResultPO resultPO = workerTaskUtils.getResultPOByUserIdAndTaskId(user.getId(), taskId);
         resultPO.getTagResults().put(url, tagResult);
         thirdLevelTaskResultPOTableCandidate.save();
     }
 
     public TagResult getTagResult(int taskId, User user, String url) {
-        ThirdLevelTaskResultPO resultPO = getResultPOByUserIdAndTaskId(user.getId(), taskId);
+        ThirdLevelTaskResultPO resultPO = workerTaskUtils.getResultPOByUserIdAndTaskId(user.getId(), taskId);
         return resultPO.getTagResults().get(url);
     }
 
     public String getNextPic(int taskId, String currentUrl) {
+        TableCandidate<ThirdLevelTaskPO> thirdLevelTaskPOTableCandidate
+                = TableFactory.thirdLevelTaskTable();
         ThirdLevelTaskPO thirdLevelTaskPO = thirdLevelTaskPOTableCandidate
                 .getPOBy(taskId, ThirdLevelTaskPO::getId);
         List<String> picList = thirdLevelTaskPO.getPicList();
@@ -54,6 +48,8 @@ public class TagDao {
     }
 
     public String getPreviousPic(int taskId, String currentUrl) {
+        TableCandidate<ThirdLevelTaskPO> thirdLevelTaskPOTableCandidate
+                = TableFactory.thirdLevelTaskTable();
         ThirdLevelTaskPO thirdLevelTaskPO = thirdLevelTaskPOTableCandidate
                 .getPOBy(taskId, ThirdLevelTaskPO::getId);
         List<String> picList = thirdLevelTaskPO.getPicList();
@@ -62,5 +58,7 @@ public class TagDao {
             return null;
         return picList.get(index - 1);
     }
+
+
 
 }

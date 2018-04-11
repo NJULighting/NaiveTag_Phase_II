@@ -11,6 +11,7 @@ public class GlobalTagResult extends TagResult {
 
     public GlobalTagResult(Integer id, String dataUrl, String label) {
         super(id, dataUrl);
+        this.label = label;
     }
 
     public String getLabel() {
