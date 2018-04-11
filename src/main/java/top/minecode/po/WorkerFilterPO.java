@@ -1,6 +1,7 @@
 package top.minecode.po;
 
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -8,7 +9,7 @@ import java.time.LocalDate;
  * Description:
  * @author iznauy
  */
-public class WorkerFilterPO {
+public class WorkerFilterPO implements Serializable {
 
     private Integer id;
     private Double workerRankRatio;

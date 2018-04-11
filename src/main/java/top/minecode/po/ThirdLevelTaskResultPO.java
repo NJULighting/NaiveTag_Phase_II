@@ -3,6 +3,7 @@ package top.minecode.po;
 import top.minecode.domain.tag.TagResult;
 import top.minecode.domain.task.ThirdLevelTaskResultType;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import java.util.Map;
  * Description:
  * @author iznauy
  */
-public class ThirdLevelTaskResultPO {
+public class ThirdLevelTaskResultPO implements Serializable {
 
     private Integer id;
 

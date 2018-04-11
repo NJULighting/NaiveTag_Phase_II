@@ -29,12 +29,12 @@ public class TableCandidateTest {
         size = adminTable.size();
     }
 
-    @Test
+    @Test(priority = 3)
     public void testLoad() throws Exception {
         assertNotEquals(size, 0);
     }
 
-    @Test
+    @Test(priority = 2)
     public void testSave() throws Exception {
         adminTable.add(new AdministratorPO(11, "frog", "frog", "frog"));
         Method loadMethod = adminTable.getClass().getDeclaredMethod("load");
@@ -45,7 +45,7 @@ public class TableCandidateTest {
         assertEquals(size + 1, adminTable.size());
     }
 
-    @Test
+    @Test(priority = 1)
     public void testFilterAndGet() throws Exception {
         TableCandidate<ThirdLevelTaskPO> tasks = new TableCandidate<>("tasks");
         Predicate<ThirdLevelTaskPO> filter = e -> e.getState() == ThirdLevelTaskState.doing;

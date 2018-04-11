@@ -3,13 +3,15 @@ package top.minecode.po;
 import top.minecode.domain.user.Requester;
 import top.minecode.domain.user.UserType;
 
+import java.io.Serializable;
+
 /**
  * Created on 2018/4/1.
  * Description:
  *
  * @author iznauy
  */
-public class RequesterPO {
+public class RequesterPO implements Serializable {
 
     private Integer id;
 

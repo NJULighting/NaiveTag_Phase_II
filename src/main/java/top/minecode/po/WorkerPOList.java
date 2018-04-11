@@ -9,6 +9,7 @@ import java.util.List;
  * Description:
  * @author iznauy
  */
+@Deprecated
 public class WorkerPOList extends Table {
 
     private List<WorkerPO> workerList;

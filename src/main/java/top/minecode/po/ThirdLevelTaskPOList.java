@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
  *
  * @author iznauy
  */
+@Deprecated
 public class ThirdLevelTaskPOList {
 
     private List<ThirdLevelTaskPO> thirdLevelTaskPOS;

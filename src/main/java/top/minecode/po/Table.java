@@ -7,6 +7,7 @@ import java.io.*;
  * Description:
  * @author iznauy
  */
+@Deprecated
 public abstract class Table {
 
     // 存放所有数据库表位置

@@ -18,8 +18,8 @@ public class TagController extends BaseController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public String save(HttpServletRequest request) {
-        return null;
+    public void save(HttpServletRequest request) {
+
     }
 
     @RequestMapping("/next")

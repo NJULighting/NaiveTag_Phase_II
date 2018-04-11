@@ -25,7 +25,7 @@ public class TableCandidate<PO> {
     private final String filePath;
 
     TableCandidate(String fileName) {
-        filePath = CLASS_PATH + fileName + ".json";
+        filePath = CLASS_PATH + fileName + ".table";
         load();
     }
 
@@ -54,15 +54,15 @@ public class TableCandidate<PO> {
         return pos.stream().filter(filter).collect(Collectors.toList());
     }
 
-    private void write(String json) {
-        try {
-            PrintWriter writer = new PrintWriter(new FileWriter(filePath));
-            writer.write(json);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void write(String json) {
+//        try {
+//            PrintWriter writer = new PrintWriter(new FileWriter(filePath));
+//            writer.write(json);
+//            writer.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void load() {
         Resource resource = new FileSystemResource(filePath);
@@ -75,23 +75,26 @@ public class TableCandidate<PO> {
                 resource.getFile().createNewFile();
                 return;
             }
-
-            // Read the file
-            InputStreamReader reader = new InputStreamReader(resource.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            StringBuilder builder = new StringBuilder();
-
-            // Begin reading
-            String tmp;
-            while ((tmp = bufferedReader.readLine()) != null)
-                builder.append(tmp);
-
-            // Parse to List<PO>
-            Type poType = new TypeToken<List<PO>>() {
-            }.getType();
-            pos = JsonConfig.getGson().fromJson(builder.toString(), poType);
-        } catch (IOException e) {
+//
+//            // Read the file
+//            InputStreamReader reader = new InputStreamReader(resource.getInputStream());
+//            BufferedReader bufferedReader = new BufferedReader(reader);
+//            StringBuilder builder = new StringBuilder();
+//
+//            // Begin reading
+//            String tmp;
+//            while ((tmp = bufferedReader.readLine()) != null)
+//                builder.append(tmp);
+//
+//            // Parse to List<PO>
+//            Type poType = new TypeToken<List<PO>>() {
+//            }.getType();
+//            pos = JsonConfig.getGson().fromJson(builder.toString(), poType);
+            ObjectInputStream objectInputStream = new ObjectInputStream(resource.getInputStream());
+            pos = (List<PO>) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            pos = new ArrayList<>();
         }
     }
 
@@ -102,8 +105,13 @@ public class TableCandidate<PO> {
     }
 
 
-    @SuppressWarnings("WeakerAccess")
+//    @SuppressWarnings("WeakerAccess")
     public void save() {
-        write(JsonConfig.getGson().toJson(pos));
+//        write(JsonConfig.getGson().toJson(pos));
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(new File(filePath)))) {
+            objectOutputStream.writeObject(pos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

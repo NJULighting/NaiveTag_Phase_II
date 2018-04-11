@@ -10,6 +10,7 @@ import java.util.List;
  *
  * @author iznauy
  */
+@Deprecated
 public class AdministratorPOList extends Table {
 
     private List<AdministratorPO> administratorPOS;

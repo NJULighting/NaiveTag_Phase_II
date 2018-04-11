@@ -1,12 +1,14 @@
 package top.minecode.utils;
 
+import java.io.Serializable;
+
 /**
  * Created on 2018/4/1.
  * Description:
  *
  * @author iznauy
  */
-public class Pair<L, R> {
+public class Pair<L, R> implements Serializable {
 
     private L left;
 

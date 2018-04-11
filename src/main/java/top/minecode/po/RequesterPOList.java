@@ -9,6 +9,7 @@ import java.util.List;
  *
  * @author iznauy
  */
+@Deprecated
 public class RequesterPOList extends Table {
 
     private List<RequesterPO> requesterPOS;

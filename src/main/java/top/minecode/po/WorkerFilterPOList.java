@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
  * Description:
  * @author iznauy
  */
+@Deprecated
 public class WorkerFilterPOList {
 
     private List<WorkerFilterPO> workerFilterList;

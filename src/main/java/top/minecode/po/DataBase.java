@@ -8,6 +8,7 @@ import com.google.gson.Gson;
  *
  * @author iznauy
  */
+@Deprecated
 public class DataBase {
 
     public static final AdministratorPOList administratorPOList = new AdministratorPOList();

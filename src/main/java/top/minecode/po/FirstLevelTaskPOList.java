@@ -8,6 +8,7 @@ import java.util.List;
  *
  * @author iznauy
  */
+@Deprecated
 public class FirstLevelTaskPOList {
 
     private List<FirstLevelTaskPO> firstLevelTaskPOS;

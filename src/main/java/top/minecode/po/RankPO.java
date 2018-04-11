@@ -2,6 +2,7 @@ package top.minecode.po;
 
 import top.minecode.utils.Pair;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  *
  * @author iznauy
  */
-public class RankPO {
+public class RankPO implements Serializable {
 
     private List<Pair<String, Double>> rank;
 

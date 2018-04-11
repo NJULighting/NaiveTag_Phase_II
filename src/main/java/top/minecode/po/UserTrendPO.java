@@ -1,5 +1,6 @@
 package top.minecode.po;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Map;
  *
  * @author iznauy
  */
-public class UserTrendPO {
+public class UserTrendPO implements Serializable {
 
     private Map<LocalDate, Integer> activeWorkerTrend;
     private Map<LocalDate, Integer> totalWorkerTrend;

@@ -3,13 +3,15 @@ package top.minecode.po;
 import top.minecode.domain.user.Administrator;
 import top.minecode.domain.user.UserType;
 
+import java.io.Serializable;
+
 /**
  * Created on 2018/4/1.
  * Description:
  *
  * @author iznauy
  */
-public class AdministratorPO {
+public class AdministratorPO implements Serializable {
 
     private Integer id;
 

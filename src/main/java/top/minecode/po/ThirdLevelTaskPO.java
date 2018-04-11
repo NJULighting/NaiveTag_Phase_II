@@ -3,6 +3,7 @@ package top.minecode.po;
 import top.minecode.domain.task.ThirdLevelTaskState;
 import top.minecode.domain.task.WorkerGeneralTaskInfo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author iznauy
  */
-public class ThirdLevelTaskPO {
+public class ThirdLevelTaskPO implements Serializable {
 
     private Integer id;
 

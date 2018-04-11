@@ -8,6 +8,7 @@ import java.util.List;
  *
  * @author iznauy
  */
+@Deprecated
 public class SecondLevelTaskPOList {
 
     private List<SecondLevelTaskPO> secondLevelTaskPOS;

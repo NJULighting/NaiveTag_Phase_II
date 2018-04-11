@@ -1,5 +1,6 @@
 package top.minecode.po;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author iznauy
  */
-public class FirstLevelTaskPO {
+public class FirstLevelTaskPO implements Serializable {
 
     private Integer id;
 
