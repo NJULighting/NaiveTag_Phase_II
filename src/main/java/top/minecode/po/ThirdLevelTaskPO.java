@@ -46,6 +46,14 @@ public class ThirdLevelTaskPO {
         this.workerFilterId = workerFilterId;
     }
 
+    public int getFinishedPeopleNum() {
+        return finishedWorkerIds.size();
+    }
+
+    public boolean isFinished() {
+        return state == ThirdLevelTaskState.finished;
+    }
+
     public List<Integer> getCurrentDoingWorkerIds() {
         return currentDoingWorkerIds;
     }

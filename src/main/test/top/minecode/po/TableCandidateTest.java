@@ -9,9 +9,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotEquals;
-import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.*;
 
 /**
  * Created on 2018/4/7.

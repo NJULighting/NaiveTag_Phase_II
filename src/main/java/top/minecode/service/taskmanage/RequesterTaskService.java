@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import top.minecode.dao.statistic.RequesterStatisticDao;
 import top.minecode.dao.task.RequesterTaskDao;
 import top.minecode.domain.task.RequesterTaskInfo;
+import top.minecode.po.FirstLevelTaskPO;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -31,9 +33,12 @@ public class RequesterTaskService {
     }
 
     public List<RequesterTaskInfo> getTasksInfo(int ownerId) {
-        // TODO: 2018/4/8 Change "process" here
-        return requesterTaskDao.getTasks(ownerId).stream()
-                .map(po -> new RequesterTaskInfo(po, requesterStatisticDao.getTaskProcess(po.getId())))
+
+        List<FirstLevelTaskPO> tasks = requesterTaskDao.getTasks(ownerId);
+        List<Integer> tasksIds = tasks.stream().map(FirstLevelTaskPO::getId).collect(Collectors.toList());
+        Map<Integer, Double> tasksProcess = requesterStatisticDao.getTaskProcess(tasksIds);
+
+        return tasks.stream().map(po -> new RequesterTaskInfo(po, tasksProcess.get(po.getId())))
                 .collect(Collectors.toList());
     }
 }
