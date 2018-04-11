@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.minecode.dao.statistic.RequesterStatisticDao;
 import top.minecode.dao.task.RequesterTaskDao;
+import top.minecode.domain.task.RequesterTaskDetails;
 import top.minecode.domain.task.RequesterTaskInfo;
 import top.minecode.po.FirstLevelTaskPO;
 
@@ -40,5 +41,9 @@ public class RequesterTaskService {
 
         return tasks.stream().map(po -> new RequesterTaskInfo(po, tasksProcess.get(po.getId())))
                 .collect(Collectors.toList());
+    }
+
+    public List<RequesterTaskDetails> getTaskDetails(int ownerId) {
+        return null;
     }
 }

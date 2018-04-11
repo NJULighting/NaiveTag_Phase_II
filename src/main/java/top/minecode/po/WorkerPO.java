@@ -4,12 +4,14 @@ package top.minecode.po;
 import top.minecode.domain.user.UserType;
 import top.minecode.domain.user.Worker;
 
+import java.io.Serializable;
+
 /**
  * Created on 2018/4/1.
  * Description:
  * @author iznauy
  */
-public class WorkerPO {
+public class WorkerPO implements Serializable {
 
     private Integer id;
     private String username;

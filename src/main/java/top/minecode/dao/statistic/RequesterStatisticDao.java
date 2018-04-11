@@ -2,7 +2,7 @@ package top.minecode.dao.statistic;
 
 import org.springframework.stereotype.Repository;
 import top.minecode.po.SecondLevelTaskPO;
-import top.minecode.po.TableCandidate;
+import top.minecode.po.Table;
 import top.minecode.po.TableFactory;
 import top.minecode.po.ThirdLevelTaskPO;
 import top.minecode.utils.Pair;
@@ -43,7 +43,7 @@ public class RequesterStatisticDao {
 
     private void updatePointTable() {
 
-        TableCandidate<ThirdLevelTaskPO> taskTable = TableFactory.thirdLevelTaskTable();
+        Table<ThirdLevelTaskPO> taskTable = TableFactory.thirdLevelTaskTable();
         List<ThirdLevelTaskPO> tasks = taskTable.getAll();
         Map<Integer, Pair<Integer, Integer>> numberTable = new HashMap<>();
 

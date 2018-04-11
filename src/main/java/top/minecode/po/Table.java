@@ -1,63 +1,89 @@
 package top.minecode.po;
 
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
- * Created on 2018/4/2.
+ * Created on 2018/4/7.
  * Description:
- * @author iznauy
+ * @author Liao
  */
-public abstract class Table {
+public class Table<PO> {
 
-    // 存放所有数据库表位置
-    protected static final String GENERAL_FILE_PATH = Table.class.getResource("/").getPath();
+    private List<PO> pos;
+    private static final String CLASS_PATH = Table.class.getResource("/").getPath();
+    private final String filePath;
 
-    protected abstract String getFileName();
-
-    protected Table() {
+    Table(String fileName) {
+        filePath = CLASS_PATH + fileName + ".table";
         load();
     }
 
-    // 把json字符串写到文件
-    protected void writeToFile(String json) {
-        String filePath = GENERAL_FILE_PATH + getFileName();
-        File file = new File(filePath);
+    public int size() {
+        return pos.size();
+    }
+
+    public int getNextId() {
+        return pos.size() + 1;
+    }
+
+    public List<PO> getAll() {
+        return pos;
+    }
+
+    public <T> PO getPOBy(T condition, Function<PO, T> function) {
+        return pos.stream().filter(e -> function.apply(e).equals(condition))
+                .findFirst().orElse(null);
+    }
+
+    public <T> List<PO> getPOsBy(T condition, Function<PO, T> function) {
+        return filter(e -> function.apply(e).equals(condition));
+    }
+
+    public List<PO> filter(Predicate<PO> filter) {
+        return pos.stream().filter(filter).collect(Collectors.toList());
+    }
+
+    private void load() {
+        Resource resource = new FileSystemResource(filePath);
 
         try {
-            if (!file.exists())
-                file.createNewFile();
-            PrintWriter writer = new PrintWriter(new FileWriter(file));
-            writer.write(json);
-            writer.close();
+            // Check whether the file exists
+            if (!resource.exists()) {
+                pos = new ArrayList<>();
+                //noinspection ResultOfMethodCallIgnored
+                resource.getFile().createNewFile();
+                return;
+            }
+
+            ObjectInputStream objectInputStream = new ObjectInputStream(resource.getInputStream());
+            //noinspection unchecked
+            pos = (List<PO>) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            pos = new ArrayList<>();
+        }
+    }
+
+    public void add(PO po) {
+        // Add to the collection and update to the file
+        pos.add(po);
+        save();
+    }
+
+
+    public void save() {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            objectOutputStream.writeObject(pos);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-    // 加载一个json字符串
-    protected String loadFromFile() {
-        // 加载完整文件名
-        String filePath = GENERAL_FILE_PATH + getFileName();
-        File file = new File(filePath);
-
-        if (!file.exists())
-            return null; //文件不存在，意味着此前没有存储过数据
-
-        StringBuilder sb = new StringBuilder();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            String temp = null;
-            while ((temp = bufferedReader.readLine()) != null)
-                sb.append(temp);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-        return sb.toString();
-    }
-
-    protected abstract void load();
-
-    protected abstract void save();
-
 }

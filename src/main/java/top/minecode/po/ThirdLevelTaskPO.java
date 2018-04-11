@@ -3,6 +3,7 @@ package top.minecode.po;
 import top.minecode.domain.task.ThirdLevelTaskState;
 import top.minecode.domain.task.WorkerGeneralTaskInfo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author iznauy
  */
-public class ThirdLevelTaskPO {
+public class ThirdLevelTaskPO implements Serializable {
 
     private Integer id;
 
@@ -27,6 +28,8 @@ public class ThirdLevelTaskPO {
     private Integer taskDetailsId;
 
     private List<String> picList;
+
+    private String taskDescription;
 
     private List<Integer> currentDoingWorkerIds; //当前正在做这个任务的Worker的集合
 
@@ -52,6 +55,13 @@ public class ThirdLevelTaskPO {
 
     public boolean isFinished() {
         return state == ThirdLevelTaskState.finished;
+    }
+    public String getTaskDescription() {
+        return taskDescription;
+    }
+
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
     }
 
     public List<Integer> getCurrentDoingWorkerIds() {
@@ -141,6 +151,10 @@ public class ThirdLevelTaskPO {
 
     public void setPicList(List<String> picList) {
         this.picList = picList;
+    }
+
+    public String getCover() {
+        return picList.get(0);
     }
 
     public WorkerGeneralTaskInfo toGeneralTaskInfo() {

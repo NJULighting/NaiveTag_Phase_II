@@ -1,14 +1,8 @@
 package top.minecode.domain.statistic;
 
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created on 2018/4/4.
  * Description:
- *
  * @author iznauy
  */
 public class RankItem {
@@ -18,7 +12,6 @@ public class RankItem {
     private String name;
 
     public RankItem() {
-
     }
 
     public RankItem(Double score, String name) {

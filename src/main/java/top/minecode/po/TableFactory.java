@@ -7,67 +7,67 @@ package top.minecode.po;
  */
 public class TableFactory {
 
-    private static final TableCandidate<AdministratorPO> adminTable;
-    private static final TableCandidate<WorkerPO> workerTable;
-    private static final TableCandidate<RequesterPO> requesterTable;
-    private static final TableCandidate<FirstLevelTaskPO> firstLevelTaskTable;
-    private static final TableCandidate<WorkerFilterPO> workerFilterTable;
-    private static final TableCandidate<SecondLevelTaskPO> secondLevelTaskTable;
-    private static final TableCandidate<TaskDetailsPO> taskDetailsTable;
-    private static final TableCandidate<ThirdLevelTaskPO> thirdLevelTaskTable;
-    private static final TableCandidate<ThirdLevelTaskResultPO> thirdLevelTaskResultTable;
-    private static final RankPO rank;
+    private static final Table<AdministratorPO> adminTable;
+    private static final Table<WorkerPO> workerTable;
+    private static final Table<RequesterPO> requesterTable;
+    private static final Table<FirstLevelTaskPO> firstLevelTaskTable;
+    private static final Table<WorkerFilterPO> workerFilterTable;
+    private static final Table<SecondLevelTaskPO> secondLevelTaskTable;
+    private static final Table<TaskDetailsPO> taskDetailsTable;
+    private static final Table<ThirdLevelTaskPO> thirdLevelTaskTable;
+    private static final Table<ThirdLevelTaskResultPO> thirdLevelTaskResultTable;
+    private static final RankTable rankTable;
 
     static {
-        adminTable = new TableCandidate<>("admin");
-        workerTable = new TableCandidate<>("work");
-        requesterTable = new TableCandidate<>("requester");
-        firstLevelTaskTable = new TableCandidate<>("firstLevelTask");
-        workerFilterTable = new TableCandidate<>("workerFilter");
-        secondLevelTaskTable = new TableCandidate<>("secondLevelTask");
-        taskDetailsTable = new TableCandidate<>("taskDetails");
-        thirdLevelTaskTable = new TableCandidate<>("thirdLevelTask");
-        thirdLevelTaskResultTable = new TableCandidate<>("thirdLevelTaskResult");
-        rank = new RankPO();
+        adminTable = new Table<>("admin");
+        workerTable = new Table<>("work");
+        requesterTable = new Table<>("requester");
+        firstLevelTaskTable = new Table<>("firstLevelTask");
+        workerFilterTable = new Table<>("workerFilter");
+        secondLevelTaskTable = new Table<>("secondLevelTask");
+        taskDetailsTable = new Table<>("taskDetails");
+        thirdLevelTaskTable = new Table<>("thirdLevelTask");
+        thirdLevelTaskResultTable = new Table<>("thirdLevelTaskResult");
+        rankTable = new RankTable();
     }
 
-    public static TableCandidate<AdministratorPO> administratorTable() {
+    public static Table<AdministratorPO> administratorTable() {
         return adminTable;
     }
 
-    public static TableCandidate<FirstLevelTaskPO> firstLevelTaskTable() {
+    public static Table<FirstLevelTaskPO> firstLevelTaskTable() {
         return firstLevelTaskTable;
     }
 
-    public static TableCandidate<WorkerPO> workerTable() {
+    public static Table<WorkerPO> workerTable() {
         return workerTable;
     }
 
-    public static TableCandidate<RequesterPO> requesterTable() {
+    public static Table<RequesterPO> requesterTable() {
         return requesterTable;
     }
 
-    public static TableCandidate<WorkerFilterPO> workerFilterTable() {
+    public static Table<WorkerFilterPO> workerFilterTable() {
         return workerFilterTable;
     }
 
-    public static TableCandidate<SecondLevelTaskPO> secondLevelTaskTable() {
+    public static Table<SecondLevelTaskPO> secondLevelTaskTable() {
         return secondLevelTaskTable;
     }
 
-    public static TableCandidate<TaskDetailsPO> taskDetailsTable() {
+    public static Table<TaskDetailsPO> taskDetailsTable() {
         return taskDetailsTable;
     }
 
-    public static TableCandidate<ThirdLevelTaskPO> thirdLevelTaskTable() {
+    public static Table<ThirdLevelTaskPO> thirdLevelTaskTable() {
         return thirdLevelTaskTable;
     }
 
-    public static TableCandidate<ThirdLevelTaskResultPO> thirdLevelTaskResultTable() {
+    public static Table<ThirdLevelTaskResultPO> thirdLevelTaskResultTable() {
         return thirdLevelTaskResultTable;
     }
 
-    public static RankPO rank() {
-        return rank;
+    public static RankTable rankTable() {
+        return rankTable;
     }
 }

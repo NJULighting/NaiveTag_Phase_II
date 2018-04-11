@@ -21,7 +21,6 @@ public class UserDao {
     public User getUserByUsername(String userName) {
 
         // 查数据库，迭代三替换成数据库查询代码
-        List<WorkerPO> workerPOS = DataBase.workerPOList.getWorkerList();
         WorkerPO workerPO = TableFactory.workerTable().getPOBy(userName, WorkerPO::getUsername);
         if (workerPO != null)
             return workerPO.toWorker();

@@ -1,6 +1,7 @@
 package top.minecode.json;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Created on 2018/4/2.
@@ -14,7 +15,9 @@ public class JsonConfig {
 
     public static Gson getGson() {
         if (gson == null)
-            gson = new Gson();
+            gson = new GsonBuilder()
+                    .serializeNulls()
+                    .create();
         return gson;
     }
 

@@ -1,5 +1,6 @@
 package top.minecode.po;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  *
  * @author iznauy
  */
-public class TaskDetailsPO {
+public class TaskDetailsPO implements Serializable {
 
     private Integer id;
 

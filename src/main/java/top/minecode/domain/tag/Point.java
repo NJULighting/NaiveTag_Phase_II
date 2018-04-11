@@ -1,11 +1,13 @@
 package top.minecode.domain.tag;
 
+import java.io.Serializable;
+
 /**
  * Created on 2018/4/2.
  * Description:
  * @author Liao
  */
-public class Point {
+public class Point implements Serializable {
     private int x;
     private int y;
 
