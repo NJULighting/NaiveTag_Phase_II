@@ -25,7 +25,7 @@ public class RequesterStatisticDao {
 
     /**
      * Get point table of tasks.
-     * @param tasks ids of tasks
+     * @param tasks ids of tasks(FirstLevelTask's id)
      * @return A map whose key is id and value is process.
      */
     public Map<Integer, Double> getTaskProcess(List<Integer> tasks) {

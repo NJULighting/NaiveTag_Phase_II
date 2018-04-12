@@ -4,7 +4,6 @@ import top.minecode.domain.statistic.RankItem;
 import top.minecode.service.statistic.StatisticConstant;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -24,14 +23,21 @@ public class RankTable implements Serializable {
     }
 
 
-    public Integer getRankByName(String name) {
+    public int getRankByName(String name) {
+        sort();
         List<RankItem> rankItems = rank.getAll();
         for (int i = 0; i < rankItems.size(); i++) {
             if (rankItems.get(i).getName().equals(name))
                 return i;
         }
 
-        return null;
+        // If the user has no rank, then return the end of the rank list
+        return rank.size();
+    }
+
+    public int getRankById(int id) {
+        String name = TableFactory.workerTable().getPOBy(id, WorkerPO::getId).getName();
+        return getRankByName(name);
     }
 
     public void add(RankItem rankItem) {

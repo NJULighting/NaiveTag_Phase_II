@@ -22,7 +22,6 @@ public class WorkerPO implements Serializable {
     private Double averageScoreRatio;
 
     public WorkerPO() {
-
     }
 
     public WorkerPO(Integer id, String username, String password, String name, String email,

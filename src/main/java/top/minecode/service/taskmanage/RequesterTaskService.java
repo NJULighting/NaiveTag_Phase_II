@@ -3,9 +3,10 @@ package top.minecode.service.taskmanage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.minecode.dao.statistic.RequesterStatisticDao;
-import top.minecode.dao.task.RequesterTaskDao;
-import top.minecode.domain.task.RequesterTaskDetails;
-import top.minecode.domain.task.RequesterTaskInfo;
+import top.minecode.dao.task.requester.RequesterTaskDao;
+import top.minecode.domain.task.requester.RequesterTaskDetails;
+import top.minecode.domain.task.requester.RequesterTaskInfo;
+import top.minecode.domain.task.requester.TaskParticipant;
 import top.minecode.po.FirstLevelTaskPO;
 
 import java.util.List;
@@ -43,7 +44,12 @@ public class RequesterTaskService {
                 .collect(Collectors.toList());
     }
 
-    public List<RequesterTaskDetails> getTaskDetails(int ownerId) {
-        return null;
+    public List<RequesterTaskDetails> getTaskDetails(int ownerId, int taskId) {
+        // Get task information and participants
+        List<RequesterTaskInfo> taskInformation = getTasksInfo(ownerId);
+        Map<Integer, List<TaskParticipant>> participants = requesterTaskDao.getParticipants(taskId);
+
+        return taskInformation.stream().map(t -> new RequesterTaskDetails(t, participants.get(t.getTaskId())))
+                .collect(Collectors.toList());
     }
 }

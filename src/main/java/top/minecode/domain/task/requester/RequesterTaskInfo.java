@@ -1,4 +1,4 @@
-package top.minecode.domain.task;
+package top.minecode.domain.task.requester;
 
 import top.minecode.json.JsonConfig;
 import top.minecode.po.FirstLevelTaskPO;

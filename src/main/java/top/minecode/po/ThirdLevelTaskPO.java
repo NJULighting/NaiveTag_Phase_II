@@ -5,12 +5,13 @@ import top.minecode.domain.task.WorkerGeneralTaskInfo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created on 2018/4/1.
  * Description:
- *
  * @author iznauy
  */
 public class ThirdLevelTaskPO implements Serializable {
@@ -45,6 +46,13 @@ public class ThirdLevelTaskPO implements Serializable {
         return workerFilterId;
     }
 
+    public List<Integer> getParticipants() {
+        List<Integer> participants = new ArrayList<>();
+        participants.addAll(currentDoingWorkerIds);
+        participants.addAll(finishedWorkerIds);
+        return participants;
+    }
+
     public void setWorkerFilterId(Integer workerFilterId) {
         this.workerFilterId = workerFilterId;
     }
@@ -56,6 +64,7 @@ public class ThirdLevelTaskPO implements Serializable {
     public boolean isFinished() {
         return state == ThirdLevelTaskState.finished;
     }
+
     public String getTaskDescription() {
         return taskDescription;
     }
