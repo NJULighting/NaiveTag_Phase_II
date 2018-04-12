@@ -66,6 +66,8 @@ public class Table<PO> {
             ObjectInputStream objectInputStream = new ObjectInputStream(resource.getInputStream());
             //noinspection unchecked
             pos = (List<PO>) objectInputStream.readObject();
+
+            objectInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             pos = new ArrayList<>();

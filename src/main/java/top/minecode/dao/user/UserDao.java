@@ -5,6 +5,7 @@ import top.minecode.domain.user.Requester;
 import top.minecode.domain.user.User;
 import top.minecode.domain.user.UserType;
 import top.minecode.domain.user.Worker;
+import top.minecode.json.JsonConfig;
 import top.minecode.po.*;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class UserDao {
 
     public User getUserByUsername(String userName) {
 
+        System.out.println(userName);
+
         // 查数据库，迭代三替换成数据库查询代码
         WorkerPO workerPO = TableFactory.workerTable().getPOBy(userName, WorkerPO::getUsername);
         if (workerPO != null)
@@ -34,25 +37,26 @@ public class UserDao {
         if (requesterPO != null)
             return requesterPO.toRequester();
 
-        throw new NoSuchElementException("Username is invalid");
+        return null;
     }
 
     public User getUserByName(String name) {
+
+
+        AdministratorPO administratorPO = TableFactory.administratorTable().getPOBy(name, AdministratorPO::getName);
+        if (administratorPO != null)
+            return administratorPO.toAdministrator();
 
         // 查数据库，迭代三替换成数据库查询代码
         WorkerPO workerPO = TableFactory.workerTable().getPOBy(name, WorkerPO::getName);
         if (workerPO != null)
             return workerPO.toWorker();
 
-        AdministratorPO administratorPO = TableFactory.administratorTable().getPOBy(name, AdministratorPO::getName);
-        if (administratorPO != null)
-            return administratorPO.toAdministrator();
-
         RequesterPO requesterPO = TableFactory.requesterTable().getPOBy(name, RequesterPO::getName);
         if (requesterPO != null)
             return requesterPO.toRequester();
 
-        throw new NoSuchElementException("Name is invalid");
+        return null;
     }
 
     public User getUserByEmail(String email) {
@@ -66,7 +70,7 @@ public class UserDao {
         if (requesterPO != null)
             return requesterPO.toRequester();
 
-        throw new NoSuchElementException("Email is invalid");
+        return null;
     }
 
     public void addUser(User user) {
@@ -85,6 +89,7 @@ public class UserDao {
             workerPO.setId(id);
             TableFactory.workerTable().add(workerPO);
         }
+        System.out.println("Add User: " + JsonConfig.getGson().toJson(user));
     }
 
 }
