@@ -2,11 +2,10 @@ package top.minecode.dao.task;
 
 import org.springframework.stereotype.Repository;
 import top.minecode.domain.tag.TagResult;
+import top.minecode.domain.task.TaskInfo;
 import top.minecode.domain.user.User;
-import top.minecode.po.Table;
-import top.minecode.po.TableFactory;
-import top.minecode.po.ThirdLevelTaskPO;
-import top.minecode.po.ThirdLevelTaskResultPO;
+import top.minecode.json.JsonConfig;
+import top.minecode.po.*;
 
 import java.util.List;
 
@@ -56,6 +55,19 @@ public class TagDao {
         if (index == 0)
             return null;
         return picList.get(index - 1);
+    }
+
+    public String getTaskInfo(int taskId) {
+        Table<ThirdLevelTaskPO> thirdLevelTaskPOTable = TableFactory
+                .thirdLevelTaskTable();
+        Table<SecondLevelTaskPO> secondLevelTaskPOTable = TableFactory
+                .secondLevelTaskTable();
+        int secondLevelTaskId = thirdLevelTaskPOTable
+                .getPOBy(taskId, ThirdLevelTaskPO::getId).getSecondLevelTaskId();
+
+        TaskInfo taskInfo = secondLevelTaskPOTable
+                .getPOBy(secondLevelTaskId, SecondLevelTaskPO::getId).getTaskInfo();
+        return JsonConfig.getGson().toJson(taskInfo);
     }
 
 
