@@ -1,0 +1,155 @@
+<template>
+    <div id="page">
+
+        <!--任务进行中-->
+        <div style="width: 100%;text-align: center;padding-top: 40px;padding-bottom: 20px">
+            <el-tooltip content="选择“历史任务”以查看更多" placement="right-start" effect="light">
+                <span style="font-family: SimSun-ExtB;font-size: 30px">任务进行中</span>
+            </el-tooltip>
+        </div>
+
+        <div>
+            <task_block v-for="(taskData,key) in taskDoingList" v-bind:key="key" v-bind="taskData"></task_block>
+        </div>
+
+        <!--任务推荐-->
+        <div style="width: 100%;text-align: center;padding-top: 30px;padding-bottom: 20px">
+            <span style="font-family: SimSun-ExtB;font-size: 30px">任务推荐</span>
+        </div>
+
+        <div>
+            <task_block v-for="(taskData,key) in taskRecommendList" v-bind:key="key" v-bind="taskData"></task_block>
+        </div>
+
+    </div>
+</template>
+
+<!--外部导入局部组件-->
+<script>
+    //引入
+    import task_block from '../taskBlock.vue';
+    import navi from './workerNavi.vue';
+    //import { workerHomeData } from '../../mixinData';
+    //注册
+    export default {
+        //mixins: [workerHomeData],
+
+        data() {
+            return {
+                taskDoingList: [
+                    {
+                        "taskId": "100",
+                        "taskType": 200,
+                        "taskName": "区域标注任务（一）",
+                        "averageScore": 103,
+                        "actualScore": 89,
+                        "process": 67,
+                        "cover" : "./src/components/test.jpg",
+                    },
+                    {
+                        "taskId": "100",
+                        "taskType": 200,
+                        "taskName": "区域标注任务（一）",
+                        "averageScore": 103,
+                        "actualScore": 89,
+                        "process": 67,
+                        "cover" : "./src/components/test.jpg"
+                    },
+                    {
+                        "taskId": "100",
+                        "taskType": 200,
+                        "taskName": "区域标注任务（一）",
+                        "averageScore": 103,
+                        "actualScore": 89,
+                        "process": 67,
+                        "cover" : "./src/components/test.jpg"
+                    },
+                    {
+                        "taskId": "100",
+                        "taskType": 200,
+                        "taskName": "区域标注任务（一）",
+                        "averageScore": 103,
+                        "actualScore": 89,
+                        "process": 67,
+                        "cover" : "./src/components/test.jpg"
+                    },
+                    {
+                        "taskId": "100",
+                        "taskType": 200,
+                        "taskName": "区域标注任务（一）",
+                        "averageScore": 103,
+                        "actualScore": 89,
+                        "process": 67,
+                        "cover" : "./src/components/test.jpg"
+                    }
+                ],
+                taskRecommendList:
+                    [
+                        {
+                            //taskType: 100,
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            //"actualScore": 89, // 实际得到的分数，有可能是-1，比如没有结算
+
+                            "payDay": "2018-3-22",
+                            "picAmount": 78,
+
+                            //"process": 67,
+                            "cover" : "./src/components/test.jpg",
+                            //"beginDate": "2018-3-22",
+                            //"endDate": "2018-3-22",
+                            //"state": "expired" // unpay、finish、doing、expired(等待结算、完成、进行、过期)
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "payDay": "2018-3-22",
+                            "picAmount": 78,
+                            "cover" : "./src/components/test.jpg",
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "payDay": "2018-3-22",
+                            "picAmount": 78,
+                            "cover" : "./src/components/test.jpg",
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "payDay": "2018-3-22",
+                            "picAmount": 78,
+                            "cover" : "./src/components/test.jpg",
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "payDay": "2018-3-22",
+                            "picAmount": 78,
+                            "cover" : "./src/components/test.jpg",
+                        }
+                    ]
+            }
+        },
+
+        components: {
+            'task_block': task_block,
+            'navi': navi
+        }
+
+    }
+</script>
+
+<style>
+
+</style>

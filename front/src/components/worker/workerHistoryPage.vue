@@ -1,0 +1,166 @@
+<template>
+    <div id="history">
+
+        <!--历史人物记录-->
+        <div style="width: 100%;text-align: center;padding-top: 40px;padding-bottom: 20px">
+            <span style="font-family: SimSun-ExtB;font-size: 30px">历史任务记录</span>
+        </div>
+
+        <div>
+            <task_block v-for="(taskData,key) in taskList" v-bind:key="key" v-bind="taskData"></task_block>
+        </div>
+
+    </div>
+</template>
+
+<!--外部导入局部组件-->
+<script>
+    //引入
+    import task_block from '../taskBlock.vue';
+    //注册
+    export default {
+        data () {
+            return {
+
+                taskList:
+                    [
+                        {
+                            //taskType: 100,
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "actualScore": 89, // 实际得到的分数，有可能是-1，比如没有结算
+
+                            //"payDay": "2018-3-22",
+                            //"picAmount": 78,
+
+                            "process": 67,
+                            "cover" : "./src/components/test.jpg",
+                            "beginDate": "2018-3-22",
+                            "endDate": "2018-3-22",
+                            "state": "expired" // unpay、finish、doing、expired(等待结算、完成、进行、过期)
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "actualScore": 89,
+                            "process": 67,
+                            "cover" : "./src/components/test.jpg",
+                            "beginDate": "2018-3-22",
+                            "endDate": "2018-3-22",
+                            "state": "unpay"
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "actualScore": 89,
+                            "process": 67,
+                            "cover" : "./src/components/test.jpg",
+                            "beginDate": "2018-3-22",
+                            "endDate": "2018-3-22",
+                            "state": "finish"
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "actualScore": 89,
+                            "process": 67,
+                            "cover" : "./src/components/test.jpg",
+                            "beginDate": "2018-3-22",
+                            "endDate": "2018-3-22",
+                            "state": "doing"
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "actualScore": 89,
+                            "process": 67,
+                            "cover" : "./src/components/test.jpg",
+                            "beginDate": "2018-3-22",
+                            "endDate": "2018-3-22",
+                            "state": "expired"
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "actualScore": 89,
+                            "process": 67,
+                            "cover" : "./src/components/test.jpg",
+                            "beginDate": "2018-3-22",
+                            "endDate": "2018-3-22",
+                            "state": "expired"
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "actualScore": 89,
+                            "process": 67,
+                            "cover" : "./src/components/test.jpg",
+                            "beginDate": "2018-3-22",
+                            "endDate": "2018-3-22",
+                            "state": "expired"
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "actualScore": 89,
+                            "process": 67,
+                            "cover" : "./src/components/test.jpg",
+                            "beginDate": "2018-3-22",
+                            "endDate": "2018-3-22",
+                            "state": "expired"
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "actualScore": 89,
+                            "process": 67,
+                            "cover" : "./src/components/test.jpg",
+                            "beginDate": "2018-3-22",
+                            "endDate": "2018-3-22",
+                            "state": "expired"
+                        },
+                        {
+                            "taskId": "100",
+                            "taskType": 200,
+                            "taskName": "区域标注任务（一）",
+                            "averageScore": 103,
+                            "actualScore": 89,
+                            "process": 67,
+                            "cover" : "./src/components/test.jpg",
+                            "beginDate": "2018-3-22",
+                            "endDate": "2018-3-22",
+                            "state": "expired"
+                        }
+                    ]
+
+            }
+        },
+
+        components: {
+            'task_block': task_block
+        }
+
+    }
+</script>
+
+<style>
+
+</style>
