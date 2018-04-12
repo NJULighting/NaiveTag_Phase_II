@@ -13,8 +13,16 @@
        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
     <!-- 扫描类包，将标注Spring注解的类自动转化Bean，同时完成Bean的注入 -->
-    <context:component-scan base-package="top.minecode.dao"/>
-    <context:component-scan base-package="top.minecode.service"/>
+    <context:component-scan base-package="top.minecode.dao.user"/>
+    <context:component-scan base-package="top.minecode.dao.statistic"/>
+    <context:component-scan base-package="top.minecode.dao.task"/>
+    <context:component-scan base-package="top.minecode.dao.utils"/>
+
+    <context:component-scan base-package="top.minecode.service.statistic"/>
+    <context:component-scan base-package="top.minecode.service.user"/>
+    <context:component-scan base-package="top.minecode.service.taskdelivery"/>
+    <context:component-scan base-package="top.minecode.service.taskexecute"/>
+    <context:component-scan base-package="top.minecode.service.taskmanage"/>
 
     <bean name="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
