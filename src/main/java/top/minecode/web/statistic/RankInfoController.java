@@ -31,6 +31,6 @@ public class RankInfoController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public String getRankInfo() {
-        return JsonConfig.getGson().toJson(workerStatisticService.getWorkerRank());
+        return JsonConfig.getGson().toJson(workerStatisticService.getWorkersRank());
     }
 }

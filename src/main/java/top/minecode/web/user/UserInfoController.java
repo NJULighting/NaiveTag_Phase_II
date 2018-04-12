@@ -5,6 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import top.minecode.domain.user.GeneralUser;
+import top.minecode.domain.user.UserType;
+import top.minecode.domain.user.Worker;
+import top.minecode.json.JsonConfig;
+import top.minecode.json.user.UserInfoResponse;
+import top.minecode.json.user.WorkerUserInfoResponse;
+import top.minecode.service.statistic.WorkerStatisticService;
 import top.minecode.service.user.UserService;
 import top.minecode.web.common.BaseController;
 
@@ -20,20 +27,38 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value = "/userInfo")
 public class UserInfoController extends BaseController {
 
-    private UserService userService;
+    private WorkerStatisticService workerStatisticService;
 
-    public UserService getUserService() {
-        return userService;
+    public WorkerStatisticService getWorkerStatisticService() {
+        return workerStatisticService;
     }
 
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setWorkerStatisticService(WorkerStatisticService workerStatisticService) {
+        this.workerStatisticService = workerStatisticService;
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public @ResponseBody String getUserInfo(HttpServletRequest request) {
-        return null;
+        GeneralUser user = (GeneralUser) getSessionUser(request);
+        UserInfoResponse userInfoResponse = null;
+        if (user.getUserType() == UserType.worker) {
+            Worker worker = (Worker) user;
+            WorkerUserInfoResponse workerUserInfo = new WorkerUserInfoResponse();
+            workerUserInfo.setAverageScoreRatio(worker.getAverageScoreRatio());
+
+            int rank = workerStatisticService.getWorkerRank(user);
+            workerUserInfo.setRank(rank);
+            
+            userInfoResponse = workerUserInfo;
+        } else if (user.getUserType() == UserType.requester) {
+            userInfoResponse = new WorkerUserInfoResponse();
+        }
+        userInfoResponse.setEmail(user.getEmail());
+        userInfoResponse.setName(user.getName());
+        userInfoResponse.setScore(user.getScore());
+        userInfoResponse.setUsername(user.getUsername());
+        return JsonConfig.getGson().toJson(userInfoResponse);
     }
 
 
@@ -41,6 +66,7 @@ public class UserInfoController extends BaseController {
     @RequestMapping("/ability")
     @ResponseBody
     public String getAbilityGraph(HttpServletRequest request) {
+        // TODO: 应该在任务结算完成过后来实现
         return null;
     }
 

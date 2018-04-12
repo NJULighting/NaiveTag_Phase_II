@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.minecode.dao.statistic.WorkerStatisticDao;
 import top.minecode.domain.statistic.RankItem;
+import top.minecode.domain.user.User;
 
 import java.util.List;
 
@@ -26,8 +27,12 @@ public class WorkerStatisticService {
         return workerStatisticDao;
     }
 
-    public List<RankItem> getWorkerRank() {
-        return workerStatisticDao.getWorkerRank();
+    public List<RankItem> getWorkersRank() {
+        return workerStatisticDao.getWorkersRank();
+    }
+
+    public int getWorkerRank(User user) {
+        return workerStatisticDao.getWorkerRank(user.getId());
     }
 
 }

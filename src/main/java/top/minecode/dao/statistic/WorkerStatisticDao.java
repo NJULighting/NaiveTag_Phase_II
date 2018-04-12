@@ -15,11 +15,15 @@ import java.util.List;
 @Repository
 public class WorkerStatisticDao {
 
-    public List<RankItem> getWorkerRank() {
+    public List<RankItem> getWorkersRank() {
         RankTable rankTable = TableFactory.rankTable();
 
         // 获取排行榜信息
         return rankTable.getWorkerRank();
+    }
+
+    public int getWorkerRank(int userId) {
+        return TableFactory.rankTable().getRankById(userId);
     }
 
 }
