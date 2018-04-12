@@ -5,16 +5,23 @@ package top.minecode.domain.tag;
  * Description:
  * @author Liao
  */
-public class GlobalTagResult extends TagResult {
+public abstract class GlobalTagResult extends TagResult {
 
     private String label;
 
-    public GlobalTagResult(Integer id, String dataUrl, String label) {
-        super(id, dataUrl);
+    public GlobalTagResult() {
+    }
+
+    public GlobalTagResult(TagType tagType, String label) {
+        super(tagType);
         this.label = label;
     }
 
     public String getLabel() {
         return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

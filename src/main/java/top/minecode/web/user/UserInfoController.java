@@ -49,7 +49,7 @@ public class UserInfoController extends BaseController {
 
             int rank = workerStatisticService.getWorkerRank(user);
             workerUserInfo.setRank(rank);
-            
+
             userInfoResponse = workerUserInfo;
         } else if (user.getUserType() == UserType.requester) {
             userInfoResponse = new WorkerUserInfoResponse();

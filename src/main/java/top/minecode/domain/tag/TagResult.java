@@ -9,20 +9,20 @@ import java.io.Serializable;
  */
 public abstract class TagResult implements Serializable {
 
-    private Integer id;
-    private String dataUrl;
+    private TagType tagType;
 
-
-    public TagResult(Integer id, String dataUrl) {
-        this.id = id;
-        this.dataUrl = dataUrl;
+    public TagResult() {
     }
 
-    public Integer getId() {
-        return id;
+    public TagResult(TagType tagType) {
+        this.tagType = tagType;
     }
 
-    public String getDataUrl() {
-        return dataUrl;
+    public TagType getTagType() {
+        return tagType;
+    }
+
+    public void setTagType(TagType tagType) {
+        this.tagType = tagType;
     }
 }

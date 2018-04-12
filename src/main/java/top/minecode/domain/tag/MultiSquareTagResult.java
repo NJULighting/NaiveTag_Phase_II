@@ -2,6 +2,8 @@ package top.minecode.domain.tag;
 
 import top.minecode.utils.Pair;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,15 +11,24 @@ import java.util.Map;
  * Description:
  * @author Liao
  */
-public class MultiSquareTagResult extends TagResult {
-    private Map<String, Pair<Point, Point>> labelPointsTable;
+public abstract class MultiSquareTagResult extends TagResult {
 
-    public MultiSquareTagResult(Integer id, String dataUrl, Map<String, Pair<Point, Point>> labelPointsTable) {
-        super(id, dataUrl);
-        this.labelPointsTable = labelPointsTable;
+    private List<Frame> frames;
+
+    public MultiSquareTagResult() {
+        frames = new ArrayList<>();
     }
 
-    public Map<String, Pair<Point, Point>> getLabelPointsTable() {
-        return labelPointsTable;
+    public MultiSquareTagResult(TagType tagType, List<Frame> frames) {
+        super(tagType);
+        this.frames = frames;
+    }
+
+    public List<Frame> getFrames() {
+        return frames;
+    }
+
+    public void setFrames(List<Frame> frames) {
+        this.frames = frames;
     }
 }

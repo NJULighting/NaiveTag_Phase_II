@@ -72,7 +72,7 @@ public class TagDaoTest {
 
     @Test(priority = 0)
     public void testSaveTag() throws Exception {
-        TagResult tagResult = new GlobalTagResult(0, null, "Man");
+        TagResult tagResult = new GlobalTagResult();
         tagDao.saveTag(1, user, "1.jpg", tagResult);
         System.out.println(JsonConfig.getGson().toJson(thirdLevelTaskResultPOTable));
     }

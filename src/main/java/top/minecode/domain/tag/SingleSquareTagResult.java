@@ -7,22 +7,23 @@ import top.minecode.utils.Pair;
  * Description:
  * @author Liao
  */
-public class SingleSquareTagResult extends TagResult {
+public abstract class SingleSquareTagResult extends TagResult {
 
-    private String label;
-    private Pair<Point, Point> points;
+    private Frame frame;
 
-    public SingleSquareTagResult(Integer id, String dataUrl, String label, Pair<Point, Point> points) {
-        super(id, dataUrl);
-        this.label = label;
-        this.points = points;
+    public SingleSquareTagResult() {
     }
 
-    public String getLabel() {
-        return label;
+    public SingleSquareTagResult(TagType tagType, Frame frame) {
+        super(tagType);
+        this.frame = frame;
     }
 
-    public Pair<Point, Point> getPoints() {
-        return points;
+    public Frame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(Frame frame) {
+        this.frame = frame;
     }
 }

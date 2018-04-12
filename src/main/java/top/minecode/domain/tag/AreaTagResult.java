@@ -1,5 +1,6 @@
 package top.minecode.domain.tag;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,14 +8,16 @@ import java.util.List;
  * Description:
  * @author Liao
  */
-public class AreaTagResult extends TagResult {
+public abstract class AreaTagResult extends TagResult {
 
-    private String label;
     private List<Point> points;
 
-    public AreaTagResult(Integer id, String dataUrl, String label, List<Point> points) {
-        super(id, dataUrl);
-        this.label = label;
+    public AreaTagResult() {
+        this.points = new ArrayList<>();
+    }
+
+    public AreaTagResult(TagType tagType, List<Point> points) {
+        super(tagType);
         this.points = points;
     }
 
@@ -22,7 +25,7 @@ public class AreaTagResult extends TagResult {
         return points;
     }
 
-    public String getLabel() {
-        return label;
+    public void setPoints(List<Point> points) {
+        this.points = points;
     }
 }
