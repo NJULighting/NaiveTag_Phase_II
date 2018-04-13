@@ -2,6 +2,9 @@ package top.minecode.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import top.minecode.domain.tag.TagDeserializer;
+import top.minecode.domain.tag.TagResult;
+import top.minecode.domain.tag.TagSerializer;
 
 /**
  * Created on 2018/4/2.
@@ -17,6 +20,9 @@ public class JsonConfig {
         if (gson == null)
             gson = new GsonBuilder()
                     .serializeNulls()
+                    .setPrettyPrinting()
+                    .registerTypeAdapter(TagResult.class, new TagSerializer())
+                    .registerTypeAdapter(TagResult.class, new TagDeserializer())
                     .create();
         return gson;
     }

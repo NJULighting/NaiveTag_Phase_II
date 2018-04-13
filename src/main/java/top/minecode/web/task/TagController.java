@@ -36,9 +36,9 @@ public class TagController extends BaseController {
     @RequestMapping("/save")
     @ResponseBody
     public void save(HttpServletRequest request, int taskId, String url, String data) {
-        //TODO: 解析data到TagResult
+        TagResult tagResult = JsonConfig.getGson().fromJson(data, TagResult.class);
         User user = getSessionUser(request);
-        tagService.saveTag(taskId, user, url, null);
+        tagService.saveTag(taskId, user, url, tagResult);
     }
 
     @RequestMapping("/next")
