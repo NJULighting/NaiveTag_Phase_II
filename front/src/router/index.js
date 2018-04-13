@@ -6,6 +6,10 @@ import task from '../components/worker/workerTaskPage.vue'
 import search from '../components/worker/workerSearch.vue'
 import worker_navi from '../components/worker/workerNavi.vue'
 import user from '../components/worker/workerUserPage.vue'
+import login from '../components/login.vue'
+import requesterIndex from '../components/requester/requester-index.vue'
+import requesterHome from '../components/requester/home.vue'
+import requesterCreateTask from '../components/requester/createTask.vue'
 
 Vue.use(VueRouter)
 
@@ -15,13 +19,21 @@ const router = new VueRouter({
         {
             path: '/worker', component: worker_navi,
             children: [
-                { path: 'home', component: home },
-                { path: 'history', component: history },
-                { path: 'search', component: search },
-                { path: 'user', component: user },
+                {path: 'home', component: home},
+                {path: 'history', component: history},
+                {path: 'search', component: search},
+                {path: 'user', component: user},
             ]
         },
-        { path: '/task', component: task },
+        {path: '/task', component: task},
+        {path: '/login', component: login},
+        {
+            path: '/requester', component: requesterIndex,
+            children: [
+                {path: 'home', component: requesterHome},
+                {path:'createTask',component:requesterCreateTask}
+            ]
+        }
     ]
 
 })
