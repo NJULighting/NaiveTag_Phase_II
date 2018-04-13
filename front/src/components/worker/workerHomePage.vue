@@ -8,8 +8,8 @@
             </el-tooltip>
         </div>
 
-        <div>
-            <task_block v-for="(taskData,key) in taskDoingList" v-bind:key="key" v-bind="taskData"></task_block>
+        <div style="text-align: center">
+            <taskblock v-for="(taskData,key) in taskDoingList" v-bind:key="key" v-bind="taskData"></taskblock>
         </div>
 
         <!--任务推荐-->
@@ -17,8 +17,8 @@
             <span style="font-family: SimSun-ExtB;font-size: 30px">任务推荐</span>
         </div>
 
-        <div>
-            <task_block v-for="(taskData,key) in taskRecommendList" v-bind:key="key" v-bind="taskData"></task_block>
+        <div style="text-align: center">
+            <taskblock v-for="(taskData,key) in taskRecommendList" v-bind:key="key" v-bind="taskData"></taskblock>
         </div>
 
     </div>
@@ -27,18 +27,21 @@
 <!--外部导入局部组件-->
 <script>
     //引入
-    import task_block from '../taskBlock.vue';
-    import navi from './workerNavi.vue';
-    //import { workerHomeData } from '../../mixinData';
+    //import taskblock from './taskBlock.vue';
+
     //注册
     export default {
         //mixins: [workerHomeData],
+
+//        components: {
+//            'taskblock': taskblock,
+//        },
 
         data() {
             return {
                 taskDoingList: [
                     {
-                        "taskId": "100",
+                        "taskId": 100,
                         "taskType": 200,
                         "taskName": "区域标注任务（一）",
                         "averageScore": 103,
@@ -47,7 +50,7 @@
                         "cover" : "./src/components/test.jpg",
                     },
                     {
-                        "taskId": "100",
+                        "taskId": 100,
                         "taskType": 200,
                         "taskName": "区域标注任务（一）",
                         "averageScore": 103,
@@ -56,7 +59,7 @@
                         "cover" : "./src/components/test.jpg"
                     },
                     {
-                        "taskId": "100",
+                        "taskId": 100,
                         "taskType": 200,
                         "taskName": "区域标注任务（一）",
                         "averageScore": 103,
@@ -65,7 +68,7 @@
                         "cover" : "./src/components/test.jpg"
                     },
                     {
-                        "taskId": "100",
+                        "taskId": 100,
                         "taskType": 200,
                         "taskName": "区域标注任务（一）",
                         "averageScore": 103,
@@ -74,7 +77,7 @@
                         "cover" : "./src/components/test.jpg"
                     },
                     {
-                        "taskId": "100",
+                        "taskId": 100,
                         "taskType": 200,
                         "taskName": "区域标注任务（一）",
                         "averageScore": 103,
@@ -87,7 +90,7 @@
                     [
                         {
                             //taskType: 100,
-                            "taskId": "100",
+                            "taskId": 100,
                             "taskType": 200,
                             "taskName": "区域标注任务（一）",
                             "averageScore": 103,
@@ -103,7 +106,7 @@
                             //"state": "expired" // unpay、finish、doing、expired(等待结算、完成、进行、过期)
                         },
                         {
-                            "taskId": "100",
+                            "taskId": 100,
                             "taskType": 200,
                             "taskName": "区域标注任务（一）",
                             "averageScore": 103,
@@ -112,7 +115,7 @@
                             "cover" : "./src/components/test.jpg",
                         },
                         {
-                            "taskId": "100",
+                            "taskId": 100,
                             "taskType": 200,
                             "taskName": "区域标注任务（一）",
                             "averageScore": 103,
@@ -121,7 +124,7 @@
                             "cover" : "./src/components/test.jpg",
                         },
                         {
-                            "taskId": "100",
+                            "taskId": 100,
                             "taskType": 200,
                             "taskName": "区域标注任务（一）",
                             "averageScore": 103,
@@ -130,7 +133,7 @@
                             "cover" : "./src/components/test.jpg",
                         },
                         {
-                            "taskId": "100",
+                            "taskId": 100,
                             "taskType": 200,
                             "taskName": "区域标注任务（一）",
                             "averageScore": 103,
@@ -141,11 +144,6 @@
                     ]
             }
         },
-
-        components: {
-            'task_block': task_block,
-            'navi': navi
-        }
 
     }
 </script>

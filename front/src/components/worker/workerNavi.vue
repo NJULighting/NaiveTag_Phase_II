@@ -12,7 +12,8 @@
                             placeholder="任务搜索"
                             suffix-icon="el-icon-search"
                             class="height center"
-                            style="width: 30%;">
+                            style="width: 30%;"
+                            @keyup.enter.native="doSearch">
                     </el-input>
                 </div></el-col>
 
@@ -23,15 +24,15 @@
                              active-text-color="white"
                              :router="true">
 
-                        <el-menu-item class="height center" index="/Home">首页</el-menu-item>
-                        <el-menu-item class="height center" index="/History">历史任务</el-menu-item>
+                        <el-menu-item class="height center" index="/worker/home">首页</el-menu-item>
+                        <el-menu-item class="height center" index="/worker/history">历史任务</el-menu-item>
                         <button type="text" class="height center exit" @click="exit">退出登录</button>
 
                     </el-menu>
                 </div></el-col>
 
                 <el-col :span="1" class="height"><div class="height">
-                    <img src="../../assets/head.jpg" alt="headPicture" class="headpic">
+                    <img src="../../assets/head.jpg" alt="headPicture" class="headpic" v-on:click="showUserInfo">
                 </div></el-col>
             </el-row>
         </div>
@@ -50,11 +51,19 @@
 
         data () {
             return {
-                activeIndex : "home"
+                activeIndex : "/worker/home"
             }
         },
 
         methods:{
+
+            showUserInfo() {
+                this.$router.push("/worker/user");
+            },
+
+            doSearch() {
+                this.$router.push("/worker/search");
+            },
 
             exit() {
 
@@ -109,6 +118,8 @@
         border-radius: 30px 30px 30px 30px;
         height: 60px;
         width: 60px;
+        cursor: pointer;
+        cursor: hand;
     }
 
     .center {

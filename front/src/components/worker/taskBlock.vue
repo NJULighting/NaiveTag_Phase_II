@@ -1,15 +1,15 @@
 <template>
-    <div class="taskBlock" id="app">
+    <div class="taskBlock" id="app" v-on:click="showTask">
 
-        <span class="taskTitle">{{taskName}}</span>
-        <p></p>
-        <img :src="cover" alt="CoverImage">
-        <p></p>
+            <span class="taskTitle">{{taskName}}</span>
+            <p></p>
+            <img :src="cover" alt="CoverImage">
+            <p></p>
 
-        <div>
+            <div>
 
-            <!--积分和实际分数-->
-            <div class="part score margin inline away">
+                <!--积分和实际分数-->
+                <div class="part score margin inline">
             <span>
                 <span v-if="actualScore">
                     <span class="keynumber">{{taskActualScore()}}</span><!--
@@ -18,76 +18,77 @@
                 --><span class="number">{{averageScore}}</span><!--
                 --><span class="chinese">分</span>
             </span>
-            </div>
-
-            <!--标注类型和状态-->
-            <div class="part inline">
-
-                <label class="label inline type">
-                    <span class="label text">{{taskTypeName()}}</span>
-                </label>
-
-                <label v-if="state === 'doing'" class="label inline going">
-                    <span class="label text">进行中</span>
-                </label>
-
-                <label v-else-if="state === 'finish'" class="label inline finish">
-                    <span class="label text">已完成</span>
-                </label>
-
-                <label v-else-if="state === 'unpay'" class="label inline unclaimed">
-                    <span class="label text">等待结算</span>
-                </label>
-
-                <label v-else-if="state === 'expired'" class="label inline expired">
-                    <span class="label text">已过期</span>
-                </label>
-
-            </div>
-
-            <!--图片张数和截止日期-->
-            <div>
-                <div class="part date margin inline away" v-if="picAmount">
-                    <span class="keynumber">{{picAmount}}</span>
-                    <span>张</span>
-                </div>
-                <div v-if="payDay" class="part date margin inline keyword">
-                    <span class="keyword">End: </span>
-                    <span>{{payDay}}</span>
-                </div>
-            </div>
-
-            <!--进度条-->
-            <div v-if="process" class="part margin">
-                <el-progress :percentage="process" color="#336fff"></el-progress>
-            </div>
-
-            <!--开始日期、结束日期-->
-            <div class="keyword">
-                <div v-if="beginDate" class="part margin date inline away">
-                    <span class="keyword">Start: </span>
-                    <span>{{beginDate}}</span>
-                </div>
-                <div v-if="endDate" class="part margin date inline">
-                    <span class="keyword">End: </span>
-                    <span>{{endDate}}</span>
                 </div>
 
-            </div>
+                <!--标注类型和状态-->
+                <div class="part inline">
 
-        </div>
+                    <label class="label inline type">
+                        <span class="label text">{{taskTypeName()}}</span>
+                    </label>
+
+                    <label v-if="state === 'doing'" class="label inline going">
+                        <span class="label text">进行中</span>
+                    </label>
+
+                    <label v-else-if="state === 'finish'" class="label inline finish">
+                        <span class="label text">已完成</span>
+                    </label>
+
+                    <label v-else-if="state === 'unpay'" class="label inline unclaimed">
+                        <span class="label text">等待结算</span>
+                    </label>
+
+                    <label v-else-if="state === 'expired'" class="label inline expired">
+                        <span class="label text">已过期</span>
+                    </label>
+
+                </div>
+
+                <!--图片张数和截止日期-->
+                <div>
+                    <div class="part date margin inline" v-if="picAmount">
+                        <span class="keynumber">{{picAmount}}</span>
+                        <span>张</span>
+                    </div>
+                    <div v-if="payDay" class="part date margin inline keyword away">
+                        <span class="keyword">End: </span>
+                        <span>{{payDay}}</span>
+                    </div>
+                </div>
+
+                <!--进度条-->
+                <div v-if="process" class="part margin">
+                    <el-progress :percentage="process" color="#336fff"></el-progress>
+                </div>
+
+                <!--开始日期、结束日期-->
+                <div class="keyword">
+                    <div v-if="beginDate" class="part margin date inline">
+                        <span class="keyword">Start: </span>
+                        <span>{{beginDate}}</span>
+                    </div>
+                    <div v-if="endDate" class="part margin date inline">
+                        <span class="keyword">End: </span>
+                        <span>{{endDate}}</span>
+                    </div>
+
+                </div>
+
+            </div>
 
     </div>
 </template>
 
 <script type="text/javascript">
+    import router from "../../router/index";
+
     export default {
-
        // props: ['taskType'],
-
+        name: 'taskblock',
         props: {
             //taskType: 100,
-            taskId: String,
+            taskId: Number,
             taskType: Number,
             taskName: String,
             averageScore: Number,
@@ -102,6 +103,10 @@
         },
 
         methods: {
+
+            showTask: function () {
+                this.$router.push("/task");
+            },
 
             taskActualScore: function () {
                 if(this.actualScore === -1){
@@ -154,6 +159,8 @@
         width: 100%;
     }
 
+
+
     .taskBlock {
         font-family: Microsoft YaHei;
         border-radius: 10px 10px 10px 10px;
@@ -162,6 +169,9 @@
         width: 15.5%;
         display:inline-block;
         margin: 15px;
+        cursor: pointer;
+        cursor: hand;
+        text-align: left;
     }
 
     .taskTitle {
@@ -235,10 +245,12 @@
 
     .number {
         font-size: 24px;
+        color: black;
     }
 
     .chinese {
         font-size: 18px;
+        color: black;
     }
 
     .away {
