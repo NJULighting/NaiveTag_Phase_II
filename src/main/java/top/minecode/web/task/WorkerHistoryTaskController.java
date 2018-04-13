@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import top.minecode.domain.task.WorkerHistoryTaskInfo;
 import top.minecode.domain.task.WorkerRecentTaskInfo;
 import top.minecode.domain.user.User;
 import top.minecode.json.JsonConfig;
@@ -45,6 +46,8 @@ public class WorkerHistoryTaskController extends BaseController {
     @RequestMapping(value = "/history", method = RequestMethod.GET)
     @ResponseBody
     public String getAllHistoryTasks(HttpServletRequest request) {
-        return null;
+        User user = getSessionUser(request);
+        List<WorkerHistoryTaskInfo> workerHistoryTaskInfoList = service.getWorkerHistoryTaskInfo(user);
+        return JsonConfig.getGson().toJson(workerHistoryTaskInfoList);
     }
 }

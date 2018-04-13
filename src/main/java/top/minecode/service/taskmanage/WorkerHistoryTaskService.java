@@ -4,13 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.minecode.dao.task.WorkerTaskDao;
 import top.minecode.domain.task.ThirdLevelTaskResultType;
+import top.minecode.domain.task.WorkerHistoryTaskInfo;
 import top.minecode.domain.task.WorkerRecentTaskInfo;
 import top.minecode.domain.user.User;
 import top.minecode.domain.user.Worker;
 import top.minecode.po.ThirdLevelTaskPO;
 import top.minecode.po.ThirdLevelTaskResultPO;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,5 +70,37 @@ public class WorkerHistoryTaskService {
         return workerRecentTaskInfoList;
     }
 
+    public List<WorkerHistoryTaskInfo> getWorkerHistoryTaskInfo(User user) {
+        List<ThirdLevelTaskResultPO> userAllResults = workerTaskDao.loadAllTaskResultByUserId(user.getId());
+        List<ThirdLevelTaskPO> userAllTasks = userAllResults.stream().map(e -> workerTaskDao.loadTaskByTaskId(e.getId()))
+                .collect(Collectors.toList());
+        List<WorkerHistoryTaskInfo> workerHistoryTaskInfoList = new ArrayList<>(userAllResults.size());
+        for (int i = 0; i < userAllResults.size(); i++) {
+            ThirdLevelTaskResultPO taskResult = userAllResults.get(i);
+            ThirdLevelTaskPO task = userAllTasks.get(i);
+
+            int taskId = task.getId();
+            int taskType = task.getTaskType();
+            String taskName = task.getTaskName();
+            double averageScore = task.getStandardScore();
+            LocalDate payDay = task.getEndDate();
+            int picAmount = task.getPicList().size();
+            String cover = task.getPicList().get(0);
+            Double actualScore = taskResult.getActualScore();
+            ThirdLevelTaskResultType state = taskResult.getState();
+            LocalDate beginDate = taskResult.getAcceptTime();
+            LocalDate endDate = taskResult.getExpireTime();
+
+            int hasLabelAmount = taskResult.getTagResults().size();
+            Double process = hasLabelAmount * 1.0 / picAmount;
+
+            WorkerHistoryTaskInfo workerHistoryTaskInfo = new WorkerHistoryTaskInfo(taskId,
+                    taskType, taskName, averageScore, payDay, picAmount, cover, actualScore,
+                    beginDate, endDate, process, state);
+            workerHistoryTaskInfoList.add(workerHistoryTaskInfo);
+        }
+        Collections.sort(workerHistoryTaskInfoList);
+        return workerHistoryTaskInfoList;
+    }
 
 }

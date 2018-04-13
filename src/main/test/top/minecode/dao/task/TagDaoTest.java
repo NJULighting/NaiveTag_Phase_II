@@ -3,6 +3,7 @@ package top.minecode.dao.task;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import top.minecode.domain.tag.GlobalLabelTagResult;
 import top.minecode.domain.tag.GlobalTagResult;
 import top.minecode.domain.tag.TagResult;
 import top.minecode.domain.user.User;
@@ -72,7 +73,7 @@ public class TagDaoTest {
 
     @Test(priority = 0)
     public void testSaveTag() throws Exception {
-        TagResult tagResult = new GlobalTagResult();
+        TagResult tagResult = new GlobalLabelTagResult("dog");
         tagDao.saveTag(1, user, "1.jpg", tagResult);
         System.out.println(JsonConfig.getGson().toJson(thirdLevelTaskResultPOTable));
     }

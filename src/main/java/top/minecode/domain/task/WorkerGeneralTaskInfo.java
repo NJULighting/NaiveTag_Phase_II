@@ -24,6 +24,21 @@ public class WorkerGeneralTaskInfo {
 
     private String cover;
 
+    public WorkerGeneralTaskInfo() {
+    }
+
+    public WorkerGeneralTaskInfo(int taskId, int taskType,
+                                 String taskName, Double averageScore,
+                                 LocalDate payDay, int picAmount, String cover) {
+        this.taskId = taskId;
+        this.taskType = taskType;
+        this.taskName = taskName;
+        this.averageScore = averageScore;
+        this.payDay = payDay;
+        this.picAmount = picAmount;
+        this.cover = cover;
+    }
+
     public int getTaskId() {
         return taskId;
     }
