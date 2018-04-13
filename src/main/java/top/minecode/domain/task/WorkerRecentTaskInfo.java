@@ -1,14 +1,12 @@
 package top.minecode.domain.task;
 
-import java.time.LocalDate;
-
 /**
- * Created on 2018/4/4.
- * Description: 作为推荐系统和搜索结果的一项呈现
+ * Created on 2018/4/13.
+ * Description:
  *
  * @author iznauy
  */
-public class WorkerGeneralTaskInfo {
+public class WorkerRecentTaskInfo {
 
     private int taskId;
 
@@ -18,11 +16,22 @@ public class WorkerGeneralTaskInfo {
 
     private Double averageScore;
 
-    private LocalDate payDay;
-
-    private int picAmount;
+    private double process;
 
     private String cover;
+
+    public WorkerRecentTaskInfo() {
+    }
+
+    public WorkerRecentTaskInfo(int taskId, int taskType, String taskName,
+                                Double averageScore, double process, String cover) {
+        this.taskId = taskId;
+        this.taskType = taskType;
+        this.taskName = taskName;
+        this.averageScore = averageScore;
+        this.process = process;
+        this.cover = cover;
+    }
 
     public int getTaskId() {
         return taskId;
@@ -56,20 +65,12 @@ public class WorkerGeneralTaskInfo {
         this.averageScore = averageScore;
     }
 
-    public LocalDate getPayDay() {
-        return payDay;
+    public double getProcess() {
+        return process;
     }
 
-    public void setPayDay(LocalDate payDay) {
-        this.payDay = payDay;
-    }
-
-    public int getPicAmount() {
-        return picAmount;
-    }
-
-    public void setPicAmount(int picAmount) {
-        this.picAmount = picAmount;
+    public void setProcess(double process) {
+        this.process = process;
     }
 
     public String getCover() {

@@ -14,11 +14,19 @@ public class WorkerHistoryTaskInfo extends WorkerGeneralTaskInfo {
 
     private double actualScore;
 
-    private String process;
-
     private LocalDate beginDate;
 
     private LocalDate endDate;
+
+    private double process;
+
+    public double getProcess() {
+        return process;
+    }
+
+    public void setProcess(double process) {
+        this.process = process;
+    }
 
     public double getActualScore() {
         return actualScore;
@@ -26,14 +34,6 @@ public class WorkerHistoryTaskInfo extends WorkerGeneralTaskInfo {
 
     public void setActualScore(double actualScore) {
         this.actualScore = actualScore;
-    }
-
-    public String getProcess() {
-        return process;
-    }
-
-    public void setProcess(String process) {
-        this.process = process;
     }
 
     public LocalDate getBeginDate() {

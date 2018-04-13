@@ -82,6 +82,10 @@ public class WorkerTaskDao {
                 .findFirst().orElse(null);
     }
 
+    public List<ThirdLevelTaskResultPO> loadAllTaskResultByUserId(int userId) {
+        return TableFactory.thirdLevelTaskResultTable().getPOsBy(userId, ThirdLevelTaskResultPO::getDoerId);
+    }
+
     public boolean canAcceptTask(User user, int taskId) {
         ThirdLevelTaskPO taskPO = loadTaskByTaskId(taskId);
         double ratio = getUserRatio(user);
