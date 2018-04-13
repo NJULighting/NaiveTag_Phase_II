@@ -1,7 +1,7 @@
 <template>
     <div id="navi" >
         <div style="height: 100%;" >
-            <el-row style="background-image: url('./src/assets/bar.png');width: 100%;height: 60px;" >
+            <el-row style="background-image: url('/src/assets/bar.png');width: 100%;height: 60px;" >
 
                 <el-col :span="4" class="height"><div class="height logo">
                     <div class="height center">Naive Tag</div>

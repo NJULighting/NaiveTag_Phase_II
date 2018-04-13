@@ -1,0 +1,41 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+
+<!--<head>-->
+  <!--<meta charset="utf-8">-->
+  <!--<title>element-starter</title>-->
+<!--</head>-->
+
+<!--<body>-->
+  <!--<div id="app"></div>-->
+<!--</body>-->
+
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    function get() {
+        $.post('http://localhost:8000/naive/join/worker.html',//url
+            {
+                username: "zy05160516",
+                password: "zy05160516",
+                name: "iznauy",
+                email: "zy05160516@126.com"
+            }, function (data) {
+                alert(data);
+            }, "text")
+        //this.$router.push("/worker");
+    }
+</script>
+<body>
+<div id="app"></div>
+<button onclick="get()"> button</button>
+
+</body>
+</html>

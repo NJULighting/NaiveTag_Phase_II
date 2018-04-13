@@ -42,7 +42,7 @@
                             //"picAmount": 78,
 
                             "process": 67,
-                            "cover" : "./src/components/test.jpg",
+                            "cover" : "/src/components/test.jpg",
                             "beginDate": "2018-3-22",
                             "endDate": "2018-3-22",
                             "state": "expired" // unpay、finish、doing、expired(等待结算、完成、进行、过期)
@@ -54,7 +54,7 @@
                             "averageScore": 103,
                             "actualScore": 89,
                             "process": 67,
-                            "cover" : "./src/components/test.jpg",
+                            "cover" : "/src/components/test.jpg",
                             "beginDate": "2018-3-22",
                             "endDate": "2018-3-22",
                             "state": "unpay"
@@ -66,7 +66,7 @@
                             "averageScore": 103,
                             "actualScore": 89,
                             "process": 67,
-                            "cover" : "./src/components/test.jpg",
+                            "cover" : "/src/components/test.jpg",
                             "beginDate": "2018-3-22",
                             "endDate": "2018-3-22",
                             "state": "finish"
@@ -78,7 +78,7 @@
                             "averageScore": 103,
                             "actualScore": 89,
                             "process": 67,
-                            "cover" : "./src/components/test.jpg",
+                            "cover" : "/src/components/test.jpg",
                             "beginDate": "2018-3-22",
                             "endDate": "2018-3-22",
                             "state": "doing"
@@ -90,7 +90,7 @@
                             "averageScore": 103,
                             "actualScore": 89,
                             "process": 67,
-                            "cover" : "./src/components/test.jpg",
+                            "cover" : "/src/components/test.jpg",
                             "beginDate": "2018-3-22",
                             "endDate": "2018-3-22",
                             "state": "expired"
@@ -102,7 +102,7 @@
                             "averageScore": 103,
                             "actualScore": 89,
                             "process": 67,
-                            "cover" : "./src/components/test.jpg",
+                            "cover" : "/src/components/test.jpg",
                             "beginDate": "2018-3-22",
                             "endDate": "2018-3-22",
                             "state": "expired"
@@ -114,7 +114,7 @@
                             "averageScore": 103,
                             "actualScore": 89,
                             "process": 67,
-                            "cover" : "./src/components/test.jpg",
+                            "cover" : "/src/components/test.jpg",
                             "beginDate": "2018-3-22",
                             "endDate": "2018-3-22",
                             "state": "expired"
@@ -126,7 +126,7 @@
                             "averageScore": 103,
                             "actualScore": 89,
                             "process": 67,
-                            "cover" : "./src/components/test.jpg",
+                            "cover" : "/src/components/test.jpg",
                             "beginDate": "2018-3-22",
                             "endDate": "2018-3-22",
                             "state": "expired"
@@ -138,7 +138,7 @@
                             "averageScore": 103,
                             "actualScore": 89,
                             "process": 67,
-                            "cover" : "./src/components/test.jpg",
+                            "cover" : "/src/components/test.jpg",
                             "beginDate": "2018-3-22",
                             "endDate": "2018-3-22",
                             "state": "expired"
@@ -150,7 +150,7 @@
                             "averageScore": 103,
                             "actualScore": 89,
                             "process": 67,
-                            "cover" : "./src/components/test.jpg",
+                            "cover" : "/src/components/test.jpg",
                             "beginDate": "2018-3-22",
                             "endDate": "2018-3-22",
                             "state": "expired"

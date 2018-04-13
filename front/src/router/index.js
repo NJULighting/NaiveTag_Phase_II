@@ -15,6 +15,8 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
 
+    mode: 'history',
+
     routes: [
         {
             path: '/worker', component: worker_navi,
@@ -34,7 +36,15 @@ const router = new VueRouter({
                 {path:'createTask',component:requesterCreateTask}
             ]
         }
-    ]
+    ],
+
+    scrollBehavior (to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { x: 0, y: 0 }
+        }
+    }
 
 })
 

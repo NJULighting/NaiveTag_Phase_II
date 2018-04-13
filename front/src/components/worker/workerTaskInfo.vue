@@ -1,18 +1,6 @@
 <template>
     <div id="taskinfo" >
-        <div style="height: 100%;" >
-            <el-row style="background-image: url('./src/assets/bar.png');width: 100%;height: 60px;" >
-
-                <el-col :span="4" class="height"><div class="height logo">
-                    <div class="height center">Naive Tag</div>
-                </div></el-col>
-
-                <el-col :span="20" class="height"><div class="height">
-                    <button type="text" class="height center back"  v-on:click="$router.history.go(-1)">返回</button>
-                </div></el-col>
-
-            </el-row>
-        </div>
+        <simplenavi></simplenavi>
 
         <div style="height: 20px">
 
@@ -83,7 +71,13 @@
 
 <script>
 
+    import simplenavi from './simpleNavi.vue'
+
     export default {
+
+        components: {
+            'simplenavi': simplenavi
+        },
 
         props: {
             taskState: String, // 已经接受的任务unaccept
