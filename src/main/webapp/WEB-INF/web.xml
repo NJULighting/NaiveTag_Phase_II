@@ -7,7 +7,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:naive-context.xml</param-value>
+        <param-value>classpath:naive-*.xml</param-value>
     </context-param>
     <listener>
         <listener-class>

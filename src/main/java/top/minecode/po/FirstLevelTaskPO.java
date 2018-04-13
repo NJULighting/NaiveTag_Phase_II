@@ -21,6 +21,26 @@ public class FirstLevelTaskPO implements Serializable {
 
     private LocalDate endDate;
 
+    private String resultFilePath;
+
+    private FirstLevelTaskStateType state;
+
+    public String getResultFilePath() {
+        return resultFilePath;
+    }
+
+    public void setResultFilePath(String resultFilePath) {
+        this.resultFilePath = resultFilePath;
+    }
+
+    public FirstLevelTaskStateType getState() {
+        return state;
+    }
+
+    public void setState(FirstLevelTaskStateType state) {
+        this.state = state;
+    }
+
     public Double getTotalScore() {
         return totalScore;
     }
