@@ -47,6 +47,10 @@ public class Table<PO> {
         return filter(e -> function.apply(e).equals(condition));
     }
 
+    public <T, R> List<R> getAttributesBy(T condition, Function<PO, T> function, Function<PO, R> mapper) {
+        return pos.stream().filter(e -> function.apply(e).equals(condition)).map(mapper).collect(Collectors.toList());
+    }
+
     public List<PO> filter(Predicate<PO> filter) {
         return pos.stream().filter(filter).collect(Collectors.toList());
     }

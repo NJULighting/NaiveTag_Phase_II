@@ -37,8 +37,7 @@ public class RequesterTaskService {
     public List<RequesterTaskInfo> getTasksInfo(int ownerId) {
 
         List<FirstLevelTaskPO> tasks = requesterTaskDao.getTasks(ownerId);
-        List<Integer> tasksIds = tasks.stream().map(FirstLevelTaskPO::getId).collect(Collectors.toList());
-        Map<Integer, Double> tasksProcess = requesterStatisticDao.getTaskProcess(tasksIds);
+        Map<Integer, Double> tasksProcess = requesterStatisticDao.getTaskTotalProcess(ownerId);
 
         return tasks.stream().map(po -> new RequesterTaskInfo(po, tasksProcess.get(po.getId())))
                 .collect(Collectors.toList());

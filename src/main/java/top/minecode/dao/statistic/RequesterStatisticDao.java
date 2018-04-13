@@ -1,6 +1,7 @@
 package top.minecode.dao.statistic;
 
 import org.springframework.stereotype.Repository;
+import top.minecode.dao.task.requester.TaskMaps;
 import top.minecode.po.SecondLevelTaskPO;
 import top.minecode.po.Table;
 import top.minecode.po.TableFactory;
@@ -24,44 +25,35 @@ public class RequesterStatisticDao {
     private Map<Integer, Double> pointTable = new HashMap<>();
 
     /**
-     * Get point table of tasks.
-     * @param tasks ids of tasks(FirstLevelTask's id)
+     * Get process table of tasks.(For FirstLevelTask)
+     * @param ownerId id of the requester(FirstLevelTask's id)
      * @return A map whose key is id and value is process.
      */
-    public Map<Integer, Double> getTaskProcess(List<Integer> tasks) {
-        updatePointTable();
-        return tasks.stream().collect(Collectors.toMap(Function.identity(), this::calculate));
+    public Map<Integer, Double> getTaskTotalProcess(int ownerId) {
+        return calculate(TaskMaps.INSTANCE.oneThreeIdObjMap(ownerId));
     }
 
-    private double calculate(int firstLevelTaskId) {
-        // Find corresponding second level tasks
-        List<SecondLevelTaskPO> secondLevelTaskPOS = TableFactory.secondLevelTaskTable()
-                .getPOsBy(firstLevelTaskId, SecondLevelTaskPO::getFirstLevelTaskId);
+    public Map<Integer, Double> getSecondLevelTaskProcess(int firstLevelTaskId) {
 
-        return secondLevelTaskPOS.stream().mapToDouble(po -> pointTable.get(po.getId())).sum();
+        return calculate(TaskMaps.INSTANCE.twoThreeIdObjMap(firstLevelTaskId));
     }
 
-    private void updatePointTable() {
-
-        Table<ThirdLevelTaskPO> taskTable = TableFactory.thirdLevelTaskTable();
-        List<ThirdLevelTaskPO> tasks = taskTable.getAll();
-        Map<Integer, Pair<Integer, Integer>> numberTable = new HashMap<>();
+    private Map<Integer, Double> calculate(Map<Integer, List<ThirdLevelTaskPO>> relations) {
+        // Key is second level task id and the value is the process
+        Map<Integer, Double> processTable = new HashMap<>();
 
         // Iterate all third level tasks to count finished tasks and tasks number
-        for (ThirdLevelTaskPO task : tasks) {
-            int i = task.isFinished() ? 1 : 0;
-            Pair<Integer, Integer> finishedScale = numberTable.get(task.getSecondLevelTaskId());
-            if (finishedScale == null) {
-                numberTable.put(task.getSecondLevelTaskId(), new Pair<>(i, 1));
-            } else {
-                finishedScale.setRight(finishedScale.getRight() + 1);
-                finishedScale.setLeft(finishedScale.getLeft() + i);
+        for (Map.Entry<Integer, List<ThirdLevelTaskPO>> relation : relations.entrySet()) {
+            Pair<Integer, Integer> doneToTotal = new Pair<>(0, 0);
+            for (ThirdLevelTaskPO task : relation.getValue()) {
+                int i = task.isFinished() ? 1 : 0;
+                doneToTotal.setRight(doneToTotal.getRight() + 1);
+                doneToTotal.setLeft(doneToTotal.getLeft() + i);
             }
+            double process = doneToTotal.getLeft() * 1.0 / doneToTotal.getRight();
+            processTable.put(relation.getKey(), process);
         }
 
-        // Update the map
-        pointTable.clear();
-        pointTable = numberTable.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,
-                entry -> (entry.getValue().getLeft() * 1.0 / entry.getValue().getRight())));
+        return processTable;
     }
 }

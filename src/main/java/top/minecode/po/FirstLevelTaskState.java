@@ -6,9 +6,9 @@ package top.minecode.po;
  *
  * @author iznauy
  */
-public enum FirstLevelTaskStateType {
+public enum FirstLevelTaskState {
 
     ongoing,
-    completing
+    completed
 
 }

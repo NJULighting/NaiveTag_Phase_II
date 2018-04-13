@@ -2,7 +2,6 @@ package top.minecode.po;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Created on 2018/4/1.
@@ -23,7 +22,7 @@ public class FirstLevelTaskPO implements Serializable {
 
     private String resultFilePath;
 
-    private FirstLevelTaskStateType state;
+    private FirstLevelTaskState state;
 
     public String getResultFilePath() {
         return resultFilePath;
@@ -33,11 +32,11 @@ public class FirstLevelTaskPO implements Serializable {
         this.resultFilePath = resultFilePath;
     }
 
-    public FirstLevelTaskStateType getState() {
+    public FirstLevelTaskState getState() {
         return state;
     }
 
-    public void setState(FirstLevelTaskStateType state) {
+    public void setState(FirstLevelTaskState state) {
         this.state = state;
     }
 

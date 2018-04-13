@@ -40,6 +40,10 @@ public class RankTable implements Serializable {
         return getRankByName(name);
     }
 
+    public double getRankRatio(int id) {
+        return getRankById(id) * 1.0 / rank.size();
+    }
+
     public void add(RankItem rankItem) {
         // Add and sort
         List<RankItem> rankItems = rank.getAll();
