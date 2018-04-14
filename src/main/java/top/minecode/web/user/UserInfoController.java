@@ -55,6 +55,8 @@ public class UserInfoController extends BaseController {
             userInfoResponse = workerUserInfo;
         } else if (user.getUserType() == UserType.requester) {
             userInfoResponse = new WorkerUserInfoResponse();
+        } else {
+            return null;
         }
         userInfoResponse.setEmail(user.getEmail());
         userInfoResponse.setName(user.getName());
