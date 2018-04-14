@@ -2,7 +2,6 @@ package top.minecode.dao.task.requester;
 
 import top.minecode.po.*;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,32 +23,36 @@ public enum TaskMaps {
     private Map<Integer, List<Integer>> oneThreeMap;
 
     TaskMaps() {
-        updateMaps();
+        updateOneThreeMap();
+        updateOneThreeMap();
+        updateTwoThreeMap();
     }
 
     public List<Integer> getSecondTasks(int firstTaskId) {
+        updateOneTwoMap();
         return oneTwoMap.get(firstTaskId);
     }
 
     public Map<Integer, List<ThirdLevelTaskPO>> oneThreeIdObjMap(int ownerId) {
+        updateOneThreeMap();
         List<Integer> firstLevelTasks = getUserFirstLevelTaskIds(ownerId);
-        Function<Integer, List<ThirdLevelTaskPO>> mapper = idThirdLevelTaskMapper(firstLevelTasks, oneThreeMap);
+        Function<Integer, List<ThirdLevelTaskPO>> mapper = idThirdLevelTaskMapper(oneThreeMap);
 
         return transformIdToObject(firstLevelTasks, mapper);
     }
 
     public Map<Integer, List<ThirdLevelTaskPO>> twoThreeIdObjMap(int firstLevelTaskId) {
+        updateTwoThreeMap();
         List<Integer> secondLevelTasks = getSecondTasks(firstLevelTaskId);
 
-        return transformIdToObject(secondLevelTasks, idThirdLevelTaskMapper(secondLevelTasks, twoThreeMap));
+        return transformIdToObject(secondLevelTasks, idThirdLevelTaskMapper(twoThreeMap));
     }
 
     private <T> Map<Integer, List<T>> transformIdToObject(List<Integer> parentIds, Function<Integer, List<T>> mapper) {
         return parentIds.stream().collect(Collectors.toMap(Function.identity(), mapper));
     }
 
-    private Function<Integer, List<ThirdLevelTaskPO>> idThirdLevelTaskMapper(List<Integer> parentIds,
-                                                                             Map<Integer, List<Integer>> relations) {
+    private Function<Integer, List<ThirdLevelTaskPO>> idThirdLevelTaskMapper(Map<Integer, List<Integer>> relations) {
         Table<ThirdLevelTaskPO> thirdLevelTasks = TableFactory.thirdLevelTaskTable();
 
         return id -> relations.get(id).stream()
@@ -62,19 +65,24 @@ public enum TaskMaps {
                 .getAttributesBy(ownerId, FirstLevelTaskPO::getOwnerId, FirstLevelTaskPO::getId);
     }
 
-    private void updateMaps() {
-        Table<SecondLevelTaskPO> secondLevelTasks = TableFactory.secondLevelTaskTable();
+    private void updateTwoThreeMap() {
         Table<ThirdLevelTaskPO> thirdLevelTasks = TableFactory.thirdLevelTaskTable();
-        // Update first-second level tasks map
-        oneTwoMap = secondLevelTasks.getAll()
-                .stream().collect(groupingBy(SecondLevelTaskPO::getFirstLevelTaskId,
-                        mapping(SecondLevelTaskPO::getId, toList())));
-
         // Update second-third level tasks map
         twoThreeMap = thirdLevelTasks.getAll()
                 .stream().collect(groupingBy(ThirdLevelTaskPO::getSecondLevelTaskId,
                         mapping(ThirdLevelTaskPO::getId, toList())));
+    }
 
+    private void updateOneTwoMap() {
+        Table<SecondLevelTaskPO> secondLevelTasks = TableFactory.secondLevelTaskTable();
+        // Update first-second level tasks map
+        oneTwoMap = secondLevelTasks.getAll()
+                .stream().collect(groupingBy(SecondLevelTaskPO::getFirstLevelTaskId,
+                        mapping(SecondLevelTaskPO::getId, toList())));
+    }
+
+    private void updateOneThreeMap() {
+        Table<SecondLevelTaskPO> secondLevelTasks = TableFactory.secondLevelTaskTable();
         // Update first-third level tasks map
         oneThreeMap = new HashMap<>();
         for (Map.Entry<Integer, List<Integer>> twoThreeEntry : twoThreeMap.entrySet()) {
