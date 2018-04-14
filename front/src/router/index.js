@@ -7,9 +7,11 @@ import search from '../components/worker/workerSearch.vue'
 import worker_navi from '../components/worker/workerNavi.vue'
 import user from '../components/worker/workerUserPage.vue'
 import login from '../components/login.vue'
+import signUp from '../components/signUp.vue'
 import requesterIndex from '../components/requester/requester-index.vue'
 import requesterHome from '../components/requester/home.vue'
 import requesterCreateTask from '../components/requester/createTask.vue'
+
 
 Vue.use(VueRouter)
 
@@ -29,20 +31,21 @@ const router = new VueRouter({
         },
         {path: '/task', component: task},
         {path: '/login', component: login},
+        {path: '/signUp', component: signUp},
         {
             path: '/requester', component: requesterIndex,
             children: [
                 {path: 'home', component: requesterHome},
-                {path:'createTask',component:requesterCreateTask}
+                {path: 'createTask', component: requesterCreateTask}
             ]
         }
     ],
 
-    scrollBehavior (to, from, savedPosition) {
+    scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
             return savedPosition
         } else {
-            return { x: 0, y: 0 }
+            return {x: 0, y: 0}
         }
     }
 
