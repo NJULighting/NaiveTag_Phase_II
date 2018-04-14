@@ -1,8 +1,32 @@
 <template>
-    <div>
-        <el-input clearable v-model="username" placeholder="用户名"></el-input>
-        <el-input clearable v-model="password" placeholder="密码"></el-input>
-        <el-button @click="login">登录</el-button>
+    <div style="background-image: url('/src/assets/loginbackground.png');width: 100%;height: 100%">
+        <div style="padding-top: 18%">
+            <el-row>
+                <el-col :span="5" :offset="16">
+                    <el-card class="login-card">
+                        <el-col :span="22" :offset="1">
+                            <el-form>
+
+                                <el-form-item label="用户名">
+                                    <el-input clearable v-model="username"></el-input>
+                                </el-form-item>
+                                <el-form-item label="密码">
+                                    <el-input clearable v-model="password"></el-input>
+                                </el-form-item>
+                                <br>
+                                <el-form-item>
+                                    <el-button style="width: 100%" type="primary" @click="login">登录</el-button>
+                                </el-form-item>
+
+
+                            </el-form>
+                            <el-button class="signUp-button" type="text" @click="signUp">注册新用户</el-button>
+
+                        </el-col>
+                    </el-card>
+                </el-col>
+            </el-row>
+        </div>
     </div>
 </template>
 
@@ -20,26 +44,37 @@
         methods: {
             login: function (event) {
                 let result = login(this.username, this.password);
-                if (result.result==='success'){
-                    switch (result.userType){
+                if (result.result === 'success') {
+                    switch (result.userType) {
                         case 'admin':
                             break;
                         case 'worker':
-                            this.$router.push('/home');
+                            this.$router.push('/worker/home');
                             break;
                         case 'requester':
                             this.$router.push('/requester/home');
                             break;
                         default:
-                            console.log('login error'+ result.userType);
+                            console.log('login error' + result.userType);
                             break;
                     }
-                } 
+                }
+            },
+            signUp(){
+                this.$router.push('/signUp')
             }
         }
     }
 </script>
 
 <style scoped>
+    .login-card {
+        background-color: rgba(255, 255, 255, 0.6);
+        border-width: 0;
+    }
 
+    .signUp-button{
+        float: right;
+        padding-bottom: 25px;
+    }
 </style>
