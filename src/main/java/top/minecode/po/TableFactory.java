@@ -1,5 +1,9 @@
 package top.minecode.po;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * Created on 2018/4/7.
  * Description:
@@ -69,5 +73,21 @@ public class TableFactory {
 
     public static RankTable rankTable() {
         return rankTable;
+    }
+
+    public static void saveAll() {
+        try {
+            Method tableSave = Table.class.getMethod("save");
+            for (Field table : TableFactory.class.getDeclaredFields()) {
+                if (!table.getName().equals("rankTable"))
+                    // Save table except rankTable
+                    tableSave.invoke(table.get(null));
+                else
+                    // Save rankTable
+                    RankTable.class.getMethod("save").invoke(table.get(null));
+            }
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }

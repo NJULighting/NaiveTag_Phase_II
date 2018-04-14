@@ -11,12 +11,12 @@ public class TaskParticipant {
 
     private Integer rank;
     private double ability; // Average score ratio
-    private double rankRatio;
+    private double rankRate;
 
-    public TaskParticipant(Integer rank, double ability, double rankRatio) {
+    public TaskParticipant(Integer rank, double ability, double rankRate) {
         this.rank = rank;
         this.ability = ability;
-        this.rankRatio = rankRatio;
+        this.rankRate = rankRate;
     }
 
     public String toJson() {
@@ -31,7 +31,7 @@ public class TaskParticipant {
         return ability;
     }
 
-    public double getRankRatio() {
-        return rankRatio;
+    public double getRankRate() {
+        return rankRate;
     }
 }

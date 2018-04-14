@@ -9,6 +9,7 @@ import top.minecode.domain.task.requester.RequesterTaskInfo;
 import top.minecode.domain.task.requester.TaskParticipant;
 import top.minecode.po.FirstLevelTaskPO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,12 +44,17 @@ public class RequesterTaskService {
                 .collect(Collectors.toList());
     }
 
-    public List<RequesterTaskDetails> getTaskDetails(int ownerId, int taskId) {
+    public List<RequesterTaskDetails> getTaskDetails(int taskId) {
         // Get task information and participants
-        List<RequesterTaskInfo> taskInformation = getTasksInfo(ownerId);
+        Map<Integer, Double> processes = requesterStatisticDao.getSecondLevelTaskProcess(taskId);
         Map<Integer, List<TaskParticipant>> participants = requesterTaskDao.getParticipants(taskId);
 
-        return taskInformation.stream().map(t -> new RequesterTaskDetails(t, participants.get(t.getTaskId())))
-                .collect(Collectors.toList());
+        // Combine them to RequesterTaskDetails list
+        List<RequesterTaskDetails> details = new ArrayList<>();
+        for (Map.Entry<Integer, Double> entry : processes.entrySet()) {
+            details.add(new RequesterTaskDetails(entry.getValue(), participants.get(entry.getKey())));
+        }
+
+        return details;
     }
 }

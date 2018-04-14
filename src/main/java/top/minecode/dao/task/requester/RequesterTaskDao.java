@@ -20,8 +20,6 @@ import static java.util.stream.Collectors.toList;
 @Repository
 public class RequesterTaskDao {
 
-    private RequesterStatisticDao statisticDao;
-
     public List<FirstLevelTaskPO> getTasks(int ownerId) {
         return TableFactory.firstLevelTaskTable().getPOsBy(ownerId, FirstLevelTaskPO::getOwnerId);
     }
@@ -32,24 +30,21 @@ public class RequesterTaskDao {
         Table<WorkerPO> workerTable = TableFactory.workerTable();
         RankTable rankTable = TableFactory.rankTable();
 
+        // Key is second level task's id and the value is the task's participants
         Map<Integer, List<TaskParticipant>> participantsMap = new HashMap<>();
 
         for (Map.Entry<Integer, List<ThirdLevelTaskPO>> entry : twoThreeTaskMap.entrySet()) {
-            List<TaskParticipant> participants = entry.getValue().stream().map(e -> {
-                int id = e.getId();
-                int rank = rankTable.getRankById(id);
-                double rankRatio = rankTable.getRankRatio(id);
-                double ability = workerTable.getPOBy(e, WorkerPO::getId).getAverageScoreRatio();
-                return new TaskParticipant(rank, ability, rankRatio);
-            }).collect(toList());
+            List<TaskParticipant> participants = entry.getValue().stream()
+                    .flatMap(e -> e.getParticipants().stream()).distinct().map(e -> {
+                        int rank = rankTable.getRankById(e);
+                        double rankRatio = rankTable.getRankRatio(e);
+                        double ability = workerTable.getPOBy(e, WorkerPO::getId).getAverageScoreRatio();
+                        return new TaskParticipant(rank, ability, rankRatio);
+                    }).collect(toList());
+
             participantsMap.put(entry.getKey(), participants);
         }
 
         return participantsMap;
-    }
-
-    @Autowired
-    public void setStatisticDao(RequesterStatisticDao statisticDao) {
-        this.statisticDao = statisticDao;
     }
 }

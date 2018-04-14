@@ -22,6 +22,10 @@ public class RankTable implements Serializable {
         rank = new Table<>(TABLE_NAME);
     }
 
+    public void save() {
+        sort();
+        rank.save();
+    }
 
     public int getRankByName(String name) {
         sort();

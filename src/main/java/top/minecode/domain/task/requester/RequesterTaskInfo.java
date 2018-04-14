@@ -13,22 +13,22 @@ import java.time.LocalDate;
  */
 public class RequesterTaskInfo {
 
-    private String name;
+    private String taskName;
     private int taskId;
     private double process;
     private LocalDate endDate;
-    private FirstLevelTaskState result;
+    private FirstLevelTaskState state;
 
     public RequesterTaskInfo(FirstLevelTaskPO po, double process) {
-        name = po.getTaskName();
+        taskName = po.getTaskName();
         taskId = po.getId();
         this.process = process;
         this.endDate = po.getEndDate();
-        result = process >= 1 ? FirstLevelTaskState.completed : FirstLevelTaskState.ongoing;
+        state = process >= 1 ? FirstLevelTaskState.completed : FirstLevelTaskState.ongoing;
     }
 
-    public String getName() {
-        return name;
+    public String getTaskName() {
+        return taskName;
     }
 
     public int getTaskId() {
@@ -39,8 +39,8 @@ public class RequesterTaskInfo {
         return process;
     }
 
-    public FirstLevelTaskState getResult() {
-        return result;
+    public FirstLevelTaskState getState() {
+        return state;
     }
 
     public LocalDate getEndDate() {

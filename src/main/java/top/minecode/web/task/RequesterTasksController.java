@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import top.minecode.domain.task.requester.RequesterTaskDetails;
 import top.minecode.domain.task.requester.RequesterTaskInfo;
 import top.minecode.domain.user.User;
 import top.minecode.json.JsonConfig;
@@ -39,8 +40,9 @@ public class RequesterTasksController extends BaseController {
 
     @RequestMapping("/details")
     @ResponseBody
-    public String getTaskDetail(HttpServletRequest request) {
-        return null;
+    public String getTaskDetail(int taskId) {
+        List<RequesterTaskDetails> details = service.getTaskDetails(taskId);
+        return JsonConfig.getGson().toJson(details);
     }
 
     @RequestMapping("/new")

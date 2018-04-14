@@ -38,6 +38,7 @@ public class RequesterStatisticDao {
         return calculate(TaskMaps.INSTANCE.twoThreeIdObjMap(firstLevelTaskId));
     }
 
+    //TODO Need to check
     private Map<Integer, Double> calculate(Map<Integer, List<ThirdLevelTaskPO>> relations) {
         // Key is second level task id and the value is the process
         Map<Integer, Double> processTable = new HashMap<>();
