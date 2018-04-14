@@ -19,6 +19,17 @@ import java.util.NoSuchElementException;
 @Repository
 public class UserDao {
 
+    public void addUserLoginLog(User user) {
+        Table<LoginLogPO> loginLogPOTable = TableFactory.loginLogTable();
+        if (user.getUserType() == UserType.admin)
+            return;
+        LoginLogPO loginLog = new LoginLogPO();
+        loginLog.setUserId(user.getId());
+        loginLog.setUserType(user.getUserType());
+        loginLogPOTable.add(loginLog);
+    }
+
+
     public User getUserByUsername(String userName) {
 
         System.out.println(userName);

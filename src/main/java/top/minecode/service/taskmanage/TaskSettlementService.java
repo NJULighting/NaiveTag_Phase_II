@@ -19,8 +19,6 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Created on 2018/4/13.
@@ -65,15 +63,25 @@ public class TaskSettlementService {
         Map<String, TagResult> tagResults = null;
         List<ThirdLevelTaskResultPO> resultPOS = workerUtilsDao.getTaskResultsByTaskId(taskPO.getId());
         for (ThirdLevelTaskResultPO resultPO: resultPOS) {
+            // 找出worker，创建log对象
+
+            WorkerSettlementLogPO logPO = new WorkerSettlementLogPO();
+            logPO.setTaskType(taskPO.getTaskType());
+            logPO.setUserId(resultPO.getDoerId());
+
             // 只可能出现正在做，以及没有支付
             // 因为finish只有在结算后才会出现，而expired不需要给他结算
+
             if (resultPO.getState() == ThirdLevelTaskResultType.doing) {
                 resultPO.setState(ThirdLevelTaskResultType.expired);
                 // 把用户从doer里面移除
                 taskPO.getCurrentDoingWorkerIds().remove(resultPO.getDoerId());
+
+                // 设置赚得的分数为0
+                logPO.setEarnedScore(0.0);
             } else if (resultPO.getState() == ThirdLevelTaskResultType.unpay) {
-                int workerId = resultPO.getDoerId();
-                WorkerPO workerPO = workerUtilsDao.getWorkerPOById(workerId);
+
+                WorkerPO workerPO = workerUtilsDao.getWorkerPOById(resultPO.getDoerId());
 
                 double rawScore = workerPO.getScores();
                 double newScore = rawScore + taskPO.getStandardScore();
@@ -81,6 +89,9 @@ public class TaskSettlementService {
                 resultPO.setState(ThirdLevelTaskResultType.finish);
 
                 totalPayedScore += taskPO.getStandardScore();
+
+                // 设置赚得的分数
+                logPO.setEarnedScore(taskPO.getStandardScore());
 
                 if (tagResults == null) {
                     tagResults = new HashMap<>();
@@ -95,6 +106,8 @@ public class TaskSettlementService {
                 }
             }
             taskPO.setState(ThirdLevelTaskState.finished);
+            // 插入结算日志
+            taskSettlementDao.addWorkerTaskSettlement(logPO);
         }
         return new Pair<>(tagResults, totalPayedScore);
     }
@@ -122,6 +135,7 @@ public class TaskSettlementService {
     public void settle() {
         settleRequesterCompletedTask();
         settleWorkerExpiredTask();
+        TableFactory.saveAll();
     }
 
     /**
@@ -130,6 +144,7 @@ public class TaskSettlementService {
     private void settleWorkerExpiredTask() {
         List<ThirdLevelTaskResultPO> requireExpiredTaskResult = taskSettlementDao.getAllRequireExpiredTask();
         for (ThirdLevelTaskResultPO resultPO: requireExpiredTaskResult) {
+
             resultPO.setState(ThirdLevelTaskResultType.expired);
 
             int taskId = resultPO.getThirdLevelTaskId();
@@ -140,6 +155,13 @@ public class TaskSettlementService {
             task.getCurrentDoingWorkerIds().remove(doerId);
             if (task.getState() == ThirdLevelTaskState.locked)
                 task.setState(ThirdLevelTaskState.doing);
+
+            WorkerSettlementLogPO logPO = new WorkerSettlementLogPO();
+            logPO.setUserId(resultPO.getDoerId());
+            logPO.setEarnedScore(0.0);
+            logPO.setTaskType(task.getTaskType());
+
+            taskSettlementDao.addWorkerTaskSettlement(logPO);
         }
     }
 
