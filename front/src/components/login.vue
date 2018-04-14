@@ -1,7 +1,7 @@
 <template>
-    <div style="background-image: url('/src/assets/loginbackground.png');width: 100%;height: 100%">
-        <div style="padding-top: 18%">
-            <el-row>
+    <div style="background-image: url('/src/assets/loginbackground.png');width: 100%;height: 100%;background-size: cover;">
+        <div>
+            <el-row style="padding-top: 260px">
                 <el-col :span="5" :offset="16">
                     <el-card class="login-card">
                         <el-col :span="22" :offset="1">

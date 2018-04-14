@@ -2,7 +2,7 @@
     <el-row>
         <el-col :span="18" :offset="3">
             <br>
-            <task-box v-for="item  in taskList" :task="item"></task-box>
+            <task-box v-for="(item,key)  in taskList" :task="item" :key="key"></task-box>
         </el-col>
     </el-row>
 </template>

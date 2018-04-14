@@ -18,18 +18,18 @@ import java.util.List;
 @Repository
 public class TagDao {
 
-    private WorkerTaskUtils workerTaskUtils = new WorkerTaskUtils();
+    private WorkerUtilsDao workerUtilsDao = new WorkerUtilsDao();
 
     public void saveTag(int taskId, User user, String url, TagResult tagResult) {
         Table<ThirdLevelTaskResultPO> thirdLevelTaskResultPOTable
                 = TableFactory.thirdLevelTaskResultTable();
-        ThirdLevelTaskResultPO resultPO = workerTaskUtils.getResultPOByUserIdAndTaskId(user.getId(), taskId);
+        ThirdLevelTaskResultPO resultPO = workerUtilsDao.getResultPOByUserIdAndTaskId(user.getId(), taskId);
         resultPO.getTagResults().put(url, tagResult);
         thirdLevelTaskResultPOTable.save();
     }
 
     public TagResult getTagResult(int taskId, User user, String url) {
-        ThirdLevelTaskResultPO resultPO = workerTaskUtils.getResultPOByUserIdAndTaskId(user.getId(), taskId);
+        ThirdLevelTaskResultPO resultPO = workerUtilsDao.getResultPOByUserIdAndTaskId(user.getId(), taskId);
         return resultPO.getTagResults().get(url);
     }
 

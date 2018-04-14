@@ -40,7 +40,7 @@
                             "picAmount": 78,
 
                             //"process": 67,
-                            "cover": "./src/components/test.jpg",
+                            "cover": "/src/components/test.jpg",
                             //"beginDate": "2018-3-22",
                             //"endDate": "2018-3-22",
                             //"state": "expired" // unpay、finish、doing、expired(等待结算、完成、进行、过期)
@@ -52,7 +52,7 @@
                             "averageScore": 103,
                             "payDay": "2018-3-22",
                             "picAmount": 78,
-                            "cover": "./src/components/test.jpg",
+                            "cover": "/src/components/test.jpg",
                         },
                         {
                             "taskId": 100,
@@ -61,7 +61,7 @@
                             "averageScore": 103,
                             "payDay": "2018-3-22",
                             "picAmount": 78,
-                            "cover": "./src/components/test.jpg",
+                            "cover": "/src/components/test.jpg",
                         },
                         {
                             "taskId": 100,
@@ -70,7 +70,7 @@
                             "averageScore": 103,
                             "payDay": "2018-3-22",
                             "picAmount": 78,
-                            "cover": "./src/components/test.jpg",
+                            "cover": "/src/components/test.jpg",
                         },
                         {
                             "taskId": 100,
@@ -79,7 +79,7 @@
                             "averageScore": 103,
                             "payDay": "2018-3-22",
                             "picAmount": 78,
-                            "cover": "./src/components/test.jpg",
+                            "cover": "/src/components/test.jpg",
                         },
                         {
                             "taskId": 100,
@@ -88,7 +88,7 @@
                             "averageScore": 103,
                             "payDay": "2018-3-22",
                             "picAmount": 78,
-                            "cover": "./src/components/test.jpg",
+                            "cover": "/src/components/test.jpg",
                         },
                         {
                             "taskId": 100,
@@ -97,7 +97,7 @@
                             "averageScore": 103,
                             "payDay": "2018-3-22",
                             "picAmount": 78,
-                            "cover": "./src/components/test.jpg",
+                            "cover": "/src/components/test.jpg",
                         },
                         {
                             "taskId": 100,
@@ -106,7 +106,7 @@
                             "averageScore": 103,
                             "payDay": "2018-3-22",
                             "picAmount": 78,
-                            "cover": "./src/components/test.jpg",
+                            "cover": "/src/components/test.jpg",
                         },
                     ]
             }
