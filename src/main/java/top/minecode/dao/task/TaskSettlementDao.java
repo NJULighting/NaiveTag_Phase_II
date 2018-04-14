@@ -1,13 +1,14 @@
 package top.minecode.dao.task;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import top.minecode.po.FirstLevelTaskPO;
-import top.minecode.po.SecondLevelTaskPO;
-import top.minecode.po.Table;
-import top.minecode.po.TableFactory;
+import top.minecode.dao.user.UserDao;
+import top.minecode.domain.task.ThirdLevelTaskResultType;
+import top.minecode.po.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,15 +28,33 @@ public class TaskSettlementDao {
                 FirstLevelTaskPO::getEndDate);
     }
 
-    /**
-     * 根据一级任务id集合查找对应的二级任务
-     * @param ids
-     * @return
-     */
-    public List<SecondLevelTaskPO> getSecondLevelTasksByIds(Set<Integer> ids) {
+    public List<ThirdLevelTaskResultPO> getAllRequireExpiredTask() {
+        LocalDate currentDate = LocalDate.now();
+        return TableFactory.thirdLevelTaskResultTable().getPOsBy(currentDate,
+                ThirdLevelTaskResultPO::getExpireTime).stream()
+                .filter(e -> e.getState().equals(ThirdLevelTaskResultType.doing))
+                .collect(Collectors.toList());
+    }
+
+    @Deprecated
+    public Map<Integer, List<SecondLevelTaskPO>> groupedTasks(Set<Integer> ids) {
         return TableFactory.secondLevelTaskTable().getAll()
                 .stream().filter(e -> ids.contains(e.getFirstLevelTaskId()))
-                .collect(Collectors.toList());
+                .collect(Collectors.groupingBy(SecondLevelTaskPO::getFirstLevelTaskId));
+    }
+
+    @Deprecated
+    public Map<Integer, List<ThirdLevelTaskPO>> groupedThirdLevelTasks(Set<Integer> ids) {
+        return TableFactory.thirdLevelTaskTable().getAll()
+                .stream().filter(e -> ids.contains(e.getSecondLevelTaskId()))
+                .collect(Collectors.groupingBy(ThirdLevelTaskPO::getSecondLevelTaskId));
+    }
+
+    @Deprecated
+    public Map<Integer, List<ThirdLevelTaskResultPO>> groupedThirdLevelResultTasks(Set<Integer> ids) {
+        return TableFactory.thirdLevelTaskResultTable().getAll()
+                .stream().filter(e -> ids.contains(e.getThirdLevelTaskId()))
+                .collect(Collectors.groupingBy(ThirdLevelTaskResultPO::getThirdLevelTaskId));
     }
 
 }

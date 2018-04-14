@@ -1,7 +1,6 @@
 package top.minecode.dao.task;
 
 import org.springframework.stereotype.Repository;
-import top.minecode.domain.statistic.RankItem;
 import top.minecode.domain.task.ThirdLevelTaskResultType;
 import top.minecode.domain.task.ThirdLevelTaskState;
 import top.minecode.domain.user.User;
@@ -21,7 +20,7 @@ import java.util.stream.Collectors;
 @Repository
 public class WorkerTaskDao {
 
-    private WorkerTaskUtils workerTaskUtils = new WorkerTaskUtils();
+    private WorkerUtilsDao workerUtilsDao = new WorkerUtilsDao();
 
     public List<ThirdLevelTaskPO> getAccessibleTaskList(User user) {
 
@@ -103,7 +102,7 @@ public class WorkerTaskDao {
         Table<ThirdLevelTaskPO> thirdLevelTaskPOTable
                 = TableFactory.thirdLevelTaskTable();
 
-        ThirdLevelTaskResultPO thirdLevelTaskResultPO = workerTaskUtils.getResultPOByUserIdAndTaskId(user.getId(), taskId);
+        ThirdLevelTaskResultPO thirdLevelTaskResultPO = workerUtilsDao.getResultPOByUserIdAndTaskId(user.getId(), taskId);
         ThirdLevelTaskPO thirdLevelTaskPO = thirdLevelTaskPOTable.getPOBy(taskId, ThirdLevelTaskPO::getId);
         // 如果任务没有做完
         if (thirdLevelTaskResultPO.getTagResults().size() != thirdLevelTaskPO.getPicList().size())
