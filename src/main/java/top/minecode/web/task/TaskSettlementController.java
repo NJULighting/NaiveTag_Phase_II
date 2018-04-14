@@ -2,6 +2,7 @@ package top.minecode.web.task;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import top.minecode.service.taskmanage.TaskSettlementService;
 
 /**
@@ -10,7 +11,7 @@ import top.minecode.service.taskmanage.TaskSettlementService;
  * 每日自动结算
  * @author iznauy
  */
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class TaskSettlementController {
 
