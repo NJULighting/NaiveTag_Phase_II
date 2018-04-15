@@ -22,6 +22,10 @@ import java.util.stream.Collectors;
 @Repository
 public class TaskSettlementDao {
 
+    public void addWorkerTaskSettlement(WorkerSettlementLogPO settlementLogPO) {
+        TableFactory.workerSettlementLogTable().add(settlementLogPO);
+    }
+
     public List<FirstLevelTaskPO> getAllRequireSettlementTask() {
         LocalDate currentDate = LocalDate.now();
         return TableFactory.firstLevelTaskTable().getPOsBy(currentDate,

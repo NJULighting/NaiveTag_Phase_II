@@ -20,6 +20,8 @@ public class TableFactory {
     private static final Table<TaskDetailsPO> taskDetailsTable;
     private static final Table<ThirdLevelTaskPO> thirdLevelTaskTable;
     private static final Table<ThirdLevelTaskResultPO> thirdLevelTaskResultTable;
+    private static final Table<LoginLogPO> loginLogTable;
+    private static final Table<WorkerSettlementLogPO> workerSettlementLogTable;
     private static final RankTable rankTable;
 
     static {
@@ -33,6 +35,8 @@ public class TableFactory {
         thirdLevelTaskTable = new Table<>("thirdLevelTask");
         thirdLevelTaskResultTable = new Table<>("thirdLevelTaskResult");
         rankTable = new RankTable();
+        loginLogTable = new Table<>("loginLog");
+        workerSettlementLogTable = new Table<>("workerSettlementLog");
     }
 
     public static Table<AdministratorPO> administratorTable() {
@@ -73,6 +77,14 @@ public class TableFactory {
 
     public static RankTable rankTable() {
         return rankTable;
+    }
+
+    public static Table<LoginLogPO> loginLogTable() {
+        return loginLogTable;
+    }
+
+    public static Table<WorkerSettlementLogPO> workerSettlementLogTable() {
+        return workerSettlementLogTable;
     }
 
     public static void saveAll() {

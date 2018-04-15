@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import top.minecode.dao.user.UserDao;
 import top.minecode.domain.user.GeneralUser;
 import top.minecode.domain.user.User;
+import top.minecode.domain.user.UserType;
 import top.minecode.exception.*;
 
 /**
@@ -59,7 +60,7 @@ public class UserService {
         if (!target.getPassword().equals(password))
             throw new InvalidPasswordException();
 
-        // TODO 记录登录，作为统计信息使用
+        userDao.addUserLoginLog(user);
 
         return target;
     }

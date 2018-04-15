@@ -90,8 +90,7 @@
             signUp() {
                 this.$refs['signUpForm'].validate((valid) => {
                     if (valid) {
-                        alert('valid');
-                        signUp()
+                        signUp(this.signUpForm);
                     } else {
 
                     }

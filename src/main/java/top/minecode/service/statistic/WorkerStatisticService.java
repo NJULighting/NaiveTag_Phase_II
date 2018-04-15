@@ -35,4 +35,8 @@ public class WorkerStatisticService {
         return workerStatisticDao.getWorkerRank(user.getId());
     }
 
+    public List<Double> getUserAbilityChanges(User user) {
+        return workerStatisticDao.getWorkerSettlementHistory(user.getId());
+    }
+
 }

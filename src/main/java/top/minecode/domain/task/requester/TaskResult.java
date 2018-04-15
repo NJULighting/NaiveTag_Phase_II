@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class TaskResult {
 
-    List<SubTaskResult> subTasks;
+    private List<SubTaskResult> subTasks;
 
     public TaskResult() {
         subTasks = new LinkedList<>();

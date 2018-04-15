@@ -1,7 +1,7 @@
 <template>
     <el-row>
-        <el-col :span="18" :offset="3">
-            <br>
+        <el-col :span="16" :offset="4">
+
             <task-box v-for="(item,key)  in taskList" :task="item" :key="key"></task-box>
         </el-col>
     </el-row>
@@ -20,22 +20,25 @@
                         taskName: 'firstTask',
                         taskId: '213213',
                         taskType: 101,
-                        progress: 0.4,
-                        state: 'completed'
+                        process: 0.4,
+                        state: 'completed',
+                        endTime:'2018-05-01'
                     },
                     {
                         taskName: 'secondTask',
                         taskId: '213213',
                         taskType: 101,
-                        progress: 0.5,
-                        state: 'underway'
+                        process: 0.5,
+                        state: 'underway',
+                        endTime:'2018-05-01'
                     },
                     {
                         taskName: 'thirdTask',
                         taskId: '213213',
                         taskType: 101,
-                        progress: 1,
-                        state: 'completed'
+                        process: 1,
+                        state: 'completed',
+                        endTime:'2018-05-01'
                     }
                 ]
             }

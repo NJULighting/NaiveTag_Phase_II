@@ -11,6 +11,7 @@ import signUp from '../components/signUp.vue'
 import requesterIndex from '../components/requester/requester-index.vue'
 import requesterHome from '../components/requester/home.vue'
 import requesterCreateTask from '../components/requester/createTask.vue'
+import requesterTaskDetail from '../components/requester/taskDetail.vue'
 
 
 Vue.use(VueRouter)
@@ -36,7 +37,8 @@ const router = new VueRouter({
             path: '/requester', component: requesterIndex,
             children: [
                 {path: 'home', component: requesterHome},
-                {path: 'createTask', component: requesterCreateTask}
+                {path: 'createTask', component: requesterCreateTask},
+                {path:'taskDetail',component:requesterTaskDetail}
             ]
         }
     ],

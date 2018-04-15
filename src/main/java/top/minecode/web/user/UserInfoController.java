@@ -2,10 +2,12 @@ package top.minecode.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.minecode.domain.user.GeneralUser;
+import top.minecode.domain.user.User;
 import top.minecode.domain.user.UserType;
 import top.minecode.domain.user.Worker;
 import top.minecode.json.JsonConfig;
@@ -16,6 +18,7 @@ import top.minecode.service.user.UserService;
 import top.minecode.web.common.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created on 2018/4/2.
@@ -53,6 +56,8 @@ public class UserInfoController extends BaseController {
             userInfoResponse = workerUserInfo;
         } else if (user.getUserType() == UserType.requester) {
             userInfoResponse = new WorkerUserInfoResponse();
+        } else {
+            return null;
         }
         userInfoResponse.setEmail(user.getEmail());
         userInfoResponse.setName(user.getName());
@@ -66,8 +71,9 @@ public class UserInfoController extends BaseController {
     @RequestMapping("/ability")
     @ResponseBody
     public String getAbilityGraph(HttpServletRequest request) {
-        // TODO: 应该在任务结算完成过后来实现
-        return null;
+        User user = getSessionUser(request);
+        List<Double> recentEarnedScores = workerStatisticService.getUserAbilityChanges(user);
+        return JsonConfig.getGson().toJson(recentEarnedScores);
     }
 
 }

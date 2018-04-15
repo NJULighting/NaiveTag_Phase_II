@@ -1,5 +1,7 @@
 export function login(username, password) {
-    return JSON.parse(validateMock(username, password));
+    axios.post('login.html', {username: username, password: password}).then(function (response) {
+        console.log(response);
+    })
 }
 
 function validateFromServer(username, password) {
