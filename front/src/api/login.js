@@ -1,4 +1,4 @@
-export function login(username, password) {
+export function login(username, password,callback) {
     // axios.post('login.html', {username: username, password: password}).then(function (response) {
     //     console.log('login')
     //     console.log(response);
@@ -19,11 +19,12 @@ export function login(username, password) {
     {
         if (xmlhttp.readyState==4 && xmlhttp.status==200)
         {
-          console.log('success');
-          return ;
+          console.log(xmlhttp.responseText);
+          callback(JSON.parse(xmlhttp.responseText))
+
         }
     }
-    xmlhttp.open("POST","http://localhost:8000/naive/login.html?username=1&password=1",true);
+    xmlhttp.open("POST","http://localhost:8000/naive/login.html?username="+username+"&password="+password+"",true);
     xmlhttp.send();
 }
 
