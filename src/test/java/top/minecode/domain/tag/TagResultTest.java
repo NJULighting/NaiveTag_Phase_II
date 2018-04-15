@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.xml.dom.Tag;
+import top.minecode.domain.tag.*;
 
 import java.util.ArrayList;
 import java.util.List;
