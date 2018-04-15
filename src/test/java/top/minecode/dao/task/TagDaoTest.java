@@ -3,6 +3,7 @@ package top.minecode.dao.task;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import top.minecode.dao.task.TagDao;
 import top.minecode.domain.tag.GlobalLabelTagResult;
 import top.minecode.domain.tag.GlobalTagResult;
 import top.minecode.domain.tag.TagResult;
