@@ -45,6 +45,7 @@ public class RegisterController extends BaseController{
             UserType userType = user.getUserType();
             registerResponse.setUserType(userType.toString());
             user.setScore(0.0);
+            registerResponse.setResult(RegisterResponse.SUCCESS);
             setSessionUser(request, user);
         } catch (EmailExistedException e) {
             registerResponse.setResult(RegisterResponse.REPEATED_EMAIL);
