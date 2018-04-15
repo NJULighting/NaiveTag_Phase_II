@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.minecode.dao.statistic.RequesterStatisticDao;
 import top.minecode.dao.task.requester.RequesterTaskDao;
+import top.minecode.domain.task.TaskInfo;
 import top.minecode.domain.task.requester.RequesterTaskDetails;
 import top.minecode.domain.task.requester.RequesterTaskInfo;
 import top.minecode.domain.task.requester.TaskParticipant;
@@ -48,13 +49,17 @@ public class RequesterTaskService {
         // Get task information and participants
         Map<Integer, Double> processes = requesterStatisticDao.getSecondLevelTaskProcess(taskId);
         Map<Integer, List<TaskParticipant>> participants = requesterTaskDao.getParticipants(taskId);
+        Map<Integer, TaskInfo> taskInfoMap = requesterTaskDao.secondLevelTaskInfo(taskId);
 
         // Combine them to RequesterTaskDetails list
         List<RequesterTaskDetails> details = new ArrayList<>();
         for (Map.Entry<Integer, Double> entry : processes.entrySet()) {
-            details.add(new RequesterTaskDetails(entry.getValue(), participants.get(entry.getKey())));
+            int secondLvTaskId = entry.getKey();
+            details.add(new RequesterTaskDetails(entry.getValue(),
+                    participants.get(secondLvTaskId), taskInfoMap.get(secondLvTaskId)));
         }
 
         return details;
     }
+
 }

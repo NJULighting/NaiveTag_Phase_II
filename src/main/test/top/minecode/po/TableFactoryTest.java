@@ -14,13 +14,16 @@ public class TableFactoryTest {
 
     @Test
     public void testSaveAll() throws Exception {
-        FirstLevelTaskPO newTask = new FirstLevelTaskPO();
-        newTask.setTaskName("Excited");
-        TableFactory.firstLevelTaskTable().add(newTask);
+        FirstLevelTaskPO taskPO = new FirstLevelTaskPO();
+        taskPO.setTaskName("Excited");
+        TableFactory.firstLevelTaskTable().add(taskPO);
+        TableFactory.firstLevelTaskTable()
+                .getPOBy("Excited", FirstLevelTaskPO::getTaskName).setTaskName("ExcitedTask");
 
-        WorkerPO newWorker = new WorkerPO();
-        newWorker.setName("Frog");
-        TableFactory.workerTable().add(new WorkerPO());
+        WorkerPO workerPO = new WorkerPO();
+        workerPO.setName("Frog");
+        TableFactory.workerTable().add(workerPO);
+        TableFactory.workerTable().getPOBy("Frog", WorkerPO::getName).setName("ExcitedFrog");
 
         TableFactory.saveAll();
     }
