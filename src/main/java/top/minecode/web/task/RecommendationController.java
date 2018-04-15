@@ -20,7 +20,6 @@ import java.util.List;
  * Description:
  * @author Liao
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping("/recommendation")
 public class RecommendationController extends BaseController {

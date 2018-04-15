@@ -26,7 +26,6 @@ import java.util.List;
  *
  * @author iznauy
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping(value = "/userInfo")
 public class UserInfoController extends BaseController {

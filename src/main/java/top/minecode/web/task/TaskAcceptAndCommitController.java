@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author iznauy
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping(value = "/task")
 public class TaskAcceptAndCommitController extends BaseController {

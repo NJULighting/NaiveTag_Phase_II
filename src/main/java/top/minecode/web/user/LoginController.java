@@ -24,7 +24,6 @@ import javax.servlet.http.HttpSession;
  *
  * @author iznauy
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class LoginController extends BaseController {
 

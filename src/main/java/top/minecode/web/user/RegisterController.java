@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author iznauy
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping(value = "/join")
 public class RegisterController extends BaseController{

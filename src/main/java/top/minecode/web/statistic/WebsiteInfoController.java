@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
  * Description:
  * @author Liao
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping("/admin")
 public class WebsiteInfoController extends BaseController {

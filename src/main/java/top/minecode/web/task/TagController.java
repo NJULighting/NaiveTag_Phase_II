@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
  * Description:
  * @author Liao
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping("/tag")
 public class TagController extends BaseController {

@@ -11,7 +11,6 @@ import top.minecode.service.taskmanage.TaskSettlementService;
  * 每日自动结算
  * @author iznauy
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class TaskSettlementController {
 

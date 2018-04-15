@@ -14,7 +14,6 @@ import top.minecode.service.statistic.WorkerStatisticService;
  * Description:
  * @author Liao
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping("/rank")
 public class RankInfoController {

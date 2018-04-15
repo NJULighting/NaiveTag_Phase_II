@@ -21,7 +21,6 @@ import java.util.List;
  * Description: 工人历史任务
  * @author Liao
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping("/worker")
 public class WorkerHistoryTaskController extends BaseController {
