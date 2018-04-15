@@ -64,6 +64,7 @@ public class Table<PO> {
                 pos = new ArrayList<>();
                 //noinspection ResultOfMethodCallIgnored
                 resource.getFile().createNewFile();
+                save();
                 return;
             }
 

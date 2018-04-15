@@ -25,6 +25,9 @@ public class RequesterPO implements Serializable {
 
     private String email;
 
+    public RequesterPO() {
+    }
+
     public RequesterPO(Integer id, String userName, String name, String password, Double score, String email) {
         this.id = id;
         this.userName = userName;
@@ -94,6 +97,17 @@ public class RequesterPO implements Serializable {
         return requester;
     }
 
+    @Override
+    public String toString() {
+        return "RequesterPO{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", score=" + score +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
 
 

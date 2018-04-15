@@ -83,4 +83,17 @@ public class SecondLevelTaskPO implements Serializable {
     public void setTaskDetailsId(Integer taskDetailsId) {
         this.taskDetailsId = taskDetailsId;
     }
+
+    @Override
+    public String toString() {
+        return "SecondLevelTaskPO{" +
+                "id=" + id +
+                ", firstLevelTaskId=" + firstLevelTaskId +
+                ", taskName='" + taskName + '\'' +
+                ", totalScore=" + totalScore +
+                ", endDate=" + endDate +
+                ", taskDetailsId=" + taskDetailsId +
+                ", taskInfo=" + taskInfo +
+                '}';
+    }
 }

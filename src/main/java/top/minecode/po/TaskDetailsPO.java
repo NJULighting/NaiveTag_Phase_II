@@ -60,4 +60,15 @@ public class TaskDetailsPO implements Serializable {
     public void setTargetClasses(List<String> targetClasses) {
         this.targetClasses = targetClasses;
     }
+
+    @Override
+    public String toString() {
+        return "TaskDetailsPO{" +
+                "id=" + id +
+                ", correspondingSecondLevelTaskId=" + correspondingSecondLevelTaskId +
+                ", taskType=" + taskType +
+                ", taskDescription='" + taskDescription + '\'' +
+                ", targetClasses=" + targetClasses +
+                '}';
+    }
 }

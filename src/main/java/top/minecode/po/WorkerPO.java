@@ -104,4 +104,16 @@ public class WorkerPO implements Serializable {
         return worker;
     }
 
+    @Override
+    public String toString() {
+        return "WorkerPO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", scores=" + scores +
+                ", averageScoreRatio=" + averageScoreRatio +
+                '}';
+    }
 }

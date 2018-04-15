@@ -32,6 +32,7 @@
         <session-timeout>15</session-timeout> <!-- session 15分钟自动过期 -->
     </session-config>
 
+<!--
     <filter>
         <filter-name>contextFilter</filter-name>
         <filter-class>top.minecode.web.common.WebContextFilter</filter-class>
@@ -41,5 +42,7 @@
         <filter-name>contextFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+-->
 
 </web-app>

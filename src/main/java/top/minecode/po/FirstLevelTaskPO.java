@@ -79,4 +79,17 @@ public class FirstLevelTaskPO implements Serializable {
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
+
+    @Override
+    public String toString() {
+        return "FirstLevelTaskPO{" +
+                "id=" + id +
+                ", ownerId=" + ownerId +
+                ", taskName='" + taskName + '\'' +
+                ", totalScore=" + totalScore +
+                ", endDate=" + endDate +
+                ", resultFilePath='" + resultFilePath + '\'' +
+                ", state=" + state +
+                '}';
+    }
 }

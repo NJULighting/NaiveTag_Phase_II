@@ -47,4 +47,14 @@ public class WorkerFilterPO implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "WorkerFilterPO{" +
+                "id=" + id +
+                ", workerRankRatio=" + workerRankRatio +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
+    }
 }

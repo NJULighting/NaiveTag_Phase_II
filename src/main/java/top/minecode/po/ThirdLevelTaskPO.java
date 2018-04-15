@@ -177,4 +177,23 @@ public class ThirdLevelTaskPO implements Serializable {
         info.setCover(picList.get(0)); //默认封面就是0
         return info;
     }
+
+    @Override
+    public String toString() {
+        return "ThirdLevelTaskPO{" +
+                "id=" + id +
+                ", secondLevelTaskId=" + secondLevelTaskId +
+                ", taskName='" + taskName + '\'' +
+                ", standardScore=" + standardScore +
+                ", endDate=" + endDate +
+                ", taskDetailsId=" + taskDetailsId +
+                ", picList=" + picList +
+                ", taskDescription='" + taskDescription + '\'' +
+                ", currentDoingWorkerIds=" + currentDoingWorkerIds +
+                ", finishedWorkerIds=" + finishedWorkerIds +
+                ", workerFilterId=" + workerFilterId +
+                ", taskType=" + taskType +
+                ", state=" + state +
+                '}';
+    }
 }

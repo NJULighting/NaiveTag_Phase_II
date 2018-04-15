@@ -73,4 +73,13 @@ public class AdministratorPO implements Serializable {
         return administrator;
     }
 
+    @Override
+    public String toString() {
+        return "AdministratorPO{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
