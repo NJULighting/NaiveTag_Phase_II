@@ -49,7 +49,7 @@ public class TableTest {
 
     @Test(priority = 1)
     public void testFilterAndGet() throws Exception {
-        Table<ThirdLevelTaskPO> tasks = new Table<>("tasks");
+        Table<ThirdLevelTaskPO> tasks = TableFactory.thirdLevelTaskTable();
         Predicate<ThirdLevelTaskPO> filter = e -> e.getState() == ThirdLevelTaskState.doing;
         List<ThirdLevelTaskPO> resultList = tasks.filter(filter);
         assertNotNull(resultList);

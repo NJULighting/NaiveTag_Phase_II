@@ -2,6 +2,7 @@ package top.minecode.service.taskmanage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import top.minecode.dao.statistic.RequesterStatisticDao;
 import top.minecode.dao.task.requester.RequesterTaskDao;
 import top.minecode.domain.task.TaskInfo;
@@ -10,6 +11,8 @@ import top.minecode.domain.task.requester.RequesterTaskInfo;
 import top.minecode.domain.task.requester.TaskParticipant;
 import top.minecode.po.FirstLevelTaskPO;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +63,17 @@ public class RequesterTaskService {
         }
 
         return details;
+    }
+
+    public void saveFile(MultipartFile dataSet, MultipartFile taskJson, String dataPath) throws IOException {
+        dataSet.transferTo(new File(dataPath + dataSet.getOriginalFilename()));
+        taskJson.transferTo(new File(dataPath + "task.json"));
+
+        // Delivery
+    }
+
+    public int getNewTaskId(int ownerId) {
+        return requesterTaskDao.getTasks(ownerId).size() + 1;
     }
 
 }

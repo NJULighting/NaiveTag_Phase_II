@@ -1,0 +1,54 @@
+[
+  {
+    "taskType": 100,
+    "format": "jpg",
+    "classes": [
+      "ugly",
+      "not beautiful"
+    ],
+    "description": "您认为图片中的人物漂亮吗?"
+  },
+  {
+    "taskType": 101,
+    "format": "jpg",
+    "description": "请标出图中的动漫人物"
+  },
+  {
+    "taskType": 200,
+    "format": "jpg",
+    "classes": [
+      "here no boys",
+      "girl"
+    ],
+    "description": "框出图片中的动漫人物并标识其性别"
+  },
+  {
+    "taskType": 201,
+    "format": "jpg",
+    "description": "请标出图中的动漫人物"
+  },
+  {
+    "taskType": 300,
+    "format": "jpg",
+    "classes": [
+      "man",
+      "woman"
+    ],
+    "description": "框出图片中的动漫人物并标识其性别"
+  },
+  {
+    "taskType": 301,
+    "format": "jpg",
+    "description": "请标出图中的动漫人物"
+  },
+  {
+    "taskType": 400,
+    "format": "jpg",
+    "description": "勾勒出图片中动漫人物及其轮廓"
+  },
+  {
+    "taskType": 401,
+    "format": "jpg",
+    "description": "请标出图中的动漫人物"
+  }
+]
