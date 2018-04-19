@@ -24,6 +24,8 @@ public class FirstLevelTaskPO implements Serializable {
 
     private FirstLevelTaskState state;
 
+    private Integer workerFilterId;
+
     public String getResultFilePath() {
         return resultFilePath;
     }

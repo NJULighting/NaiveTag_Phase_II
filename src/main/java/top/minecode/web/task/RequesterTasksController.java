@@ -1,18 +1,32 @@
 package top.minecode.web.task;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.PathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import top.minecode.domain.task.requester.NewTaskInfo;
 import top.minecode.domain.task.requester.RequesterTaskDetails;
 import top.minecode.domain.task.requester.RequesterTaskInfo;
 import top.minecode.domain.user.User;
 import top.minecode.json.JsonConfig;
 import top.minecode.service.taskmanage.RequesterTaskService;
+import top.minecode.utils.Config;
+import top.minecode.utils.TaskConfigFileValidator;
 import top.minecode.web.common.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -24,6 +38,7 @@ import java.util.List;
 @RequestMapping("/requester")
 public class RequesterTasksController extends BaseController {
 
+    private static final String RESULT = "result";
     private RequesterTaskService service;
 
     @Autowired
@@ -41,14 +56,73 @@ public class RequesterTasksController extends BaseController {
 
     @RequestMapping("/details")
     @ResponseBody
-    public String getTaskDetail(int taskId) {
+    public String getTaskDetail(@RequestParam("taskId") int taskId) {
         List<RequesterTaskDetails> details = service.getTaskDetails(taskId);
         return JsonConfig.getGson().toJson(details);
     }
 
     @RequestMapping("/new")
     @ResponseBody
-    public String newTask(HttpServletRequest request) {
+    public String newTask(HttpServletRequest request, NewTaskInfo taskInfo,
+                          @RequestParam("dataset") MultipartFile dataset,
+                          @RequestParam("taskconf") MultipartFile taskconf) {
+
+        JsonObject result = new JsonObject();
+        Gson gson = JsonConfig.getGson();
+        Config config = Config.INSTANCE;
+
+        String rawDataSetPath = getPath(config.getRawFilePath(), request);
+
+        // Save the file
+        try {
+            service.saveFile(dataset, taskconf, rawDataSetPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            result.addProperty("result", "failure");
+            return gson.toJson(result);
+        }
+
+
         return null;
+    }
+
+    /**
+     * Check the task.json file
+     * @param taskconf the task.json file uploaded
+     * @return {"result" : "valid"} if the file's content is valid, otherwise
+     * {"result" : "invalid"} will be returned.
+     */
+    @RequestMapping("/check")
+    @ResponseBody
+    public String checkJsonFile(@RequestParam("taskconf") MultipartFile taskconf) {
+        JsonObject result = new JsonObject();
+        Gson gson = JsonConfig.getGson();
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(taskconf.getInputStream()))) {
+            TaskConfigFileValidator taskConfigFileValidator = new TaskConfigFileValidator(reader);
+            result.addProperty(RESULT, taskConfigFileValidator.checkResult().toString());
+            return gson.toJson(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+            result.addProperty(RESULT, TaskConfigFileValidator.Result.invalid.toString());
+            return gson.toJson(result);
+        }
+    }
+
+    private String getPath(String basePath, HttpServletRequest request) {
+        User user = getSessionUser(request);
+        String separator = File.separator;
+        int taskId = service.getNewTaskId(user.getId());
+
+        // Change the file path to standard from which is like 'servletContextPath/basePath/userId/taskId/'
+        String filePath =  request.getSession().getServletContext().getRealPath(basePath) + separator
+                + user.getId() + separator + taskId + separator;
+        File file = new File(filePath);
+        if (!file.exists()) {
+            //noinspection ResultOfMethodCallIgnored
+            file.mkdirs();
+        }
+
+        return filePath;
     }
 }

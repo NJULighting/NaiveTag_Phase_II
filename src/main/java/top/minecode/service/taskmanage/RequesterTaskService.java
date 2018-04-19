@@ -2,13 +2,17 @@ package top.minecode.service.taskmanage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import top.minecode.dao.statistic.RequesterStatisticDao;
 import top.minecode.dao.task.requester.RequesterTaskDao;
+import top.minecode.domain.task.TaskInfo;
 import top.minecode.domain.task.requester.RequesterTaskDetails;
 import top.minecode.domain.task.requester.RequesterTaskInfo;
 import top.minecode.domain.task.requester.TaskParticipant;
 import top.minecode.po.FirstLevelTaskPO;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,13 +52,28 @@ public class RequesterTaskService {
         // Get task information and participants
         Map<Integer, Double> processes = requesterStatisticDao.getSecondLevelTaskProcess(taskId);
         Map<Integer, List<TaskParticipant>> participants = requesterTaskDao.getParticipants(taskId);
+        Map<Integer, TaskInfo> taskInfoMap = requesterTaskDao.secondLevelTaskInfo(taskId);
 
         // Combine them to RequesterTaskDetails list
         List<RequesterTaskDetails> details = new ArrayList<>();
         for (Map.Entry<Integer, Double> entry : processes.entrySet()) {
-            details.add(new RequesterTaskDetails(entry.getValue(), participants.get(entry.getKey())));
+            int secondLvTaskId = entry.getKey();
+            details.add(new RequesterTaskDetails(entry.getValue(),
+                    participants.get(secondLvTaskId), taskInfoMap.get(secondLvTaskId)));
         }
 
         return details;
     }
+
+    public void saveFile(MultipartFile dataSet, MultipartFile taskJson, String dataPath) throws IOException {
+        dataSet.transferTo(new File(dataPath + dataSet.getOriginalFilename()));
+        taskJson.transferTo(new File(dataPath + "task.json"));
+
+        // Delivery
+    }
+
+    public int getNewTaskId(int ownerId) {
+        return requesterTaskDao.getTasks(ownerId).size() + 1;
+    }
+
 }
