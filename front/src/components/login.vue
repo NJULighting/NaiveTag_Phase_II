@@ -43,27 +43,35 @@
         },
         methods: {
             login: function (event) {
-                var router=this.$router;
-                let result = login(this.username, this.password,function (res) {
-                    if (res.result === 'success') {
-                        switch (res.userType) {
-                            case 'admin':
-                                break;
-                            case 'worker':
-                                router.push('/worker/home');
-                                break;
-                            case 'requester':
-                                router.push('/requester/home');
-                                break;
-                            default:
-                                console.log('login error' + result.userType);
-                                break;
+                var router = this.$router;
+                let result = login(this.username, this.password,
+                    function (res) {
+                    console.log(res);
+                    console.log(res.result);
+                        if (res.result === 'success') {
+                        console.log('success');
+                            switch (res.userType) {
+                                case 'admin':
+                                    break;
+                                case 'worker':
+                                    router.push('/worker/home');
+                                    console.log('this is worker');
+                                    break;
+                                case 'requester':
+                                    router.push('/requester/home');
+                                    console.log('this is requester');
+                                    break;
+                                default:
+                                    console.log('login error' + result.userType);
+                                    break;
+                            }
+                        }else {
+                        console.log('failure');
                         }
-                    }
-                });
+                    });
 
             },
-            signUp(){
+            signUp() {
                 this.$router.push('/signUp')
             }
         }
@@ -76,7 +84,7 @@
         border-width: 0;
     }
 
-    .signUp-button{
+    .signUp-button {
         float: right;
         padding-bottom: 25px;
     }

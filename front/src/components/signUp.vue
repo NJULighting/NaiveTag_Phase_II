@@ -29,6 +29,7 @@
 
             </el-form>
         </el-col>
+        <el-button @click="fastSignUp">一键填充</el-button>
     </div>
 </template>
 
@@ -87,10 +88,23 @@
             }
         },
         methods: {
+            fastSignUp(){
+                let form=this.signUpForm;
+                form.userType='worker';
+                form.password='123456789';
+                form.checkPass='123456789';
+                form.email='111@qq.com';
+                form.nickname='naive';
+                form.username='1';
+            },
             signUp() {
+                let that=this;
                 this.$refs['signUpForm'].validate((valid) => {
                     if (valid) {
-                        signUp(this.signUpForm);
+                        signUp(this.signUpForm,
+                           res=> {
+                            that.$router.push('/login');
+                        });
                     } else {
 
                     }
