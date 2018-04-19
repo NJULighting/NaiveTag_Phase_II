@@ -22,8 +22,8 @@ import static org.testng.Assert.*;
  */
 public class TableTest {
 
-    private Table<AdministratorPO> adminTable;
-    private int size;
+//    private Table<AdministratorPO> adminTable;
+//    private int size;
 
 //    @BeforeMethod
 //    public void setUp() throws Exception {
