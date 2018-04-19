@@ -94,6 +94,7 @@ public class RequesterPO implements Serializable {
         requester.setName(password);
         requester.setEmail(email);
         requester.setScore(score);
+        requester.setPassword(password);
         return requester;
     }
 

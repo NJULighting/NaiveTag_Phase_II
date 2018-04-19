@@ -1,0 +1,6 @@
+{
+  "unzipFileBasePath": "Images",
+  "supportedDataSetForm": [
+    ".zip"],
+  "rawFilePath": "RawImages"
+}

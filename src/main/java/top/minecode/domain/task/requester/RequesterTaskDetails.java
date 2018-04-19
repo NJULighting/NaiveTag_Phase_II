@@ -1,5 +1,6 @@
 package top.minecode.domain.task.requester;
 
+import top.minecode.domain.task.TaskInfo;
 import top.minecode.domain.task.requester.RequesterTaskInfo;
 import top.minecode.json.JsonConfig;
 
@@ -14,10 +15,12 @@ public class RequesterTaskDetails {
 
     private double taskProcess;
     private List<TaskParticipant> participants;
+    private TaskInfo taskInfo;
 
-    public RequesterTaskDetails(double taskProcess, List<TaskParticipant> participants) {
+    public RequesterTaskDetails(double taskProcess, List<TaskParticipant> participants, TaskInfo taskInfo) {
         this.taskProcess = taskProcess;
         this.participants = participants;
+        this.taskInfo = taskInfo;
     }
 
     public List<TaskParticipant> getParticipants() {
@@ -28,7 +31,7 @@ public class RequesterTaskDetails {
         return taskProcess;
     }
 
-    public String toJson() {
-        return JsonConfig.getGson().toJson(this);
+    public TaskInfo getTaskInfo() {
+        return taskInfo;
     }
 }

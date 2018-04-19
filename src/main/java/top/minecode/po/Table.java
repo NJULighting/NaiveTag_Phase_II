@@ -3,7 +3,10 @@ package top.minecode.po;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -39,16 +42,24 @@ public class Table<PO> {
     }
 
     public <T> PO getPOBy(T condition, Function<PO, T> function) {
-        return pos.stream().filter(e -> function.apply(e).equals(condition))
-                .findFirst().orElse(null);
+        return pos.stream().filter(e -> {
+            T target = function.apply(e);
+            return target != null && target.equals(condition);
+        }).findFirst().orElse(null);
     }
 
     public <T> List<PO> getPOsBy(T condition, Function<PO, T> function) {
-        return filter(e -> function.apply(e).equals(condition));
+        return filter(e -> {
+            T target = function.apply(e);
+            return target != null && target.equals(condition);
+        });
     }
 
     public <T, R> List<R> getAttributesBy(T condition, Function<PO, T> function, Function<PO, R> mapper) {
-        return pos.stream().filter(e -> function.apply(e).equals(condition)).map(mapper).collect(Collectors.toList());
+        return pos.stream().filter(e -> {
+            T target = function.apply(e);
+            return target != null && target.equals(condition);
+        }).map(mapper).collect(Collectors.toList());
     }
 
     public List<PO> filter(Predicate<PO> filter) {
