@@ -8,6 +8,7 @@ import java.time.LocalDate;
  * @author Liao
  */
 public class NewTaskInfo {
+    private Integer ownerId;
     private String taskName; // Task
     private WorkerFilter workerFilter; // The limit set for worker
     private LocalDate endTime; // DDL of the task
@@ -45,7 +46,15 @@ public class NewTaskInfo {
         this.score = score;
     }
 
-    private static class WorkerFilter {
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public static class WorkerFilter {
         private Double workerRankRate;
         private Double averageScore;
 

@@ -1,6 +1,7 @@
 package top.minecode.po;
 
 import top.minecode.domain.task.TaskInfo;
+import top.minecode.utils.Config;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -15,25 +16,29 @@ import java.util.List;
 public class SecondLevelTaskPO implements Serializable {
 
     private Integer id;
-
     private Integer firstLevelTaskId;
-
     private String taskName;
-
     private Double totalScore;
-
     private LocalDate endDate;
-
     private Integer taskDetailsId;
 
-    private TaskInfo taskInfo;
-
-    public TaskInfo getTaskInfo() {
-        return taskInfo;
+    public SecondLevelTaskPO(int id, int firstLevelTaskId, String taskName, double totalScore, LocalDate endDate,
+                             int taskDetailsId) {
+        this.id = id;
+        this.firstLevelTaskId = firstLevelTaskId;
+        this.taskName = taskName;
+        this.totalScore = totalScore;
+        this.endDate = endDate;
+        this.taskDetailsId = taskDetailsId;
     }
 
-    public void setTaskInfo(TaskInfo taskInfo) {
-        this.taskInfo = taskInfo;
+    public TaskInfo getTaskInfo() {
+        Table<TaskDetailsPO> taskDetailsTable = TableFactory.taskDetailsTable();
+        TaskDetailsPO detail = taskDetailsTable.getPOBy(taskDetailsId, TaskDetailsPO::getId);
+
+        if (Config.INSTANCE.isWithClassesType(detail.getTaskType()))
+            return new TaskInfo(detail.getTaskType(), detail.getDescription(), detail.getClasses());
+        return new TaskInfo(detail.getTaskType(), detail.getDescription());
     }
 
     public Integer getId() {
@@ -82,5 +87,18 @@ public class SecondLevelTaskPO implements Serializable {
 
     public void setTaskDetailsId(Integer taskDetailsId) {
         this.taskDetailsId = taskDetailsId;
+    }
+
+    @Override
+    public String toString() {
+        return "SecondLevelTaskPO{" +
+                "id=" + id +
+                ", firstLevelTaskId=" + firstLevelTaskId +
+                ", taskName='" + taskName + '\'' +
+                ", totalScore=" + totalScore +
+                ", endDate=" + endDate +
+                ", taskDetailsId=" + taskDetailsId +
+                ", taskInfo="  +
+                '}';
     }
 }

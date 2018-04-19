@@ -51,6 +51,7 @@ public class LoginController extends BaseController {
         } catch (InvalidPasswordException e) {
             loginResponse.setResult(LoginResponse.INVALID_PASSWORD);
         }
+        System.out.println(JsonConfig.getGson().toJson(loginResponse));
         return JsonConfig.getGson().toJson(loginResponse);
     }
 

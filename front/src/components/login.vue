@@ -43,22 +43,25 @@
         },
         methods: {
             login: function (event) {
-                let result = login(this.username, this.password);
-                if (result.result === 'success') {
-                    switch (result.userType) {
-                        case 'admin':
-                            break;
-                        case 'worker':
-                            this.$router.push('/worker/home');
-                            break;
-                        case 'requester':
-                            this.$router.push('/requester/home');
-                            break;
-                        default:
-                            console.log('login error' + result.userType);
-                            break;
+                var router=this.$router;
+                let result = login(this.username, this.password,function (res) {
+                    if (res.result === 'success') {
+                        switch (res.userType) {
+                            case 'admin':
+                                break;
+                            case 'worker':
+                                router.push('/worker/home');
+                                break;
+                            case 'requester':
+                                router.push('/requester/home');
+                                break;
+                            default:
+                                console.log('login error' + result.userType);
+                                break;
+                        }
                     }
-                }
+                });
+
             },
             signUp(){
                 this.$router.push('/signUp')

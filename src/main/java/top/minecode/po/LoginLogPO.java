@@ -52,4 +52,13 @@ public class LoginLogPO implements Serializable {
     public void setLoginTime(LocalDateTime loginTime) {
         this.loginTime = loginTime;
     }
+
+    @Override
+    public String toString() {
+        return "LoginLogPO{" +
+                "userId=" + userId +
+                ", userType=" + userType +
+                ", loginTime=" + loginTime +
+                '}';
+    }
 }

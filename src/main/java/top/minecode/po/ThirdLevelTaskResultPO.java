@@ -116,4 +116,19 @@ public class ThirdLevelTaskResultPO implements Serializable {
     public void setActualScore(Double actualScore) {
         this.actualScore = actualScore;
     }
+
+    @Override
+    public String toString() {
+        return "ThirdLevelTaskResultPO{" +
+                "id=" + id +
+                ", thirdLevelTaskId=" + thirdLevelTaskId +
+                ", tagResults=" + tagResults +
+                ", doerId=" + doerId +
+                ", actualScore=" + actualScore +
+                ", acceptTime=" + acceptTime +
+                ", expireTime=" + expireTime +
+                ", endTime=" + endTime +
+                ", state=" + state +
+                '}';
+    }
 }

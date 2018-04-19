@@ -6,7 +6,7 @@ package top.minecode.domain.user;
  *
  * @author iznauy
  */
-public abstract class User {
+public class User {
 
     protected Integer id;
 

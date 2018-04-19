@@ -69,4 +69,15 @@ public class WorkerSettlementLogPO implements Serializable, Comparable<WorkerSet
     public int compareTo(@NotNull WorkerSettlementLogPO o) {
         return settleTime.isBefore(o.settleTime) ? -1 : 1;
     }
+
+    @Override
+    public String toString() {
+        return "WorkerSettlementLogPO{" +
+                "taskType=" + taskType +
+                ", settleTime=" + settleTime +
+                ", userId=" + userId +
+                ", earnedScore=" + earnedScore +
+                '}';
+    }
+
 }

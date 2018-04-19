@@ -47,4 +47,13 @@ public class UserTrendPO implements Serializable {
     public void setTotalRequesterTrend(Map<LocalDate, Integer> totalRequesterTrend) {
         this.totalRequesterTrend = totalRequesterTrend;
     }
+
+    @Override
+    public String toString() {
+        return "UserTrendPO{" +
+                "activeWorkerTrend=" + activeWorkerTrend +
+                ", totalWorkerTrend=" + totalWorkerTrend +
+                ", totalRequesterTrend=" + totalRequesterTrend +
+                '}';
+    }
 }

@@ -1,13 +1,18 @@
 package top.minecode.utils;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Type;
+import java.net.Inet4Address;
+import java.util.List;
 
 /**
  * Created on 2018/4/15.
@@ -17,24 +22,51 @@ import java.io.Reader;
 public enum Config {
     INSTANCE;
 
-    private JsonObject json;
+    private JsonObject configuration;
+    private Gson gson = new Gson();
 
     Config() {
         JsonParser parser = new JsonParser();
         Resource resource = new ClassPathResource("config.json");
         try {
             Reader reader = new InputStreamReader(resource.getInputStream());
-            json = parser.parse(reader).getAsJsonObject();
+            configuration = parser.parse(reader).getAsJsonObject();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public String getRawFilePath() {
-        return json.get("rawFilePath").getAsString();
+        return configuration.get("rawFilePath").getAsString();
     }
 
     public String getUnZipFileBasePath() {
-        return json.get("unZipFileBasePath").getAsString();
+        return configuration.get("unZipFileBasePath").getAsString();
+    }
+
+    public List<String> getExcludedFormat() {
+        Type type = new TypeToken<List<String>>() {}.getType();
+        return gson.fromJson(configuration.get("excludedFormats"), type);
+    }
+
+    public boolean isWithClassesType(int type) {
+        return getWithClassesTypes().contains(type);
+    }
+
+    public List<Integer> getWithClassesTypes() {
+        return getTaskTypes("withClassesTask");
+    }
+
+    public List<Integer> getWithoutClassesTypes() {
+        return getTaskTypes("withoutClassesTask");
+    }
+
+    public int getThirdLevelTaskImagesNum() {
+        return configuration.get("thirdLevelTaskImagesNum").getAsInt();
+    }
+
+    private List<Integer> getTaskTypes(String category) {
+        Type type = new TypeToken<List<Integer>>() {}.getType();
+        return gson.fromJson(configuration.get(category), type);
     }
 }

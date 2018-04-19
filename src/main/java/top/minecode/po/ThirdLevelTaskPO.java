@@ -6,7 +6,6 @@ import top.minecode.domain.task.WorkerGeneralTaskInfo;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,30 +16,40 @@ import java.util.List;
 public class ThirdLevelTaskPO implements Serializable {
 
     private Integer id;
-
     private Integer secondLevelTaskId;
-
     private String taskName;
-
     private Double standardScore;
-
     private LocalDate endDate; //任务本身的截止日期，也就是payDay
-
     private Integer taskDetailsId;
-
     private List<String> picList;
-
     private String taskDescription;
-
     private List<Integer> currentDoingWorkerIds; //当前正在做这个任务的Worker的集合
-
     private List<Integer> finishedWorkerIds; // 完成过这个任务的Worker的集合
-
     private Integer workerFilterId;
-
     private Integer taskType;
-
     private ThirdLevelTaskState state;
+
+    public ThirdLevelTaskPO() {
+    }
+
+    public ThirdLevelTaskPO(int id, int secondLevelTaskId, String taskName, Double standardScore, LocalDate endDate,
+                            int taskDetailsId, List<String> picList, String taskDescription, int workerFilterId,
+                            int taskType) {
+        this.id = id;
+        this.secondLevelTaskId = secondLevelTaskId;
+        this.taskName = taskName;
+        this.standardScore = standardScore;
+        this.endDate = endDate;
+        this.taskDetailsId = taskDetailsId;
+        this.picList = picList;
+        this.taskDescription = taskDescription;
+        this.workerFilterId = workerFilterId;
+        this.taskType = taskType;
+
+        currentDoingWorkerIds = new ArrayList<>();
+        finishedWorkerIds = new ArrayList<>();
+        state = ThirdLevelTaskState.doing;
+    }
 
     public Integer getWorkerFilterId() {
         return workerFilterId;
@@ -176,5 +185,24 @@ public class ThirdLevelTaskPO implements Serializable {
         info.setPicAmount(picList.size());
         info.setCover(picList.get(0)); //默认封面就是0
         return info;
+    }
+
+    @Override
+    public String toString() {
+        return "ThirdLevelTaskPO{" +
+                "id=" + id +
+                ", secondLevelTaskId=" + secondLevelTaskId +
+                ", taskName='" + taskName + '\'' +
+                ", standardScore=" + standardScore +
+                ", endDate=" + endDate +
+                ", taskDetailsId=" + taskDetailsId +
+                ", picList=" + picList +
+                ", taskDescription='" + taskDescription + '\'' +
+                ", currentDoingWorkerIds=" + currentDoingWorkerIds +
+                ", finishedWorkerIds=" + finishedWorkerIds +
+                ", workerFilterId=" + workerFilterId +
+                ", taskType=" + taskType +
+                ", state=" + state +
+                '}';
     }
 }

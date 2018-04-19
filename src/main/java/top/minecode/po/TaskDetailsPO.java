@@ -12,14 +12,20 @@ import java.util.List;
 public class TaskDetailsPO implements Serializable {
 
     private Integer id;
-
-    private Integer correspondingSecondLevelTaskId;
-
+    private Integer SLTaskId;
     private Integer taskType;
+    private String description;
+    private List<String> classes;
 
-    private String taskDescription;
+    public TaskDetailsPO(int id, int SLTaskId, int taskType, String description, List<String> classes) {
+        this.id = id;
+        this.SLTaskId = SLTaskId;
+        this.taskType = taskType;
+        this.description = description;
+        this.classes = classes;
+    }
 
-    private List<String> targetClasses;
+    public TaskDetailsPO() {}
 
     public Integer getId() {
         return id;
@@ -29,12 +35,12 @@ public class TaskDetailsPO implements Serializable {
         this.id = id;
     }
 
-    public Integer getCorrespondingSecondLevelTaskId() {
-        return correspondingSecondLevelTaskId;
+    public Integer getSLTaskId() {
+        return SLTaskId;
     }
 
-    public void setCorrespondingSecondLevelTaskId(Integer correspondingSecondLevelTaskId) {
-        this.correspondingSecondLevelTaskId = correspondingSecondLevelTaskId;
+    public void setSLTaskId(Integer SLTaskId) {
+        this.SLTaskId = SLTaskId;
     }
 
     public Integer getTaskType() {
@@ -45,19 +51,30 @@ public class TaskDetailsPO implements Serializable {
         this.taskType = taskType;
     }
 
-    public String getTaskDescription() {
-        return taskDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<String> getTargetClasses() {
-        return targetClasses;
+    public List<String> getClasses() {
+        return classes;
     }
 
-    public void setTargetClasses(List<String> targetClasses) {
-        this.targetClasses = targetClasses;
+    public void setClasses(List<String> classes) {
+        this.classes = classes;
+    }
+
+    @Override
+    public String toString() {
+        return "TaskDetailsPO{" +
+                "id=" + id +
+                ", SLTaskId=" + SLTaskId +
+                ", taskType=" + taskType +
+                ", description='" + description + '\'' +
+                ", classes=" + classes +
+                '}';
     }
 }

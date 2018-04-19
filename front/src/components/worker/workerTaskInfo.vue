@@ -18,7 +18,7 @@
                         </label>
 
                         <p></p>
-                        <span>描述：{{taskDescription}}</span>
+                        <span>描述：{{description}}</span>
                         <p></p>
                         <span>总积分：{{averageScore}}分</span>
                         <span class="away">图片：{{getPicAmount()}}张</span>
@@ -83,7 +83,7 @@
             taskState: String, // 已经接受的任务unaccept
             taskName: String,
             taskType: Number,
-            taskDescription: String,
+            description: String,
             averageScore: Number,
 
             picList: Array,

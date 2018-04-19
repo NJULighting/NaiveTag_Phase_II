@@ -1,22 +1,22 @@
-package top.minecode.utils;
+package top.minecode.domain.task;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.jetbrains.annotations.NotNull;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created on 2018/3/17.
  * Description:
  * @author iznauy
  */
-public class TaskConfigFileValidator {
+public class TaskConfig implements Iterable<TaskInfo> {
 
     private static final int TOTAL_MARK = 100;
     private static final int SINGLE_SQUARE_MARK = 200;
@@ -27,7 +27,6 @@ public class TaskConfigFileValidator {
     private static final int MULTI_SQUARE_DESCRIBE = 301;
     private static final int AREA_DESCRIBE = 401;
     private static final String TASK_TYPE = "taskType";
-    private static final String FORMAT = "format";
     private static final String DESCRIPTION = "description";
     private static final String CLASSES = "classes";
     private static final Set<Integer> WITH_CLASS_PROBLEMS = new HashSet<>();
@@ -37,22 +36,26 @@ public class TaskConfigFileValidator {
         WITH_CLASS_PROBLEMS.add(TOTAL_MARK);
         WITH_CLASS_PROBLEMS.add(SINGLE_SQUARE_MARK);
         WITH_CLASS_PROBLEMS.add(MULTI_SQUARE_MARK);
+        WITH_CLASS_PROBLEMS.add(AREA_MARK);
 
-        WITHOUT_CLASS_PROBLEMS.add(AREA_MARK);
         WITHOUT_CLASS_PROBLEMS.add(TOTAL_DESCRIBE);
         WITHOUT_CLASS_PROBLEMS.add(SINGLE_SQUARE_DESCRIBE);
         WITHOUT_CLASS_PROBLEMS.add(MULTI_SQUARE_DESCRIBE);
         WITHOUT_CLASS_PROBLEMS.add(AREA_DESCRIBE);
     }
 
-    private JsonObject json;
+    private JsonElement json;
 
-    public TaskConfigFileValidator(Reader reader) {
+    public TaskConfig(Reader reader) {
         JsonParser parser = new JsonParser();
-        json = parser.parse(reader).getAsJsonObject();
+        json = parser.parse(reader);
     }
 
-    public Result checkResult() {
+    public TaskConfig(String filePath) throws FileNotFoundException {
+        this(new FileReader(filePath));
+    }
+
+    public Result check() {
         if (json == null)
             return Result.invalid;
 
@@ -60,28 +63,28 @@ public class TaskConfigFileValidator {
         // want to have multiple second level tasks
         if (json.isJsonArray()) {
             for (JsonElement jsonElement : json.getAsJsonArray()) {
-                if (!isValid(jsonElement.getAsJsonObject()))
+                if (notValid(jsonElement.getAsJsonObject()))
                     return Result.invalid;
             }
-        } else if (isValid(json.getAsJsonObject())){
+        } else if (notValid(json.getAsJsonObject())) {
             // Only one type of task needed
-            return Result.valid;
+            return Result.invalid;
         }
 
-        return Result.invalid;
+        return Result.valid;
     }
 
-    private boolean isValid(JsonObject json) {
+    private boolean notValid(JsonObject json) {
         // Check whether the file lacks some property
-        if (getString(json, FORMAT) == null || getString(json, DESCRIPTION) == null)
-            return false;
+        if (getString(json, DESCRIPTION) == null)
+            return true;
 
         int taskType = getInteger(json, TASK_TYPE);
 
         // Check whether the task type is valid, and if it's a task with classes, check
         // if it contains classes
-        return WITHOUT_CLASS_PROBLEMS.contains(taskType) ||
-                (WITH_CLASS_PROBLEMS.contains(taskType) && getStringList(json, CLASSES) != null);
+        return !WITHOUT_CLASS_PROBLEMS.contains(taskType) &&
+                (!WITH_CLASS_PROBLEMS.contains(taskType) || getStringList(json, CLASSES) == null);
 
     }
 
@@ -99,6 +102,47 @@ public class TaskConfigFileValidator {
         for (JsonElement element : array)
             list.add(element.getAsString());
         return list;
+    }
+
+    public int size() {
+        if (json.isJsonArray()) return json.getAsJsonArray().size();
+        return 1;
+    }
+
+    @NotNull
+    @Override
+    public Iterator<TaskInfo> iterator() {
+        return new Iterator<TaskInfo>() {
+            private int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < size();
+            }
+
+            @Override
+            public TaskInfo next() {
+                JsonObject next;
+                if (json.isJsonArray()) {
+                    next = json.getAsJsonArray().get(index++).getAsJsonObject();
+                } else {
+                    next = json.getAsJsonObject();
+                    index++;
+                }
+                TaskInfo nextInfo;
+                // Create TaskInfo according to different task type
+                int type = getInteger(next, TASK_TYPE);
+                String description = getString(next, DESCRIPTION);
+                if (WITH_CLASS_PROBLEMS.contains(type)) {
+                    List<String> labels = getStringList(next, CLASSES);
+                    nextInfo = new TaskInfo(type, description, labels);
+                } else
+                    nextInfo = new TaskInfo(type, description);
+
+                return nextInfo;
+            }
+
+        };
     }
 
     public enum Result {

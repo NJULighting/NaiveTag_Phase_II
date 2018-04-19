@@ -10,6 +10,8 @@ import java.io.IOException;
  *
  * @author iznauy
  */
+
+@Deprecated
 public class WebContextFilter implements Filter {
 
     @Override

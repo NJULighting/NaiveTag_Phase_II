@@ -73,8 +73,6 @@ public class TagResultTest {
         TagResult tag = gson.fromJson(rawJson, TagResult.class);
         String json = gson.toJson(tag, TagResult.class);
         assertEquals(json, rawJson);
-        System.out.println("Raw: " + rawJson);
-        System.out.println("Result: " + json);
     }
 
     @Test
