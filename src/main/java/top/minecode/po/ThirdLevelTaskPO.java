@@ -41,7 +41,7 @@ public class ThirdLevelTaskPO implements Serializable {
         this.standardScore = standardScore;
         this.endDate = endDate;
         this.taskDetailsId = taskDetailsId;
-        this.picList = picList;
+        this.picList = new ArrayList<>(picList); // To make sure it can be serializable
         this.taskDescription = taskDescription;
         this.workerFilterId = workerFilterId;
         this.taskType = taskType;

@@ -18,7 +18,6 @@ public class ZipHelper {
 
     private static final int ZIPPER_BUFF_SIZE = 1024;
 
-    // TODO need test
     public String unZip(String sourcePath, String outPath) throws IOException {
 
         File source = new File(sourcePath);

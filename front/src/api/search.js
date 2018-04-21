@@ -16,7 +16,6 @@ export function search(key,callback) {
             console.log(result);
             callback(JSON.parse(result));
         },
-        scriptCharset: 'iso-8859-1'
         // contentType:"application/x-www-form-urlencoded; charset=utf-8"
     })
 }

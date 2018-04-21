@@ -4,8 +4,12 @@
     ".zip"
   ],
   "rawFilePath": "RawImages",
-  "excludedFormats": [
-    ".DS_Store"
+  "supportFormats": [
+    ".jpeg",
+    ".jpg",
+    ".bmp",
+    ".gif",
+    ".png"
   ],
   "withClassesTask": [
     100,
@@ -18,6 +22,6 @@
     201,
     301,
     401
-  ]
+  ],
   "thirdLevelTaskImagesNum": 10
 }
