@@ -3,7 +3,7 @@
 
             <span class="taskTitle">{{taskName}}</span>
             <p></p>
-            <img :src="cover" alt="CoverImage">
+            <img :src="getCover" alt="CoverImage">
             <p></p>
 
             <div>
@@ -82,6 +82,7 @@
 
 <script type="text/javascript">
     import router from "../../router/index";
+    import {taskName} from '../../api/taskName.js'
 
     export default {
        // props: ['taskType'],
@@ -102,6 +103,12 @@
             state: String // unpay、finish、doing、expired(等待结算、完成、进行、过期)
         },
 
+        computed: {
+            getCover: function () {
+                return "http://localhost:8000/naive/" + this.cover;
+            },
+        },
+
         methods: {
 
             showTask: function () {
@@ -117,34 +124,36 @@
             },
 
             taskTypeName: function () {
-                switch (this.taskType){
-                    case 100:
-                        return "整体标"
-                        break;
-                    case 101:
-                        return "整体注"
-                        break;
-                    case 200:
-                        return "单框标"
-                        break;
-                    case 201:
-                        return "单框注"
-                        break;
-                    case 300:
-                        return "多框标"
-                        break;
-                    case 301:
-                        return "多框注"
-                        break;
-                    case 400:
-                        return "边界注"
-                        break;
-                    case 401:
-                        return "边界标注"
-                        break;
-                    default:
-                        break;
-                }
+                let result = taskName(this.taskType);
+                return result;
+//                switch (this.taskType){
+//                    case 100:
+//                        return "整体标"
+//                        break;
+//                    case 101:
+//                        return "整体注"
+//                        break;
+//                    case 200:
+//                        return "单框标"
+//                        break;
+//                    case 201:
+//                        return "单框注"
+//                        break;
+//                    case 300:
+//                        return "多框标"
+//                        break;
+//                    case 301:
+//                        return "多框注"
+//                        break;
+//                    case 400:
+//                        return "边界注"
+//                        break;
+//                    case 401:
+//                        return "边界标注"
+//                        break;
+//                    default:
+//                        break;
+//                }
             }
         }
     }
@@ -166,7 +175,7 @@
         border-radius: 10px 10px 10px 10px;
         background-color: #eeeeee;
         padding: 25px 25px 20px 25px;
-        width: 15.5%;
+        width: 15%;
         display:inline-block;
         margin: 15px;
         cursor: pointer;

@@ -6,6 +6,8 @@ import top.minecode.domain.tag.TagDeserializer;
 import top.minecode.domain.tag.TagResult;
 import top.minecode.domain.tag.TagSerializer;
 
+import java.time.LocalDate;
+
 /**
  * Created on 2018/4/2.
  * Description:
@@ -23,6 +25,7 @@ public class JsonConfig {
                     .setPrettyPrinting()
                     .registerTypeAdapter(TagResult.class, new TagSerializer())
                     .registerTypeAdapter(TagResult.class, new TagDeserializer())
+                    .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
                     .create();
         return gson;
     }

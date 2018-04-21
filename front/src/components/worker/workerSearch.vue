@@ -14,14 +14,29 @@
 </template>
 
 <script>
-
-    //import taskblock from './taskBlock.vue';
+    import {search} from '../../api/search.js'
 
     export default {
 
-//        components: {
-//            taskblock: taskblock
-//        },
+
+        created: function () {
+            this.fetchKey();
+        },
+
+        watch: {
+            // 如果路由有变化，会再次执行该方法
+            '$route': 'fetchKey'
+        },
+
+        methods: {
+            fetchKey () {
+                let result = search(this.$route.params.key, res=> {
+                    console.log("result:");
+                    console.log(res);
+                    this.taskList = res;
+                });
+            },
+        },
 
         data() {
             return {

@@ -9,6 +9,7 @@
 
                 <el-col :span="15" class="height"><div class="height search">
                     <el-input
+                            v-model="inputText"
                             placeholder="任务搜索"
                             suffix-icon="el-icon-search"
                             class="height center"
@@ -51,7 +52,8 @@
 
         data () {
             return {
-                activeIndex : "/worker/home"
+                activeIndex : "/worker/home",
+                inputText: ""
             }
         },
 
@@ -62,7 +64,8 @@
             },
 
             doSearch() {
-                this.$router.push("/worker/search");
+//                this.$router.push("/worker/search");
+                this.$router.push({ name: 'search', params: { key: this.inputText }});
             },
 
             exit() {

@@ -1,20 +1,23 @@
 <template>
     <div id="page">
 
+        <!--<button v-on:click="getRecommendation">button</button>-->
         <!--任务进行中-->
         <div style="width: 100%;text-align: center;padding-top: 40px;padding-bottom: 20px">
             <el-tooltip content="选择“历史任务”以查看更多" placement="right-start" effect="light">
-                <span style="font-family: SimSun-ExtB;font-size: 30px">任务进行中</span>
+                <span v-if="taskDoingList" style="font-family: SimSun-ExtB;font-size: 30px">任务进行中</span>
             </el-tooltip>
         </div>
 
-        <div style="text-align: center">
-            <taskblock v-for="(taskData,key) in taskDoingList" v-bind:key="key" v-bind="taskData"></taskblock>
+        <div style="text-align: center;width: 100%">
+            <div style="text-align: left">
+                <taskblock v-for="(taskData,key) in taskDoingList" v-bind:key="key" v-bind="taskData"></taskblock>
+            </div>
         </div>
 
         <!--任务推荐-->
         <div style="width: 100%;text-align: center;padding-top: 30px;padding-bottom: 20px">
-            <span style="font-family: SimSun-ExtB;font-size: 30px">任务推荐</span>
+            <span v-if="taskRecommendList" style="font-family: SimSun-ExtB;font-size: 30px">任务推荐</span>
         </div>
 
         <div style="text-align: center">
@@ -28,6 +31,7 @@
 <script>
     //引入
     //import taskblock from './taskBlock.vue';
+    import {recommendation} from '../../api/recommendation.js'
 
     //注册
     export default {
@@ -36,6 +40,17 @@
 //        components: {
 //            'taskblock': taskblock,
 //        },
+
+        created: function () {
+            let result = recommendation(res=> {
+                console.log("res:");
+                console.log(res);
+                this.taskRecommendList = res;
+                console.log('ss')
+
+                console.log(this.taskRecommendList);
+            });
+        },
 
         data() {
             return {
