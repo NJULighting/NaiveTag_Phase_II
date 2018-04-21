@@ -27,6 +27,7 @@ public class WorkerTaskDao {
         // 获取用户当前排名比例
         double ratio = getUserRatio(user);
 
+
         List<ThirdLevelTaskPO> allThirdLevelTaskPOS = TableFactory.thirdLevelTaskTable().getAll();
         List<WorkerFilterPO> workerFilterPOS = TableFactory.workerFilterTable().getAll();
 

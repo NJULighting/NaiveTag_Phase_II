@@ -12,6 +12,7 @@ import top.minecode.exception.InvalidUserNameException;
 import top.minecode.json.JsonConfig;
 import top.minecode.json.user.LoginResponse;
 import top.minecode.service.user.UserService;
+import top.minecode.web.common.ActiveUsers;
 import top.minecode.web.common.BaseController;
 import top.minecode.web.common.CommonConstant;
 
@@ -58,8 +59,8 @@ public class LoginController extends BaseController {
 
     //登出
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public void logout(HttpSession httpSession) {
-        httpSession.removeAttribute(CommonConstant.USER_CONTEXT);
+    public void logout(String username) {
+        ActiveUsers.removeUserByUsername(username);
     }
 
 
