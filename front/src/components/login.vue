@@ -45,11 +45,12 @@
             login: function (event) {
                 var router = this.$router;
                 let result = login(this.username, this.password,
-                    function (res) {
+                    res=> {
                     console.log(res);
                     console.log(res.result);
                         if (res.result === 'success') {
-                        console.log('success');
+                            localStorage.username=this.username;
+                            console.log('success');
                             switch (res.userType) {
                                 case 'admin':
                                     break;
@@ -58,7 +59,7 @@
                                     console.log('this is worker');
                                     break;
                                 case 'requester':
-                                    router.push('/requester/home');
+                                    router.push({name:'requesterHome',params:{username:this.username}});
                                     console.log('this is requester');
                                     break;
                                 default:
