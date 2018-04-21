@@ -1,6 +1,6 @@
 <template>
     <div id="task">
-        <taskinfo v-bind="taskData"></taskinfo>
+        <taskinfo @refreshData="fetchDetails" v-bind="taskData"></taskinfo>
     </div>
 </template>
 

@@ -39,8 +39,8 @@
 
                     <el-col :span="8"><div class="center" style="padding-top: 100px;">
                         <button v-if="canAccept === true" class="center button" v-on:click="accept()">接受</button>
-                        <button v-else-if="canAccept === false" class="center button accept">不可接受</button>
-                        <button v-if="!canAccept" class="center button accept">{{getState()}}</button>
+                        <button v-else-if="canAccept === false && !state" class="center button accept">不可接受</button>
+                        <button v-else-if="state" class="center button accept">{{getState()}}</button>
                     </div></el-col>
 
                 </el-row>
@@ -52,10 +52,10 @@
                 <p></p>
 
                 <img v-if="picList" v-for="picture in picList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
-                <el-tabs v-if="unFinishedPicList && finishedPicList" v-model="activeName2" type="card">
+                <el-tabs v-if="unfinishedPicList && finishedPicList" v-model="activeName2" type="card">
 
                     <el-tab-pane label="未标注" name="first">
-                        <img v-for="picture in unFinishedPicList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
+                        <img v-for="picture in unfinishedPicList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
                     </el-tab-pane>
                     <el-tab-pane label="已标注" name="second">
                         <img v-for="picture in finishedPicList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
@@ -82,7 +82,7 @@
         },
 
         props: {
-            taskState: String, // 已经接受的任务unaccept
+            state: String, // 已经接受的任务unaccept
             taskName: String,
             taskType: Number,
             taskDescription: String,
@@ -93,7 +93,7 @@
             canAccept: Boolean, // true or false  因为有的任务用户不可以接受
 
             finishedPicList: Array,
-            unFinishedPicList: Array,
+            unfinishedPicList: Array,
             beginDate: String,
             endDate: String, // 任务最终截止时期和任务的过期时间的较小值
 
@@ -111,8 +111,10 @@
             accept () {
                 let result = taskAccept(this.$route.params.taskId, res=> {
                     console.log("accept result: ");
-                    console.log(res);
-                    this.taskData = res;
+                    console.log(res.result);
+                    if(res.result){
+                        this.$emit('refreshData');
+                    }
                 });
             },
 
@@ -130,13 +132,13 @@
                     return this.picList.length;
                 }
                 else{
-                    return this.finishedPicList.length + this.unFinishedPicList.length;
+                    return this.finishedPicList.length + this.unfinishedPicList.length;
                 }
             },
 
             getState: function () {
 
-                switch (this.taskState){
+                switch (this.state){
                     case "unaccept":
                         return "未接受";
                         break;
