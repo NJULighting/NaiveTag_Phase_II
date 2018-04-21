@@ -11,13 +11,14 @@
     <context:component-scan base-package="top.minecode.dao.user"/>
     <context:component-scan base-package="top.minecode.dao.statistic"/>
     <context:component-scan base-package="top.minecode.dao.task"/>
-    <context:component-scan base-package="top.minecode.dao.utils"/>
 
     <context:component-scan base-package="top.minecode.service.statistic"/>
     <context:component-scan base-package="top.minecode.service.user"/>
     <context:component-scan base-package="top.minecode.service.taskdelivery"/>
     <context:component-scan base-package="top.minecode.service.taskexecute"/>
     <context:component-scan base-package="top.minecode.service.taskmanage"/>
+
+    <context:component-scan base-package="top.minecode.web"/>
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver"

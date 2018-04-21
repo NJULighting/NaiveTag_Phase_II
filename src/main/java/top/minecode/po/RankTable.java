@@ -1,7 +1,6 @@
 package top.minecode.po;
 
 import top.minecode.domain.statistic.RankItem;
-import top.minecode.json.JsonConfig;
 import top.minecode.service.statistic.StatisticConstant;
 
 import java.io.Serializable;
@@ -28,16 +27,20 @@ public class RankTable implements Serializable {
         rank.save();
     }
 
-    public Integer getRankByName(String name) {
+    public void printContent() {
+        rank.printContent();
+    }
+
+    public int getRankByName(String name) {
         sort();
         List<RankItem> rankItems = rank.getAll();
         for (int i = 0; i < rankItems.size(); i++) {
             if (rankItems.get(i).getName().equals(name))
-                return i + 1;
+                return i;
         }
 
         // If the user has no rank, then return the end of the rank list
-        return null;
+        return rank.size();
     }
 
     public int getRankById(int id) {

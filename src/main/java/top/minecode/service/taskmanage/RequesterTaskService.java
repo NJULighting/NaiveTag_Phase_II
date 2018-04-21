@@ -13,8 +13,10 @@ import top.minecode.domain.task.requester.NewTaskInfo;
 import top.minecode.domain.task.requester.RequesterTaskDetails;
 import top.minecode.domain.task.requester.RequesterTaskInfo;
 import top.minecode.domain.task.requester.TaskParticipant;
+import top.minecode.exception.InvalidFileStructureException;
 import top.minecode.po.FirstLevelTaskPO;
 import top.minecode.po.SecondLevelTaskPO;
+import top.minecode.utils.ImagesSet;
 import top.minecode.utils.unzip.ZipHelper;
 
 import java.io.File;
@@ -78,14 +80,20 @@ public class RequesterTaskService {
         return details;
     }
 
-    public void saveFile(MultipartFile dataSet, MultipartFile taskJson, String dataPath, NewTaskInfo newTaskInfo) throws IOException {
-        String dataSetPath = dataPath + dataSet.getOriginalFilename();
-        String taskJsonPath = dataPath + "task.json";
+    public void saveFile(MultipartFile dataSet, MultipartFile taskJson, String dataDirectory, NewTaskInfo newTaskInfo) throws IOException, InvalidFileStructureException {
+        // Save the file
+        String dataSetPath = dataDirectory + dataSet.getOriginalFilename();
+        String taskJsonPath = dataDirectory + "task.json";
         dataSet.transferTo(new File(dataSetPath));
         taskJson.transferTo(new File(taskJsonPath));
 
-        FirstLevelTaskPO flTask = taskDeliveryDao.addFirstLevelTask(dataPath, newTaskInfo);
-        String imageFilePath = unZip(dataPath, dataSetPath);
+        // Add first level task
+        FirstLevelTaskPO flTask = taskDeliveryDao.addFirstLevelTask(dataDirectory, newTaskInfo);
+        String imageFilePath = unZip(dataDirectory, dataSetPath);
+
+        // Check File's Structure
+        if (!validFileStructure(imageFilePath))
+            throw new InvalidFileStructureException();
 
         TaskConfig taskConfig = new TaskConfig(taskJsonPath);
         // Calculate how many third level tasks a second level task should keep
@@ -97,31 +105,26 @@ public class RequesterTaskService {
     }
 
     @NotNull
-    private String unZip(String dataPath, String dataSetPath) throws IOException {
+    private String unZip(String dataDirectory, String dataSetPath) throws IOException {
         // Unzip the file
         ZipHelper zipper = new ZipHelper();
-        String unZipPath = dataPath + "images";
+        String unZipPath = dataDirectory + "images";
         return zipper.unZip(dataSetPath, unZipPath);
+    }
+
+    private boolean validFileStructure(String filePath) {
+        File file = new File(filePath);
+        File[] files = file.listFiles();
+        if (files == null)
+            return false;
+        for (File subDir : files) {
+            if (subDir.getName().equals("data"))
+                return true;
+        }
+        return false;
     }
 
     public int getNewTaskSequenceNumber(int ownerId) {
         return requesterTaskDao.getTasks(ownerId).size() + 1;
-    }
-
-    private List<String> getImages(String unZipPath) {
-        // Go into the folder until find the images
-        File imageFile = new File(unZipPath);
-        while (imageFile.isDirectory()) {
-            File[] files = imageFile.listFiles();
-            assert files != null && files[0] != null;
-            if (files[0].isDirectory()) {
-                imageFile = files[0];
-            } else {
-                break;
-            }
-        }
-        File[] images = imageFile.listFiles();
-        assert images != null;
-        return Stream.of(images).map(File::getName).collect(Collectors.toList());
     }
 }

@@ -1,13 +1,11 @@
 package top.minecode.domain.task;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
 
@@ -26,6 +24,7 @@ public class TaskConfig implements Iterable<TaskInfo> {
     private static final int SINGLE_SQUARE_DESCRIBE = 201;
     private static final int MULTI_SQUARE_DESCRIBE = 301;
     private static final int AREA_DESCRIBE = 401;
+    private static final int INVALID_TASK_TYPE = -1; // This'll be used when the file doesn't contain a taskType
     private static final String TASK_TYPE = "taskType";
     private static final String DESCRIPTION = "description";
     private static final String CLASSES = "classes";
@@ -48,7 +47,14 @@ public class TaskConfig implements Iterable<TaskInfo> {
 
     public TaskConfig(Reader reader) {
         JsonParser parser = new JsonParser();
-        json = parser.parse(reader);
+        try {
+            json = parser.parse(reader);
+            reader.close();
+        } catch (RuntimeException e) {
+            json = null; // If there's syntax mistake
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public TaskConfig(String filePath) throws FileNotFoundException {
@@ -89,15 +95,16 @@ public class TaskConfig implements Iterable<TaskInfo> {
     }
 
     private String getString(JsonObject json, String key) {
-        return json.get(key).getAsString();
+        return Optional.ofNullable(json.get(key)).map(JsonElement::getAsString).orElse(null);
     }
 
     private int getInteger(JsonObject json, String key) {
-        return json.get(key).getAsInt();
+        return Optional.ofNullable(json.get(key)).map(JsonElement::getAsInt).orElse(INVALID_TASK_TYPE);
     }
 
     private List<String> getStringList(JsonObject json, String key) {
         JsonArray array = json.getAsJsonArray(key);
+        if (array == null) return null;
         List<String> list = new ArrayList<>();
         for (JsonElement element : array)
             list.add(element.getAsString());
