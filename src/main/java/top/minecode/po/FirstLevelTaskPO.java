@@ -1,5 +1,7 @@
 package top.minecode.po;
 
+import top.minecode.domain.task.requester.NewTaskInfo;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -11,20 +13,32 @@ import java.time.LocalDate;
 public class FirstLevelTaskPO implements Serializable {
 
     private Integer id;
-
     private Integer ownerId;
-
     private String taskName;
-
     private Double totalScore;
-
     private LocalDate endDate;
-
     private String resultFilePath;
-
     private FirstLevelTaskState state;
-
     private Integer workerFilterId;
+
+    public FirstLevelTaskPO() {}
+
+    /**
+     * Constructor for creating a new task
+     * @param taskInfo information about the new task
+     */
+    public FirstLevelTaskPO(NewTaskInfo taskInfo, int id, String resultFilePath, int workerFilterId) {
+        ownerId = taskInfo.getOwnerId();
+        taskName = taskInfo.getTaskName();
+        totalScore = taskInfo.getScore();
+        endDate = taskInfo.getEndTime();
+
+        this.id = id;
+        this.resultFilePath = resultFilePath;
+        this.workerFilterId = workerFilterId;
+
+        state = FirstLevelTaskState.ongoing;
+    }
 
     public String getResultFilePath() {
         return resultFilePath;
@@ -80,6 +94,10 @@ public class FirstLevelTaskPO implements Serializable {
 
     public void setTaskName(String taskName) {
         this.taskName = taskName;
+    }
+
+    public Integer getWorkerFilterId() {
+        return workerFilterId;
     }
 
     @Override

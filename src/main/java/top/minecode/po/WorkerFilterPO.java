@@ -1,6 +1,8 @@
 package top.minecode.po;
 
 
+import top.minecode.domain.task.requester.NewTaskInfo;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -13,8 +15,20 @@ public class WorkerFilterPO implements Serializable {
 
     private Integer id;
     private Double workerRankRatio;
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private Double averageScore;
+
+    public WorkerFilterPO() {}
+
+    public WorkerFilterPO(NewTaskInfo.WorkerFilter workerFilter, int id) {
+        workerRankRatio = workerFilter.getWorkerRankRate();
+        averageScore = workerFilter.getAverageScore();
+
+        this.id = id;
+    }
+
+    public Double getAverageScore() {
+        return averageScore;
+    }
 
     public Double getWorkerRankRatio() {
         return workerRankRatio;
@@ -22,22 +36,6 @@ public class WorkerFilterPO implements Serializable {
 
     public void setWorkerRankRatio(Double workerRankRatio) {
         this.workerRankRatio = workerRankRatio;
-    }
-
-    public LocalDate getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDate startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDate getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDate endTime) {
-        this.endTime = endTime;
     }
 
     public Integer getId() {
@@ -53,8 +51,6 @@ public class WorkerFilterPO implements Serializable {
         return "WorkerFilterPO{" +
                 "id=" + id +
                 ", workerRankRatio=" + workerRankRatio +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
                 '}';
     }
 }

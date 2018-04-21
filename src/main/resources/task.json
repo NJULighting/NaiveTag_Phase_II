@@ -44,7 +44,8 @@
   {
     "taskType": 400,
     "format": "jpg",
-    "description": "勾勒出图片中动漫人物及其轮廓"
+    "description": "勾勒出图片中动漫人物及其轮廓",
+    "classes": ["frog"]
   },
   {
     "taskType": 401,

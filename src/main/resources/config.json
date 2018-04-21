@@ -1,6 +1,23 @@
 {
   "unzipFileBasePath": "Images",
   "supportedDataSetForm": [
-    ".zip"],
-  "rawFilePath": "RawImages"
+    ".zip"
+  ],
+  "rawFilePath": "RawImages",
+  "excludedFormats": [
+    ".DS_Store"
+  ],
+  "withClassesTask": [
+    100,
+    200,
+    300,
+    400
+  ],
+  "withoutClassesTask": [
+    101,
+    201,
+    301,
+    401
+  ]
+  "thirdLevelTaskImagesNum": 10
 }

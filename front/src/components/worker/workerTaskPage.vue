@@ -25,7 +25,7 @@
                     "taskState": "fail", // 已经接受的任务unaccept
                     "taskName": "区域标注任务（一）",
                     "taskType": 401,
-                    "taskDescription": "这是一个区域标注类型的任务，标注者需要将目标区域画出，并写上详细描述",
+                    "description": "这是一个区域标注类型的任务，标注者需要将目标区域画出，并写上详细描述",
                     "averageScore": 67,
 
 //                    "picList": [
