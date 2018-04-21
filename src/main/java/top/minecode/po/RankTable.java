@@ -31,16 +31,16 @@ public class RankTable implements Serializable {
         rank.printContent();
     }
 
-    public int getRankByName(String name) {
+    public Integer getRankByName(String name) {
         sort();
         List<RankItem> rankItems = rank.getAll();
         for (int i = 0; i < rankItems.size(); i++) {
             if (rankItems.get(i).getName().equals(name))
-                return i;
+                return i + 1;
         }
 
         // If the user has no rank, then return the end of the rank list
-        return rank.size();
+        return null;
     }
 
     public int getRankById(int id) {
