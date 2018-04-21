@@ -5,10 +5,10 @@
 
             <!--左侧画框画线界面-->
             <el-col :span="20"><div class="grid-content bg-purple">
-                <div style="background-color: brown">
+                <div>
 
                     <!--背景图片-->
-                    <img src="../test.jpg" alt="picture" class="picture"
+                    <img :src="picUrl" alt="picture" class="picture"
                          ondragstart="return false;"
                          oncontextmenu="return false;"
                          ref="image">
@@ -35,6 +35,20 @@
                     <!--正在画的框-->
                     <div v-if="this.drawRect" v-bind:style="getChangeRectStyle()"></div>
 
+                    <!--<tagCanvas :points.sync="this.points"-->
+                               <!--v-bind:width="this.picWidth"-->
+                               <!--v-bind:height="this.picHeight"-->
+                               <!--v-bind:style="getTagCanvasStyle()"-->
+                               <!--&gt;</tagCanvas>-->
+                    <canvas ref="canvas" class="canvas"
+                            ondragstart="return false;" oncontextmenu="return false;"
+                            v-on:mousedown="onCanvasMouseDown($event)"
+                            v-on:mousemove="onCanvasMouseMove($event)"
+                            v-on:mouseup="onCanvasMouseUp($event)"
+                            v-bind:width="this.picWidth"
+                            v-bind:height="this.picHeight"
+                            v-bind:style="getTagCanvasStyle()"></canvas>
+
                 </div>
             </div></el-col>
 
@@ -52,8 +66,6 @@
 
                         <!--标注块-->
                         <div style="text-align: center;padding-top: 10px;padding-bottom: 10px">
-
-                            <div style="font-family: SimSun-ExtB;font-size: 22px;width: 100%;padding-top: 5px;padding-bottom: 5px;">标注信息</div>
 
                             <!--输入框-->
                             <div v-if="isInputType" v-for="(item, index) in frames"
@@ -87,6 +99,11 @@
 
                         </div>
 
+                        <div class="center" style="padding-bottom: 20px;">
+                            <el-button type="danger" style="width: 40%" v-on:click="lastPic">上一张</el-button>
+                            <el-button type="danger" style="width: 40%" v-on:click="nextPic">下一张</el-button>
+                        </div>
+
                     </div>
                 </div>
             </div></el-col>
@@ -100,13 +117,22 @@
 
     export default {
 
+
         mounted: function() {
-            this.picWidth = this.$refs.image.getBoundingClientRect().width;
-            for(var i=0; i<this.frames.length;i++){
-                this.rectColors.push(this.rectColor);
-            }
-            console.log("rectColors:")
-            console.log(this.rectColors);
+           this.$nextTick(function () {
+               this.picWidth = this.$refs.image.getBoundingClientRect().width;
+               this.picHeight = this.$refs.image.getBoundingClientRect().height;
+               this.ctx = this.$refs.canvas.getContext('2d');
+
+               for(var i=0; i<this.frames.length;i++){
+                   this.rectColors.push(this.rectColor);
+               }
+
+               this.drawPolygon();
+
+               console.log("rectColors:")
+               console.log(this.rectColors);
+           })
         },
 
         props: {
@@ -114,6 +140,7 @@
             frames: Array,
             points: Array,
             options: Array,
+            picUrl: String
         },
 
         data() {
@@ -155,10 +182,17 @@
                     height: '100px',
                     'z-index': '0',
                 },
+
+                isDrawing : false,
+                ctx : Object,
             }
         },
 
         computed: {
+
+            isNeedTagCanvas: function () {
+                return false;
+            },
 
             getRandomColor: function () {
                 return this.defaultColor[parseInt((this.defaultColor.length-1)*Math.random())];
@@ -254,13 +288,104 @@
                         return false;
                         break;
                 }
-            }
+            },
         },
 
         methods: {
 
+            checkDraw: function () {
+                if(this.frames.length === 0){
+                    return true;
+                }else if(this.frames[this.frames.length - 1].label){
+                    return true;
+                }else{
+                    return false;
+                }
+            },
+
+            checkNext: function () {
+                if(this.frames.length === 0){
+                    this.$message.error('请填写至少一个标注信息！');
+                    return false;
+                }else if(this.frames[this.frames.length - 1].label){
+                    return true;
+                }else{
+                    this.$message.error('有标注信息未填写！');
+                    return false;
+                }
+            },
+
+            lastPic: function () {
+                if(this.checkNext()){
+                    this.$emit('lastPic');
+                }
+            },
+
+            nextPic: function () {
+                if(this.checkNext()){
+                    this.$emit('nextPic');
+                }
+            },
+
+            onCanvasMouseDown: function (event) {
+                this.points.splice(0, this.points.length);
+                this.isDrawing = true;
+
+                this.points.push({
+                    x: event.offsetX,
+                    y: event.offsetY
+                });
+
+            },
+
+            onCanvasMouseMove: function (event) {
+                if (this.isDrawing) {
+                    this.ctx.lineTo(event.offsetX, event.offsetY);
+                    this.ctx.stroke();
+
+                    this.points.push({
+                        x: event.offsetX,
+                        y: event.offsetY
+                    });
+
+                } else {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(event.offsetX, event.offsetY);
+                }
+            },
+
+            onCanvasMouseUp: function (event) {
+                this.isDrawing = false;
+
+                this.points.push({
+                    x: event.offsetX,
+                    y: event.offsetY
+                });
+
+                this.drawPolygon();
+            },
+
+            drawPolygon: function() {
+
+                console.log("points:");
+                console.log(this.points);
+                this.ctx.clearRect(0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
+
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.points[0].x, this.points[0].y);
+                for (var value of this.points) {
+                    var a = value.x;
+                    var b = value.y;
+                    this.ctx.lineTo(a, b);
+                }
+                this.ctx.fillStyle = 'rgba(0,191,255,0.6)';
+                this.ctx.fill();
+
+            },
+
             deleteFramesItem(index) {
                 this.frames.splice(index, 1);
+                this.rectColors.splice(index, 1);
                 console.log(this.frames);
             },
 
@@ -281,13 +406,18 @@
             },
 
             onMouseDown: function (event) {
-                this.drawRect = true;
-                this.startPoint.x = event.offsetX;
-                this.startPoint.y = event.offsetY;
-                this.endPoint.x = event.offsetX;
-                this.endPoint.y = event.offsetY;
-                console.log(this.startPoint.x + " this.startPoint.x");
-                console.log(this.startPoint.y + " this.startPoint.y");
+                if(this.checkDraw()){
+                    this.drawRect = true;
+                    this.startPoint.x = event.offsetX;
+                    this.startPoint.y = event.offsetY;
+                    this.endPoint.x = event.offsetX;
+                    this.endPoint.y = event.offsetY;
+                    console.log(this.startPoint.x + " this.startPoint.x");
+                    console.log(this.startPoint.y + " this.startPoint.y");
+                }else{
+                    this.$message.error('有标注信息未填写！');
+                }
+
             },
 
             onMouseMove: function (event) {
@@ -300,18 +430,19 @@
             },
 
             onMouseUp: function () {
-                this.drawRect = false;
+                if(this.checkDraw()){
+                    this.drawRect = false;
 
-                if(this.getRectWidth > 5 && this.getRectHeight > 5){
-                    this.frames.push({
-                        "leftTop": {x:this.getRectLeft,y:this.getRectTop},//left and top
-                        "rightDown": {x:this.getRectLeft + this.getRectWidth,y:this.getRectTop + this.getRectHeight},
-                        "label":"",
-                    });
-                    this.rectColors.push(this.rectColor);
-                    console.log(this.frames);
+                    if(this.getRectWidth > 5 && this.getRectHeight > 5){
+                        this.frames.push({
+                            "leftTop": {x:this.getRectLeft,y:this.getRectTop},//left and top
+                            "rightDown": {x:this.getRectLeft + this.getRectWidth,y:this.getRectTop + this.getRectHeight},
+                            "label":null,
+                        });
+                        this.rectColors.push(this.rectColor);
+                        console.log(this.frames);
+                    }
                 }
-
             },
 
             getChangeRectStyle: function () {
@@ -325,6 +456,25 @@
                     border:'2px solid',
                     color: this.rectColor,
                 }
+            },
+
+            getTagCanvasStyle: function () {
+                if(this.isNeedTagCanvas){
+                    return {
+                        'z-index': this.frames.length + 3,
+                        left: '0px',
+                        top: '0px',
+                        position: 'absolute',
+                    }
+                }else{
+                    return {
+                        'z-index': -1,
+                        left: '0px',
+                        top: '0px',
+                        position: 'absolute',
+                    }
+                }
+
             },
 
             getCanvasStyle: function () {
@@ -386,7 +536,8 @@
     }
 
     .picture {
-        height: 800px;
+        /*width: 800px;*/
+        width: auto;
         position:absolute;
         left:0px;
         top:0px;
@@ -405,5 +556,9 @@
         background-color: transparent;
         border:2px solid;
         position:absolute;
+    }
+
+    .canvas {
+        background-color: transparent;
     }
 </style>

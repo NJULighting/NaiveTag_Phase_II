@@ -3,7 +3,7 @@
         <div>
             <!--搜索结果-->
             <div style="width: 100%;text-align: center;padding-top: 40px;padding-bottom: 20px">
-                <span style="font-family: SimSun-ExtB;font-size: 30px">搜索结果</span>
+                <span v-if="taskList.length === 0" style="font-family: SimSun-ExtB;font-size: 30px">无</span><span style="font-family: SimSun-ExtB;font-size: 30px">搜索结果</span>
             </div>
 
             <div style="text-align: center">

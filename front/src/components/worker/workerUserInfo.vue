@@ -1,7 +1,7 @@
 <template>
     <div id="userinfo" class="userinfo">
         <div class="top"></div>
-        <img v-if="!onSelect" v-bind:src="imageSrc" alt="headPicture" class="picture" v-on:click="selectPic">
+        <img v-if="!onSelect" v-bind:src="imageSrc" alt="headPicture" class="headpicture" v-on:click="selectPic">
         <div v-if="onSelect">
             <el-upload
                     class="avatar-uploader"
@@ -127,7 +127,7 @@
         text-align: center;
     }
 
-    .picture {
+    .headpicture {
         border-radius: 75px 75px 75px 75px;
         height: 150px;
         width: 150px;
