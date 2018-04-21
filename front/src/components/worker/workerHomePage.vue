@@ -5,7 +5,7 @@
         <!--任务进行中-->
         <div style="width: 100%;text-align: center;padding-top: 40px;padding-bottom: 20px">
             <el-tooltip content="选择“历史任务”以查看更多" placement="right-start" effect="light">
-                <span style="font-family: SimSun-ExtB;font-size: 30px">任务进行中</span>
+                <span v-if="taskDoingList" style="font-family: SimSun-ExtB;font-size: 30px">任务进行中</span>
             </el-tooltip>
         </div>
 
@@ -17,7 +17,7 @@
 
         <!--任务推荐-->
         <div style="width: 100%;text-align: center;padding-top: 30px;padding-bottom: 20px">
-            <span style="font-family: SimSun-ExtB;font-size: 30px">任务推荐</span>
+            <span v-if="taskRecommendList" style="font-family: SimSun-ExtB;font-size: 30px">任务推荐</span>
         </div>
 
         <div style="text-align: center">

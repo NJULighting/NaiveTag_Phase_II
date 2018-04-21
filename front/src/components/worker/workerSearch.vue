@@ -20,14 +20,22 @@
 
 
         created: function () {
-            let result = search(this.username, res=> {
-                console.log("res:");
-                console.log(res);
-                this.taskList = res;
-                console.log('ss')
+            this.fetchKey();
+        },
 
-                console.log(this.taskList);
-            });
+        watch: {
+            // 如果路由有变化，会再次执行该方法
+            '$route': 'fetchKey'
+        },
+
+        methods: {
+            fetchKey () {
+                let result = search(this.$route.params.key, res=> {
+                    console.log("result:");
+                    console.log(res);
+                    this.taskList = res;
+                });
+            },
         },
 
         data() {
