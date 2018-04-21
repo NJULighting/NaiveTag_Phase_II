@@ -7,16 +7,33 @@
 <script>
 
     import taskinfo from './workerTaskInfo.vue';
+    import {taskDetails} from '../../api/taskDetails.js'
 
     export default {
-
-        components: {
-            taskinfo : taskinfo
-        },
 
         created: function () {
             // `this` 指向 vm 实例
             this.$message.info('点击任意一张图片开始进行标注！');
+            this.fetchDetails();
+        },
+
+        watch: {
+            // 如果路由有变化，会再次执行该方法
+            '$route': 'fetchDetails'
+        },
+
+        methods: {
+            fetchDetails () {
+                let result = taskDetails(this.$route.params.taskId, res=> {
+                    console.log("taskDetail:");
+                    console.log(res);
+                    this.taskData = res;
+                });
+            },
+        },
+
+        components: {
+            taskinfo : taskinfo
         },
 
         data() {
@@ -47,7 +64,7 @@
                         "./src/components/test.jpg",
                         "./src/components/test.jpg",
                     ],
-                    "unFinishedPicList": [
+                    "currentDoingWorkerIds": [
                         "./src/components/test.jpg",
                         "./src/components/test.jpg"
                     ],
