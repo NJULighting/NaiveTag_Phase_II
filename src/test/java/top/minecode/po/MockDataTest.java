@@ -93,6 +93,7 @@ public class MockDataTest {
         workerPO.setPassword("iznauy");
 
         TableFactory.workerTable().getAll().add(workerPO);
+        TableFactory.saveAll();
 
     }
 
