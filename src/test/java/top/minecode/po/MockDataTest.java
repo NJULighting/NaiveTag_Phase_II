@@ -28,10 +28,10 @@ public class MockDataTest {
 
         TaskDetailsPO taskDetailsPO = new TaskDetailsPO();
         taskDetailsPO.setId(1);
-        taskDetailsPO.setCorrespondingSecondLevelTaskId(1);
-        taskDetailsPO.setTaskDescription("Deep Dark Fantasy");
+        taskDetailsPO.setSLTaskId(1);
+        taskDetailsPO.setDescription("Deep Dark Fantasy");
         taskDetailsPO.setTaskType(100);
-        taskDetailsPO.setTargetClasses(null);
+        taskDetailsPO.setClasses(null);
 
         TableFactory.secondLevelTaskTable().getAll().add(secondLevelTaskPO);
         TableFactory.taskDetailsTable().getAll().add(taskDetailsPO);
