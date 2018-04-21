@@ -2,6 +2,7 @@ package top.minecode.po;
 
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import top.minecode.json.JsonConfig;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -103,5 +104,9 @@ public class Table<PO> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void printContent() {
+        pos.forEach(po -> System.out.println(JsonConfig.getGson().toJson(po)));
     }
 }

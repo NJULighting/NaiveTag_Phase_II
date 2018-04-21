@@ -3,6 +3,7 @@ package top.minecode.dao.task.requester;
 import org.springframework.stereotype.Repository;
 import top.minecode.domain.task.TaskInfo;
 import top.minecode.domain.task.requester.NewTaskInfo;
+import top.minecode.exception.InvalidFileStructureException;
 import top.minecode.po.*;
 import top.minecode.utils.ImagesSet;
 
@@ -17,11 +18,11 @@ import java.io.IOException;
 @Repository
 public class TaskDeliveryDao {
 
-    public FirstLevelTaskPO addFirstLevelTask(String dataPath, NewTaskInfo taskInfo) throws IOException {
+    public FirstLevelTaskPO addFirstLevelTask(String dataDirectory, NewTaskInfo taskInfo) throws IOException {
         // Create FirstLevelTaskPO
         Table<FirstLevelTaskPO> flTaskTable = TableFactory.firstLevelTaskTable();
         // Create result file for the task
-        File resultFile = new File(dataPath + "result/");
+        File resultFile = new File(dataDirectory + "result");
         if (!resultFile.mkdir())
             throw new IOException("make directory failed");
         // Add worker filter
@@ -29,6 +30,7 @@ public class TaskDeliveryDao {
         WorkerFilterPO filterPO = new WorkerFilterPO(taskInfo.getWorkerFilter(), filterTable.getNextId());
         filterTable.add(filterPO);
 
+        // Add first level task
         FirstLevelTaskPO flTask = new FirstLevelTaskPO(taskInfo, flTaskTable.getNextId(),
                 resultFile.getPath(), filterPO.getId());
         flTaskTable.add(flTask);
@@ -46,7 +48,7 @@ public class TaskDeliveryDao {
         String slTaskName = firstLevelTask.getTaskName();
         TaskDetailsPO detailPO = new TaskDetailsPO(detailId, sltId, info.getTaskType(),
                 info.getDescription(), info.getClasses());
-        SecondLevelTaskPO SLTask = new SecondLevelTaskPO(detailId, firstLevelTask.getId(), slTaskName,
+        SecondLevelTaskPO SLTask = new SecondLevelTaskPO(sltId, firstLevelTask.getId(), slTaskName,
                 score, firstLevelTask.getEndDate(), detailId);
         slTaskTable.add(SLTask);
         detailsTable.add(detailPO);

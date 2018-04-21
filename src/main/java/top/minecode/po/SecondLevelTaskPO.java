@@ -22,6 +22,8 @@ public class SecondLevelTaskPO implements Serializable {
     private LocalDate endDate;
     private Integer taskDetailsId;
 
+    public SecondLevelTaskPO() {}
+
     public SecondLevelTaskPO(int id, int firstLevelTaskId, String taskName, double totalScore, LocalDate endDate,
                              int taskDetailsId) {
         this.id = id;

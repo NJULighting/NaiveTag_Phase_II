@@ -44,9 +44,9 @@ public enum Config {
         return configuration.get("unZipFileBasePath").getAsString();
     }
 
-    public List<String> getExcludedFormat() {
+    public List<String> getSupportFormats() {
         Type type = new TypeToken<List<String>>() {}.getType();
-        return gson.fromJson(configuration.get("excludedFormats"), type);
+        return gson.fromJson(configuration.get("supportFormats"), type);
     }
 
     public boolean isWithClassesType(int type) {

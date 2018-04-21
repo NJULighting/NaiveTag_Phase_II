@@ -17,6 +17,8 @@ public class WorkerFilterPO implements Serializable {
     private Double workerRankRatio;
     private Double averageScore;
 
+    public WorkerFilterPO() {}
+
     public WorkerFilterPO(NewTaskInfo.WorkerFilter workerFilter, int id) {
         workerRankRatio = workerFilter.getWorkerRankRate();
         averageScore = workerFilter.getAverageScore();

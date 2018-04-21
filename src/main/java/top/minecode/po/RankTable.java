@@ -27,6 +27,10 @@ public class RankTable implements Serializable {
         rank.save();
     }
 
+    public void printContent() {
+        rank.printContent();
+    }
+
     public int getRankByName(String name) {
         sort();
         List<RankItem> rankItems = rank.getAll();

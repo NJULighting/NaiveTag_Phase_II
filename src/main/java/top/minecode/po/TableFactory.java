@@ -102,4 +102,20 @@ public class TableFactory {
             e.printStackTrace();
         }
     }
+
+    public static void printAll() {
+        try {
+            Method tablePrint = Table.class.getMethod("printContent");
+            for (Field table : TableFactory.class.getDeclaredFields()) {
+                if (!table.getName().equals("rankTable"))
+                    // Save table except rankTable
+                    tablePrint.invoke(table.get(null));
+                else
+                    // Save rankTable
+                    RankTable.class.getMethod("printContent").invoke(table.get(null));
+            }
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -14,6 +14,17 @@ public class NewTaskInfo {
     private LocalDate endTime; // DDL of the task
     private Double score; // Score provided for the workers
 
+    public NewTaskInfo() {}
+
+    public NewTaskInfo(Integer ownerId, String taskName, WorkerFilter workerFilter,
+                       LocalDate endTime, Double score) {
+        this.ownerId = ownerId;
+        this.taskName = taskName;
+        this.workerFilter = workerFilter;
+        this.endTime = endTime;
+        this.score = score;
+    }
+
     public String getTaskName() {
         return taskName;
     }

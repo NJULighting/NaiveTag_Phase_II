@@ -24,28 +24,28 @@ public class TableTest {
 
 //    private Table<AdministratorPO> adminTable;
 //    private int size;
-
-    @BeforeMethod
-    public void setUp() throws Exception {
-        adminTable = TableFactory.administratorTable();
-        size = adminTable.size();
-    }
-
-    @Test(priority = 3)
-    public void testLoad() throws Exception {
-        assertNotEquals(size, 0);
-    }
-
-    @Test(priority = 2)
-    public void testSave() throws Exception {
-        adminTable.add(new AdministratorPO(11, "frog", "frog", "frog"));
-        Method loadMethod = adminTable.getClass().getDeclaredMethod("load");
-        loadMethod.setAccessible(true);
-        //noinspection JavaReflectionInvocation
-        loadMethod.invoke(adminTable);
-        loadMethod.setAccessible(false);
-        assertEquals(size + 1, adminTable.size());
-    }
+//
+//    @BeforeMethod
+//    public void setUp() throws Exception {
+//        adminTable = TableFactory.administratorTable();
+//        size = adminTable.size();
+//    }
+//
+//    @Test(priority = 3)
+//    public void testLoad() throws Exception {
+//        assertNotEquals(size, 0);
+//    }
+//
+//    @Test(priority = 2)
+//    public void testSave() throws Exception {
+//        adminTable.add(new AdministratorPO(11, "frog", "frog", "frog"));
+//        Method loadMethod = adminTable.getClass().getDeclaredMethod("load");
+//        loadMethod.setAccessible(true);
+//        //noinspection JavaReflectionInvocation
+//        loadMethod.invoke(adminTable);
+//        loadMethod.setAccessible(false);
+//        assertEquals(size + 1, adminTable.size());
+//    }
 
     @Test(priority = 1)
     public void testFilterAndGet() throws Exception {
