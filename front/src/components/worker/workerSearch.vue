@@ -14,14 +14,21 @@
 </template>
 
 <script>
-
-    //import taskblock from './taskBlock.vue';
+    import {search} from '../../api/search.js'
 
     export default {
 
-//        components: {
-//            taskblock: taskblock
-//        },
+
+        created: function () {
+            let result = search(this.username, res=> {
+                console.log("res:");
+                console.log(res);
+                this.taskList = res;
+                console.log('ss')
+
+                console.log(this.taskList);
+            });
+        },
 
         data() {
             return {

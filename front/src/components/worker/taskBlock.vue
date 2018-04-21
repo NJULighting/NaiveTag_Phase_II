@@ -3,7 +3,7 @@
 
             <span class="taskTitle">{{taskName}}</span>
             <p></p>
-            <img :src="cover" alt="CoverImage">
+            <img :src="getCover" alt="CoverImage">
             <p></p>
 
             <div>
@@ -102,6 +102,12 @@
             state: String // unpay、finish、doing、expired(等待结算、完成、进行、过期)
         },
 
+        computed: {
+            getCover: function () {
+                return "http://localhost:8000/naive/" + this.cover;
+            },
+        },
+
         methods: {
 
             showTask: function () {
@@ -166,7 +172,7 @@
         border-radius: 10px 10px 10px 10px;
         background-color: #eeeeee;
         padding: 25px 25px 20px 25px;
-        width: 15.5%;
+        width: 15%;
         display:inline-block;
         margin: 15px;
         cursor: pointer;

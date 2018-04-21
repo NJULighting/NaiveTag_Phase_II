@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import top.minecode.dao.task.WorkerTaskDao;
 import top.minecode.domain.task.WorkerGeneralTaskInfo;
 import top.minecode.domain.user.User;
+import top.minecode.json.JsonConfig;
 import top.minecode.po.ThirdLevelTaskPO;
 
 import java.util.ArrayList;
@@ -35,12 +36,14 @@ public class TaskRecommendationService {
     public List<WorkerGeneralTaskInfo> getRecommendations(User user) {
         List<ThirdLevelTaskPO> possibleTasks = workerTaskDao.getAccessibleTaskList(user);
 
+        System.out.println(JsonConfig.getGson().toJson(possibleTasks));
+
         // 迭代二使用随机化推荐算法
         List<Integer> targetTasksIndex = new ArrayList<>();
         int totalTaskAmount = possibleTasks.size();
         // 任务过少，直接返回全部的
         if (TaskDeliveryConstant.RECOMMENDATION_COUNT >= totalTaskAmount)
-            for (int i = 0; i < TaskDeliveryConstant.RECOMMENDATION_COUNT; i++)
+            for (int i = 0; i < totalTaskAmount; i++)
                 targetTasksIndex.add(i);
         else {
             // 否则随机生成一定数量的任务返回回去
