@@ -25,4 +25,8 @@ public class ActiveUsers {
         nameToUser.put(userName, user);
     }
 
+    public static void removeUserByUsername(String userName) {
+        nameToUser.remove(userName);
+    }
+
 }

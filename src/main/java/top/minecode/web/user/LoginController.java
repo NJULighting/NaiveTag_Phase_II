@@ -15,6 +15,7 @@ import top.minecode.po.Table;
 import top.minecode.po.TableFactory;
 import top.minecode.po.WorkerPO;
 import top.minecode.service.user.UserService;
+import top.minecode.web.common.ActiveUsers;
 import top.minecode.web.common.BaseController;
 import top.minecode.web.common.CommonConstant;
 
@@ -66,8 +67,8 @@ public class LoginController extends BaseController {
 
     //登出
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public void logout(HttpSession httpSession) {
-        httpSession.removeAttribute(CommonConstant.USER_CONTEXT);
+    public void logout(String username) {
+        ActiveUsers.removeUserByUsername(username);
     }
 
 
