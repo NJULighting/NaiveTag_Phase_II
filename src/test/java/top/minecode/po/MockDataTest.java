@@ -29,7 +29,7 @@ public class MockDataTest {
 
     private WorkerTaskDao workerTaskDao = new WorkerTaskDao();
 
-   // @BeforeTest
+//    @Test
     public void addSecondTask() {
 
         // 编号为1的二级任务
@@ -81,7 +81,7 @@ public class MockDataTest {
         thirdLevelTaskPO1.setState(ThirdLevelTaskState.doing);
 
         List<String> picList1 = new ArrayList<>();
-        picList1.add("佟大为.jpg");
+        picList1.add("iznauy/Tong_Da_Wei.jpg");
 
         thirdLevelTaskPO1.setPicList(picList1);
         thirdLevelTaskPO1.setTaskDescription("Deep Dark Fantasy");
@@ -103,7 +103,7 @@ public class MockDataTest {
         thirdLevelTaskPO2.setState(ThirdLevelTaskState.doing);
 
         List<String> picList2 = new ArrayList<>();
-        picList2.add("佟大为.jpg");
+        picList2.add("iznauy/Van.jpg");
 
         thirdLevelTaskPO2.setPicList(picList2);
         thirdLevelTaskPO2.setTaskDescription("Deep Dark Fantasy");
@@ -125,7 +125,7 @@ public class MockDataTest {
         thirdLevelTaskPO2_1.setState(ThirdLevelTaskState.doing);
 
         List<String> picList2_1 = new ArrayList<>();
-        picList2_1.add("佟大为.jpg");
+        picList2_1.add("iznauyVan.jpg");
 
         thirdLevelTaskPO2_1.setPicList(picList2_1);
         thirdLevelTaskPO2_1.setTaskDescription("Are you OK?");
@@ -165,16 +165,18 @@ public class MockDataTest {
         user.setName("ok");
         user.setUsername("iznauy");
 
+        TableFactory.saveAll();
+
     }
 
- //   @Test
+//    @Test
     public void workerAccessTest() {
         List<ThirdLevelTaskPO> thirdLevelTaskPOS = workerTaskDao.getAccessibleTaskList(user);
         System.out.println(JsonConfig.getGson().toJson(thirdLevelTaskPOS));
         assertEquals(thirdLevelTaskPOS.size(), 2);
     }
 
-  //  @Test
+ //   @Test
     public void workerSearchTest() {
         List<ThirdLevelTaskPO> thirdLevelTaskPOS = workerTaskDao.searchingTaskByKey(user, "OK");
         assertEquals(thirdLevelTaskPOS.size(), 1);

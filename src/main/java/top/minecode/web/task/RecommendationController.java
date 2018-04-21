@@ -36,7 +36,7 @@ public class RecommendationController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public String getRecommendation(HttpServletRequest request) {
         User user = getSessionUser(request);
         List<WorkerGeneralTaskInfo> recommendations = recommendationService.getRecommendations(user);

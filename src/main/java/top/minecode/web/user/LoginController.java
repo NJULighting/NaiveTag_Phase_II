@@ -11,6 +11,9 @@ import top.minecode.exception.InvalidPasswordException;
 import top.minecode.exception.InvalidUserNameException;
 import top.minecode.json.JsonConfig;
 import top.minecode.json.user.LoginResponse;
+import top.minecode.po.Table;
+import top.minecode.po.TableFactory;
+import top.minecode.po.WorkerPO;
 import top.minecode.service.user.UserService;
 import top.minecode.web.common.ActiveUsers;
 import top.minecode.web.common.BaseController;
@@ -41,6 +44,11 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody String login(HttpServletRequest request, User user) {
+        Table<WorkerPO> table = TableFactory.workerTable();
+        System.out.println("Table Info" + table.getAll().size());
+        System.out.println(JsonConfig.getGson().toJson(
+                TableFactory.workerTable().getAll()
+        ));
         LoginResponse loginResponse = new LoginResponse();
         try {
             user = userService.login(user);

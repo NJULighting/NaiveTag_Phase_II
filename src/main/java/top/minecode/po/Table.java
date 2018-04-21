@@ -3,10 +3,8 @@ package top.minecode.po;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -21,8 +19,18 @@ import java.util.stream.Collectors;
 public class Table<PO> {
 
     private List<PO> pos;
-    private static final String CLASS_PATH = Table.class.getResource("/").getPath();
+    private static final String CLASS_PATH;
     private final String filePath;
+
+    static {
+        String path = Table.class.getResource("/").getPath();
+        try {
+            path = URLDecoder.decode(path, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        CLASS_PATH = path;
+    }
 
     Table(String fileName) {
         filePath = CLASS_PATH + fileName + ".table";
@@ -74,6 +82,7 @@ public class Table<PO> {
             if (!resource.exists()) {
                 pos = new ArrayList<>();
                 //noinspection ResultOfMethodCallIgnored
+                System.out.println(resource.getFile().getPath());
                 resource.getFile().createNewFile();
                 save();
                 return;
