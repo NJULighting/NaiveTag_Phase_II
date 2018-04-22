@@ -27,6 +27,15 @@ public class RequesterTaskDao {
         return TableFactory.firstLevelTaskTable().getPOsBy(ownerId, FirstLevelTaskPO::getOwnerId);
     }
 
+    public String getTaskResultPath(int taskId) {
+        return TableFactory.firstLevelTaskTable().getPOBy(taskId, FirstLevelTaskPO::getId).getResultFilePath();
+    }
+
+    public boolean isDone(int taskId) {
+        return TableFactory.firstLevelTaskTable().getPOBy(taskId, FirstLevelTaskPO::getId).getState()
+                == FirstLevelTaskState.completed;
+    }
+
     public Map<Integer, TaskInfo> secondLevelTaskInfo(int firstTaskId) {
 
         Table<SecondLevelTaskPO> table = TableFactory.secondLevelTaskTable();

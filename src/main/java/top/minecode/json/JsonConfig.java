@@ -2,6 +2,7 @@ package top.minecode.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import top.minecode.domain.statistic.TimeNumberGraph;
 import top.minecode.domain.tag.TagDeserializer;
 import top.minecode.domain.tag.TagResult;
 import top.minecode.domain.tag.TagSerializer;
@@ -26,6 +27,7 @@ public class JsonConfig {
                     .registerTypeAdapter(TagResult.class, new TagSerializer())
                     .registerTypeAdapter(TagResult.class, new TagDeserializer())
                     .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+                    .registerTypeAdapter(TimeNumberGraph.GraphPoint.class, new TimeNumberGraphSerializer())
                     .create();
         return gson;
     }

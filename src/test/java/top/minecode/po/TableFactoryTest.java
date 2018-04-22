@@ -15,7 +15,7 @@ import static org.testng.Assert.*;
  */
 public class TableFactoryTest {
 
- //   @Test
+    @Test(enabled = false)
     public void testSaveAll() throws Exception {
         FirstLevelTaskPO taskPO = new FirstLevelTaskPO();
         taskPO.setTaskName("Excited");

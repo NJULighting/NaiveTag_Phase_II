@@ -8,8 +8,8 @@ import top.minecode.domain.user.Worker;
 import top.minecode.json.JsonConfig;
 import top.minecode.po.*;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Created on 2018/4/2.
@@ -26,6 +26,7 @@ public class UserDao {
         LoginLogPO loginLog = new LoginLogPO();
         loginLog.setUserId(user.getId());
         loginLog.setUserType(user.getUserType());
+        loginLog.setLoginTime(LocalDateTime.now());
         loginLogPOTable.add(loginLog);
     }
 
@@ -101,6 +102,14 @@ public class UserDao {
             TableFactory.workerTable().add(workerPO);
         }
         System.out.println("Add User: " + JsonConfig.getGson().toJson(user));
+        addRegisterLoginLog(user);
     }
 
+    private void addRegisterLoginLog(User user) {
+        Table<RegisterLogPO> registerLogTable = TableFactory.registerLogTable();
+        if (user.getUserType() == UserType.admin)
+            return;
+        RegisterLogPO log = new RegisterLogPO(user.getId(), user.getUserType(), LocalDate.now());
+        registerLogTable.add(log);
+    }
 }

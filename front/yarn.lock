@@ -1592,7 +1592,7 @@ fill-range@^2.1.0:
   version "2.2.3"
   resolved "http://registry.npm.taobao.org/fill-range/download/fill-range-2.2.3.tgz#50b77dfd7e469bc7492470963699fe7a8485a723"
   dependencies:
-    is-number "^2.1.0"
+    is-y "^2.1.0"
     isobject "^2.0.0"
     randomatic "^1.1.3"
     repeat-element "^1.1.2"
@@ -2041,13 +2041,13 @@ is-finite@^1.0.0:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/is-finite/download/is-finite-1.0.2.tgz#cc6677695602be550ef11e8b4aa6305342b6d0aa"
   dependencies:
-    number-is-nan "^1.0.0"
+    y-is-nan "^1.0.0"
 
 is-fullwidth-code-point@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/is-fullwidth-code-point/download/is-fullwidth-code-point-1.0.0.tgz#ef9e31386f031a7f0d643af82fde50c457ef00cb"
   dependencies:
-    number-is-nan "^1.0.0"
+    y-is-nan "^1.0.0"
 
 is-glob@^2.0.0, is-glob@^2.0.1:
   version "2.0.1"
@@ -2061,9 +2061,9 @@ is-glob@^3.1.0:
   dependencies:
     is-extglob "^2.1.0"
 
-is-number@^2.0.2, is-number@^2.1.0:
+is-y@^2.0.2, is-y@^2.1.0:
   version "2.1.0"
-  resolved "http://registry.npm.taobao.org/is-number/download/is-number-2.1.0.tgz#01fcbbb393463a548f2f466cce16dece49db908f"
+  resolved "http://registry.npm.taobao.org/is-y/download/is-y-2.1.0.tgz#01fcbbb393463a548f2f466cce16dece49db908f"
   dependencies:
     kind-of "^3.0.2"
 
@@ -2500,9 +2500,9 @@ num2fraction@^1.2.2:
   version "1.2.2"
   resolved "http://registry.npm.taobao.org/num2fraction/download/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
 
-number-is-nan@^1.0.0:
+y-is-nan@^1.0.0:
   version "1.0.1"
-  resolved "http://registry.npm.taobao.org/number-is-nan/download/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
+  resolved "http://registry.npm.taobao.org/y-is-nan/download/y-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
 oauth-sign@~0.8.1:
   version "0.8.2"
@@ -3057,7 +3057,7 @@ randomatic@^1.1.3:
   version "1.1.6"
   resolved "http://registry.npm.taobao.org/randomatic/download/randomatic-1.1.6.tgz#110dcabff397e9dcff7c0789ccc0a49adf1ec5bb"
   dependencies:
-    is-number "^2.0.2"
+    is-y "^2.0.2"
     kind-of "^3.0.2"
 
 randombytes@^2.0.0, randombytes@^2.0.1:
@@ -3588,7 +3588,7 @@ tar-pack@^3.4.0:
     readable-stream "^2.1.4"
     rimraf "^2.5.1"
     tar "^2.2.1"
-    uid-number "^0.0.6"
+    uid-y "^0.0.6"
 
 tar@^2.2.1:
   version "2.2.1"
@@ -3664,9 +3664,9 @@ uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/uglify-to-browserify/download/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
 
-uid-number@^0.0.6:
+uid-y@^0.0.6:
   version "0.0.6"
-  resolved "http://registry.npm.taobao.org/uid-number/download/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
+  resolved "http://registry.npm.taobao.org/uid-y/download/uid-y-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
 
 uniq@^1.0.1:
   version "1.0.1"

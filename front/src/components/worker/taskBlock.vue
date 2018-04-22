@@ -13,9 +13,9 @@
             <span>
                 <span v-if="actualScore">
                     <span class="keynumber">{{taskActualScore()}}</span><!--
-                 --><span class="number">/</span><!--
+                 --><span class="y">/</span><!--
                 --></span><!--
-                --><span class="number">{{averageScore}}</span><!--
+                --><span class="y">{{averageScore}}</span><!--
                 --><span class="chinese">分</span>
             </span>
                 </div>
@@ -252,7 +252,7 @@
         font-family: "Caviar Dreams";
     }
 
-    .number {
+    .y {
         font-size: 24px;
         color: black;
     }
