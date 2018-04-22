@@ -112,7 +112,8 @@
         methods: {
 
             showTask: function () {
-                this.$router.push("/task");
+//                this.$router.push("/task");
+                this.$router.push({ name: 'task', params: { taskId: this.taskId }});
             },
 
             taskActualScore: function () {

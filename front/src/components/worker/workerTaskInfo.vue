@@ -18,11 +18,11 @@
                         </label>
 
                         <p></p>
-                        <span>描述：{{description}}</span>
+                        <span>描述：{{taskDescription}}</span>
                         <p></p>
                         <span>总积分：{{averageScore}}分</span>
                         <span class="away">图片：{{getPicAmount()}}张</span>
-                        <span class="away">已标注：{{getPicFinishAmount()}}张</span>
+                        <span v-if="finishedPicList" class="away">已标注：{{getPicFinishAmount()}}张</span>
                         <p></p>
 
                         <div v-if="payDay" class="date">
@@ -38,9 +38,9 @@
                     </div></el-col>
 
                     <el-col :span="8"><div class="center" style="padding-top: 100px;">
-                        <button v-if="canAccept === 'true'" class="center button">接受</button>
-                        <button v-else-if="canAccept === 'false'" class="center button accept">不可接受</button>
-                        <button v-if="!canAccept" class="center button accept">{{getState()}}</button>
+                        <button v-if="canAccept === true" class="center button" v-on:click="accept()">接受</button>
+                        <button v-else-if="canAccept === false && !state" class="center button accept">不可接受</button>
+                        <button v-else-if="state" class="center button accept">{{getState()}}</button>
                     </div></el-col>
 
                 </el-row>
@@ -51,14 +51,14 @@
                 <span>图片列表：</span>
                 <p></p>
 
-                <img v-if="picList" v-for="picture in picList"  :src="picture" alt="Image" style="padding: 10px;width: 15%;">
-                <el-tabs v-if="!picList" v-model="activeName2" type="card">
+                <img v-if="picList" v-on:click="clickPicList(index)" v-for="(picture, index) in picList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
+                <el-tabs v-if="unfinishedPicList && finishedPicList" v-model="activeName2" type="card">
 
                     <el-tab-pane label="未标注" name="first">
-                        <img v-for="picture in unFinishedPicList"  :src="picture" alt="Image" style="padding: 10px;width: 15%;">
+                        <img v-on:click="clickUnfinishedPicList(index)" v-for="(picture, index) in unfinishedPicList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
                     </el-tab-pane>
                     <el-tab-pane label="已标注" name="second">
-                        <img v-for="picture in finishedPicList"  :src="picture" alt="Image" style="padding: 10px;width: 15%;">
+                        <img v-on:click="clickFinishedPicList(index)" v-for="(picture, index) in finishedPicList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
                     </el-tab-pane>
                 </el-tabs>
             </div>
@@ -72,6 +72,8 @@
 <script>
 
     import simplenavi from './simpleNavi.vue'
+    import Vue from 'vue'
+    import {taskAccept} from '../../api/taskDetails.js'
 
     export default {
 
@@ -80,18 +82,18 @@
         },
 
         props: {
-            taskState: String, // 已经接受的任务unaccept
+            state: String, // 已经接受的任务unaccept
             taskName: String,
             taskType: Number,
-            description: String,
+            taskDescription: String,
             averageScore: Number,
 
             picList: Array,
             payDay: String, // 任务的最终截止时期
-            canAccept: String, // true or false  因为有的任务用户不可以接受
+            canAccept: Boolean, // true or false  因为有的任务用户不可以接受
 
             finishedPicList: Array,
-            unFinishedPicList: Array,
+            unfinishedPicList: Array,
             beginDate: String,
             endDate: String, // 任务最终截止时期和任务的过期时间的较小值
 
@@ -106,6 +108,42 @@
 
         methods: {
 
+            clickPicList(index){
+                if(this.state && (this.state === "accept")){
+                    console.log("index"+index);
+                    this.$emit('tagPicList', index+"");
+                }
+            },
+
+            clickUnfinishedPicList(index){
+                if(this.state && (this.state === "accept")){
+                    console.log("index"+index);
+                    this.$emit('tagUnfinishedPicList', index+"");
+                }
+            },
+
+            clickFinishedPicList(index){
+                if(this.state && (this.state === "accept")){
+                    console.log("index"+index);
+                    this.$emit('tagFinishedPicList', index+"");
+                }
+            },
+
+            accept () {
+                let result = taskAccept(this.$route.params.taskId, res=> {
+                    console.log("accept result: ");
+                    console.log(res.result);
+                    if(res.result){
+                        this.$emit('refreshData');
+                    }
+                });
+            },
+
+            getPicSrc: function (picUrl) {
+                console.log("addPicSrc");
+                return "http://localhost:8000/naive/" + picUrl;
+            },
+
             getPicFinishAmount: function () {
                 return this.finishedPicList.length;
             },
@@ -114,14 +152,14 @@
                 if(this.picList){
                     return this.picList.length;
                 }
-                else{
-                    return this.finishedPicList.length + this.unFinishedPicList.length;
+                if(this.finishedPicList && this.unfinishedPicList){
+                    return this.finishedPicList.length + this.unfinishedPicList.length;
                 }
             },
 
             getState: function () {
 
-                switch (this.taskState){
+                switch (this.state){
                     case "unaccept":
                         return "未接受";
                         break;

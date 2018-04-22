@@ -30,7 +30,7 @@ const router = new VueRouter({
                 {path: 'user', component: user},
             ]
         },
-        {path: '/task', component: task},
+        {path: '/task/:taskId', component: task, name: 'task'},
         {path: '/login', component: login},
         {path: '/signUp', component: signUp},
         {

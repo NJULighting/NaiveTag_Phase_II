@@ -1,18 +1,16 @@
-export function search(key,callback) {
+export function taskGoing(count,callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/search.html",
+        url: "http://localhost:8000/naive/worker/recent.html",
         type: 'GET',
         // xhrFields:{withCredentials:true},
         data: {
             'username': localStorage.username,
-            "key" : key,
-            "begin": 1, //从哪个开始，因为是搜索跳过去，所以必须是1
-            "step": 20 //获取task的个数
+            "count": 3 // 表示获取最近几个任务的信息
         },
         success: function(result){
-            console.log("key: "+key);
-            console.log('success');
+            console.log("count: "+count);
+            console.log('getTaskGoing success');
             console.log(result);
             callback(JSON.parse(result));
         },

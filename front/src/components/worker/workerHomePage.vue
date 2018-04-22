@@ -33,6 +33,8 @@
     //import taskblock from './taskBlock.vue';
     import {recommendation} from '../../api/recommendation.js'
 
+    import {taskGoing} from '../../api/taskGoing.js'
+
     //注册
     export default {
         //mixins: [workerHomeData],
@@ -42,13 +44,16 @@
 //        },
 
         created: function () {
-            let result = recommendation(res=> {
-                console.log("res:");
+            var count = 3;
+            let result1 = taskGoing(count, res=> {
+                console.log("taskGoing success");
+                console.log(res);
+                this.taskDoingList = res;
+            });
+            let result2 = recommendation(res=> {
+                console.log("recommendation success");
                 console.log(res);
                 this.taskRecommendList = res;
-                console.log('ss')
-
-                console.log(this.taskRecommendList);
             });
         },
 
