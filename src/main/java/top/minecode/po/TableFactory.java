@@ -46,6 +46,11 @@ public class TableFactory {
         loginLogTable = new Table<>("loginLog");
         workerSettlementLogTable = new Table<>("workerSettlementLog");
 
+        // Add initial administrator
+        if (adminTable.getPOBy(1926, AdministratorPO::getId) == null) {
+            adminTable.add(new AdministratorPO(1926, "ZhangZhe", "ZhangZhe", "Excited"));
+        }
+
         SecondLevelTaskPO secondLevelTaskPO = new SecondLevelTaskPO();
         secondLevelTaskPO.setId(1);
         secondLevelTaskPO.setTaskName("Boy ♂ Next ♂ Door");
