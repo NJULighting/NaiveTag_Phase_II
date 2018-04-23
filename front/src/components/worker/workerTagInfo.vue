@@ -27,7 +27,7 @@
                          v-bind:key="item.id"></div>
 
                     <!--框画板-->
-                    <div ref="canvas" v-bind:style="getCanvasStyle()"
+                    <div v-if="isRectsTypeNoLabel" ref="canvas" v-bind:style="getCanvasStyle()"
                          v-on:mousedown="onMouseDown($event)"
                          v-on:mouseup="onMouseUp($event)"
                          v-on:mousemove="onMouseMove($event)"></div>
@@ -59,7 +59,7 @@
                     <div class="tagblocks">
 
                         <!--颜色选择器-->
-                        <div class="block center" style="padding-top: 20px;">
+                        <div v-if="isRectsTypeNoLabel" class="block center" style="padding-top: 20px;">
                             <span class="demonstration">颜色</span>
                             <el-color-picker v-model="rectColor"></el-color-picker>
                         </div>
@@ -68,34 +68,55 @@
                         <div style="text-align: center;padding-top: 10px;padding-bottom: 10px">
 
                             <!--输入框-->
-                            <div v-if="isInputType" v-for="(item, index) in frames"
-                                 v-bind="item"
-                                 v-bind:index="index"
-                                 v-bind:key="item.id">
-                                <span v-if="isMoreThanOne">{{index}}：</span>
-                                <el-input v-model="item.label" placeholder="请输入内容" class="input" @change="changeInputValue($event,index)"></el-input>
-                                <el-button type="danger" icon="el-icon-delete" circle
-                                           v-on:click="deleteFramesItem(index)"></el-button>
+                            <div v-if="isInputType">
+                                <div v-if="!isRectsTypeNoLabel">
+                                    <el-input v-model="labelInput" placeholder="请输入内容" class="input"></el-input>
+                                </div>
+                                <div v-if="isRectsTypeNoLabel"
+                                     v-for="(item, index) in frames"
+                                     v-bind="item"
+                                     v-bind:index="index"
+                                     v-bind:key="item.id">
+                                    <span v-if="isMoreThanOne">{{index}}：</span>
+                                    <el-input v-model="item.label" placeholder="请输入内容" class="input" @change="changeInputValue($event,index)"></el-input>
+                                    <el-button type="danger" icon="el-icon-delete" circle
+                                               v-on:click="deleteFramesItem(index)"></el-button>
+                                </div>
                             </div>
 
+
                             <!--选择框-->
-                            <div v-if="isSelectType" v-for="(item, index) in frames"
-                                 v-bind="item"
-                                 v-bind:index="index"
-                                 v-bind:key="item.id"
-                                 v-on:remove="frames.splice(index, 1)">
-                                <span v-if="isMoreThanOne">{{index}}：</span>
-                                <el-select v-model="item.label" filterable placeholder="请选择" class="select" @change="changeSelectValue($event,index)">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                                <el-button type="danger" icon="el-icon-delete" circle
-                                           v-on:click="deleteFramesItem(index)"></el-button>
+                            <div v-if="isSelectType">
+                                <div v-if="!isRectsTypeNoLabel">
+                                    <el-select v-model="labelInput" filterable placeholder="请选择" class="select">
+                                        <el-option
+                                                v-for="item in options"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </div>
+                                <div v-if="isRectsTypeNoLabel"
+                                     v-for="(item, index) in frames"
+                                     v-bind="item"
+                                     v-bind:index="index"
+                                     v-bind:key="item.id"
+                                     v-on:remove="frames.splice(index, 1)">
+                                    <span v-if="isMoreThanOne">{{index}}：</span>
+                                    <el-select v-model="item.label" filterable placeholder="请选择" class="select" @change="changeSelectValue($event,index)">
+                                        <el-option
+                                                v-for="item in options"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                    <el-button type="danger" icon="el-icon-delete" circle
+                                               v-on:click="deleteFramesItem(index)"></el-button>
+                                </div>
                             </div>
+
 
                         </div>
 
@@ -127,24 +148,29 @@
                for(var i=0; i<this.frames.length;i++){
                    this.rectColors.push(this.rectColor);
                }
-
-               this.drawPolygon();
+               if(this.points && (this.points.length > 0)){
+                   this.drawPolygon();
+               }
 
                console.log("rectColors:")
                console.log(this.rectColors);
+
            })
         },
 
         props: {
             tagType: String,
+            label: String,
             frames: Array,
             points: Array,
             options: Array,
+
             picUrl: String
         },
 
         data() {
             return {
+                labelInput: "",
                 rectColor : 'red',
                 defaultColor:[
                     'red',
@@ -190,10 +216,6 @@
 
         computed: {
 
-            isNeedTagCanvas: function () {
-                return false;
-            },
-
             getRandomColor: function () {
                 return this.defaultColor[parseInt((this.defaultColor.length-1)*Math.random())];
             },
@@ -216,6 +238,40 @@
 
             getRectHeight: function () {
                 return Math.abs(this.startPoint.y - this.endPoint.y);
+            },
+
+            isCanvasType: function () {
+                switch (this.getTagTypeNum) {
+                    case 400:
+                        return true;
+                        break;
+                    case 401:
+                        return true;
+                        break;
+                    default:
+                        return false;
+                        break;
+                }
+            },
+
+            isRectsTypeNoLabel: function () {
+                switch (this.getTagTypeNum) {
+                    case 100:
+                        return false;
+                        break;
+                    case 101:
+                        return false;
+                        break;
+                    case 400:
+                        return false;
+                        break;
+                    case 401:
+                        return false;
+                        break;
+                    default:
+                        return true;
+                        break;
+                }
             },
 
             isInputType: function () {
@@ -317,12 +373,14 @@
 
             lastPic: function () {
                 if(this.checkNext()){
+                    this.label = this.labelInput;
                     this.$emit('lastPic');
                 }
             },
 
             nextPic: function () {
                 if(this.checkNext()){
+                    this.label = this.labelInput;
                     this.$emit('nextPic');
                 }
             },
@@ -391,9 +449,14 @@
 
             changeInputValue(value,index) {
                 console.log("value: "+value+" index: "+index);
-                this.frames[index].label = value;
+                Vue.set(this.frames[index], 'label', value);
                 console.log(this.frames);
             },
+//
+//            changeInputLabel(value){
+//                this.label = value;
+//                console.log("label: " + this.label);
+//            },
 
             changeSelectValue(value,index) {
                 let obj = {};
@@ -401,9 +464,18 @@
                     return item.value === value;
                 });
                 console.log("value: "+value+" index: "+index+" label: "+ obj.label);
-                Vue.set(this.frames[index], 'label', obj.label)
+                Vue.set(this.frames[index], 'label', obj.label);
                 console.log(this.frames);
             },
+//
+//            changeSelectLabel(value){
+//                let obj = {};
+//                obj = this.options.find((item)=>{
+//                    return item.value === value;
+//                });
+//                this.label = obj.label;
+//                console.log("label: " + this.label);
+//            },
 
             onMouseDown: function (event) {
                 if(this.checkDraw()){
@@ -434,10 +506,18 @@
                     this.drawRect = false;
 
                     if(this.getRectWidth > 5 && this.getRectHeight > 5){
+                        var label = null;
+                        if(!this.isMoreThanOne){
+                            if(this.frames.length === 1){
+                                label = this.frames[0].label;
+                                this.frames.pop();
+                                this.rectColors.pop();
+                            }
+                        }
                         this.frames.push({
                             "leftTop": {x:this.getRectLeft,y:this.getRectTop},//left and top
                             "rightDown": {x:this.getRectLeft + this.getRectWidth,y:this.getRectTop + this.getRectHeight},
-                            "label":null,
+                            "label":label,
                         });
                         this.rectColors.push(this.rectColor);
                         console.log(this.frames);
@@ -459,7 +539,7 @@
             },
 
             getTagCanvasStyle: function () {
-                if(this.isNeedTagCanvas){
+                if(this.isCanvasType){
                     return {
                         'z-index': this.frames.length + 3,
                         left: '0px',

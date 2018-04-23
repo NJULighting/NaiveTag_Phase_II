@@ -51,14 +51,14 @@
                 <span>图片列表：</span>
                 <p></p>
 
-                <img v-if="picList" v-on:click="clickPicList(index)" v-for="(picture, index) in picList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
+                <img v-if="picList" v-on:click="clickPicList(picture)" v-for="(picture, index) in picList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
                 <el-tabs v-if="unfinishedPicList && finishedPicList" v-model="activeName2" type="card">
 
                     <el-tab-pane label="未标注" name="first">
-                        <img v-on:click="clickUnfinishedPicList(index)" v-for="(picture, index) in unfinishedPicList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
+                        <img v-on:click="clickPicList(picture)" v-for="(picture, index) in unfinishedPicList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
                     </el-tab-pane>
                     <el-tab-pane label="已标注" name="second">
-                        <img v-on:click="clickFinishedPicList(index)" v-for="(picture, index) in finishedPicList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
+                        <img v-on:click="clickPicList(picture)" v-for="(picture, index) in finishedPicList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
                     </el-tab-pane>
                 </el-tabs>
             </div>
@@ -108,24 +108,9 @@
 
         methods: {
 
-            clickPicList(index){
+            clickPicList(picUrl){
                 if(this.state && (this.state === "accept")){
-                    console.log("index"+index);
-                    this.$emit('tagPicList', index+"");
-                }
-            },
-
-            clickUnfinishedPicList(index){
-                if(this.state && (this.state === "accept")){
-                    console.log("index"+index);
-                    this.$emit('tagUnfinishedPicList', index+"");
-                }
-            },
-
-            clickFinishedPicList(index){
-                if(this.state && (this.state === "accept")){
-                    console.log("index"+index);
-                    this.$emit('tagFinishedPicList', index+"");
+                    this.$emit('tagPicList', picUrl+"");
                 }
             },
 

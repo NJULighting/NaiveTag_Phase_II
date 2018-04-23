@@ -103,7 +103,10 @@
                     if (valid) {
                         signUp(this.signUpForm,
                            res=> {
-                            that.$router.push('/login');
+                            alert(res.result);
+                            if (res.result==='success'){
+                                that.$router.push('/login');
+                            }
                         });
                     } else {
 

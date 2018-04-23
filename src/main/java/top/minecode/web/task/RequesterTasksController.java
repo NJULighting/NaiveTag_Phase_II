@@ -2,9 +2,13 @@ package top.minecode.web.task;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +24,7 @@ import top.minecode.utils.Config;
 import top.minecode.web.common.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -58,6 +63,13 @@ public class RequesterTasksController extends BaseController {
         return JsonConfig.getGson().toJson(details);
     }
 
+    /**
+     * Process requester's creating tasks request.
+     * @param taskInfo new task's information
+     * @param dataset data set (image set)
+     * @param taskconf task.json which is the configuration file of the task
+     * @return see details in the documents
+     */
     @RequestMapping("/new")
     @ResponseBody
     public String newTask(HttpServletRequest request, NewTaskInfo taskInfo,
@@ -90,13 +102,14 @@ public class RequesterTasksController extends BaseController {
 
     /**
      * Check the task.json file
+     *
      * @param taskconf the task.json file uploaded
      * @return {"result" : "valid"} if the file's content is valid, otherwise
      * {"result" : "invalid"} will be returned.
      */
-    @RequestMapping("/check")
+    @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
-    public String checkJsonFile(@RequestParam("taskconf") MultipartFile taskconf) {
+    public String checkJsonFile(HttpServletRequest request, @RequestParam MultipartFile taskconf) {
         JsonObject result = new JsonObject();
         Gson gson = JsonConfig.getGson();
 
@@ -111,6 +124,33 @@ public class RequesterTasksController extends BaseController {
         }
     }
 
+    /**
+     * Download the result file
+     * @param taskId id of the task
+     * @param response http response
+     */
+    @RequestMapping("/download")
+    public void download(@RequestParam("taskId") int taskId, HttpServletResponse response) {
+        // Check state of the task
+        if (!service.isDone(taskId))
+            return;
+
+        String resultPath = service.getResult(taskId);
+        Resource resource = new FileSystemResource(resultPath);
+        try {
+            IOUtils.copy(resource.getInputStream(), response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Get the path to which the dataset and task.json will save to.
+     * @param basePath base path
+     * @param request request of some user which is used to get the information about the user
+     * @return a path which is like 'servletContextPath/basePath/1(userId)/123(sequence number)/'
+     */
     private String getPath(String basePath, HttpServletRequest request) {
         User user = getSessionUser(request);
         String separator = File.separator;
