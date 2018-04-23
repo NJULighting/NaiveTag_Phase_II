@@ -27,6 +27,7 @@ public class TableFactory {
     private static final Table<ThirdLevelTaskPO> thirdLevelTaskTable;
     private static final Table<ThirdLevelTaskResultPO> thirdLevelTaskResultTable;
     private static final Table<LoginLogPO> loginLogTable;
+    private static final Table<RegisterLogPO> registerLogTable;
     private static final Table<WorkerSettlementLogPO> workerSettlementLogTable;
     private static final RankTable rankTable;
 
@@ -41,8 +42,14 @@ public class TableFactory {
         thirdLevelTaskTable = new Table<>("thirdLevelTask");
         thirdLevelTaskResultTable = new Table<>("thirdLevelTaskResult");
         rankTable = new RankTable();
+        registerLogTable = new Table<>("registerLog");
         loginLogTable = new Table<>("loginLog");
         workerSettlementLogTable = new Table<>("workerSettlementLog");
+
+        // Add initial administrator
+        if (adminTable.getPOBy(1926, AdministratorPO::getId) == null) {
+            adminTable.add(new AdministratorPO(1926, "ZhangZhe", "ZhangZhe", "Excited"));
+        }
 
         SecondLevelTaskPO secondLevelTaskPO = new SecondLevelTaskPO();
         secondLevelTaskPO.setId(1);
@@ -225,6 +232,10 @@ public class TableFactory {
 
     public static Table<AdministratorPO> administratorTable() {
         return adminTable;
+    }
+
+    public static Table<RegisterLogPO> registerLogTable() {
+        return registerLogTable;
     }
 
     public static Table<FirstLevelTaskPO> firstLevelTaskTable() {

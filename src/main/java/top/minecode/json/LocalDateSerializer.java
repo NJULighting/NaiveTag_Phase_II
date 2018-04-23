@@ -23,6 +23,4 @@ public class LocalDateSerializer implements JsonSerializer<LocalDate> {
         sb.append(localDate.getDayOfMonth());
         return new JsonPrimitive(sb.toString());
     }
-
-
 }

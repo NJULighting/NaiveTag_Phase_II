@@ -1,23 +1,22 @@
 package top.minecode.service.taskmanage;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.testng.annotations.Test;
 import top.minecode.domain.task.requester.NewTaskInfo;
 import top.minecode.po.TableFactory;
 
 import java.io.File;
 import java.time.LocalDate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.testng.Assert.assertTrue;
+
 
 /**
  * Created on 2018/4/21.
@@ -25,8 +24,7 @@ import static org.junit.Assert.assertTrue;
  * @author Liao
  */
 @ContextConfiguration("classpath:naive-context.xml")
-@RunWith(SpringJUnit4ClassRunner.class)
-public class RequesterTaskServiceTest {
+public class RequesterTaskServiceTest extends AbstractTestNGSpringContextTests{
 
     private RequesterTaskService service;
 
@@ -62,8 +60,6 @@ public class RequesterTaskServiceTest {
 
 
         service.saveFile(dataSet, taskJson, dirPath + File.separator, newTaskInfo);
-        // Check table's data
-        TableFactory.printAll();
 
         assertTrue(FileSystemUtils.deleteRecursively(dir));
     }

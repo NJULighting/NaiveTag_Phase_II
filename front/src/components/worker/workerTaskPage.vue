@@ -1,6 +1,8 @@
 <template>
     <div id="task">
-        <taskinfo @refreshData="fetchDetails" v-bind="taskData"></taskinfo>
+        <taskinfo @refreshData="fetchDetails"
+                  @tagPicList="tagPicList"
+                  v-bind="taskData"></taskinfo>
     </div>
 </template>
 
@@ -23,6 +25,12 @@
         },
 
         methods: {
+
+            tagPicList(picUrl) {
+                console.log("picUrl: " + picUrl);
+                this.$router.push({ name: 'tag', params: { taskId: this.$route.params.taskId, picUrl: picUrl}});
+            },
+
             fetchDetails () {
                 let result = taskDetails(this.$route.params.taskId, res=> {
                     console.log("taskDetail:");
@@ -33,44 +41,27 @@
         },
 
         components: {
-            taskinfo : taskinfo
+            taskinfo : taskinfo,
         },
 
         data() {
             return {
                 taskData: {
-                    "taskState": "fail", // 已经接受的任务unaccept
-                    "taskName": "区域标注任务（一）",
-                    "taskType": 401,
-                    "description": "这是一个区域标注类型的任务，标注者需要将目标区域画出，并写上详细描述",
-                    "averageScore": 67,
-
-//                    "picList": [
-//                        "./src/components/test.jpg",
-//                        "./src/components/test.jpg",
-//                        "./src/components/test.jpg",
-//                        "./src/components/test.jpg",
-//                        "./src/components/test.jpg",
-//                        "./src/components/test.jpg",
-//                        "./src/components/test.jpg",
-//                        "./src/components/test.jpg",
-//                    ],
-                    "payDay": "2018/4/12 22:22:22", // 任务的最终截止时期
-                    "canAccept": "true", // true or false  因为有的任务用户不可以接受
-
-                    "finishedPicList": [
-                        "./src/components/test.jpg",
-                        "./src/components/test.jpg",
-                        "./src/components/test.jpg",
-                        "./src/components/test.jpg",
+                    "averageScore": 100.0,
+                    "finishedPicList": [],
+                    "unfinishedPicList": [
+                        "iznauy/董建华.jpg",
+                        "iznauy/伊丽莎白.jpg",
+                        "iznauy/华莱士.jpg",
+                        "iznauy/江泽民.jpg"
                     ],
-                    "currentDoingWorkerIds": [
-                        "./src/components/test.jpg",
-                        "./src/components/test.jpg"
-                    ],
-                    "beginDate": "2018/4/12 22:22:22",
-                    "endDate": "2018/4/12 22:22:22", // 任务最终截止时期和任务的过期时间的较小值
-                    "earnedScore": 46.7
+                    "beginDate": "2018 4 21",
+                    "endDate": "2018 4 24",
+                    "state": "accept",
+                    "cover": "iznauy/董建华.jpg",
+                    "taskName": "黎明杀机_1",
+                    "taskType": 100,
+                    "taskDescription": null
                 }
             }
         }

@@ -63,6 +63,14 @@ public class RequesterTaskService {
                 .collect(Collectors.toList());
     }
 
+    public String getResult(int taskId) {
+        return requesterTaskDao.getTaskResultPath(taskId);
+    }
+
+    public boolean isDone(int taskId) {
+        return requesterTaskDao.isDone(taskId);
+    }
+
     public List<RequesterTaskDetails> getTaskDetails(int taskId) {
         // Get task information and participants
         Map<Integer, Double> processes = requesterStatisticDao.getSecondLevelTaskProcess(taskId);

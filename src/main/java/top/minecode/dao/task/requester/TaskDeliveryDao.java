@@ -22,15 +22,15 @@ public class TaskDeliveryDao {
         // Create FirstLevelTaskPO
         Table<FirstLevelTaskPO> flTaskTable = TableFactory.firstLevelTaskTable();
         // Create result file for the task
-        File resultFile = new File(dataDirectory + "result");
-        if (!resultFile.mkdir())
-            throw new IOException("make directory failed");
+        File resultFile = new File(dataDirectory + "result.json");
+
         // Add worker filter
         Table<WorkerFilterPO> filterTable = TableFactory.workerFilterTable();
         WorkerFilterPO filterPO = new WorkerFilterPO(taskInfo.getWorkerFilter(), filterTable.getNextId());
         filterTable.add(filterPO);
 
         // Add first level task
+        System.out.println(resultFile.getPath());
         FirstLevelTaskPO flTask = new FirstLevelTaskPO(taskInfo, flTaskTable.getNextId(),
                 resultFile.getPath(), filterPO.getId());
         flTaskTable.add(flTask);

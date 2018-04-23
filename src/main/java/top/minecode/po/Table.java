@@ -83,7 +83,6 @@ public class Table<PO> {
             if (!resource.exists()) {
                 pos = new ArrayList<>();
                 //noinspection ResultOfMethodCallIgnored
-                System.out.println(resource.getFile().getPath());
                 resource.getFile().createNewFile();
                 save();
                 return;
@@ -115,6 +114,7 @@ public class Table<PO> {
         }
     }
 
+    // Used for debug
     public void printContent() {
         pos.forEach(po -> System.out.println(JsonConfig.getGson().toJson(po)));
     }

@@ -14,9 +14,7 @@ import java.time.LocalDateTime;
 public class LoginLogPO implements Serializable {
 
     private Integer userId;
-
     private UserType userType;
-
     private LocalDateTime loginTime;
 
     public LoginLogPO() {
