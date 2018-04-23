@@ -16,7 +16,7 @@ export function signUp(signUpForm,callback) {
                 name: signUpForm.nickname,
                 email: signUpForm.email
     },function (res) {
-        callback(res);
+        callback(JSON.parse(res));
     });
     // axios.post(url, {
     //         // username: signUpForm.username,
