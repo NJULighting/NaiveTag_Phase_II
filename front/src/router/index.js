@@ -8,6 +8,7 @@ import worker_navi from '../components/worker/workerNavi.vue'
 import user from '../components/worker/workerUserPage.vue'
 import login from '../components/login.vue'
 import signUp from '../components/signUp.vue'
+import tag from '../components/worker/workerTagPage.vue'
 import requesterIndex from '../components/requester/requester-index.vue'
 import requesterHome from '../components/requester/home.vue'
 import requesterCreateTask from '../components/requester/createTask.vue'
@@ -31,6 +32,7 @@ const router = new VueRouter({
             ]
         },
         {path: '/task/:taskId', component: task, name: 'task'},
+        {path: '/tag/:taskId/:picUrl', component: tag, name: 'tag'},
         {path: '/login', component: login},
         {path: '/signUp', component: signUp},
         {
