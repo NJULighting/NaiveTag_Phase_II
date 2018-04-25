@@ -8,6 +8,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -101,13 +102,14 @@ public class RequesterTasksController extends BaseController {
 
     /**
      * Check the task.json file
+     *
      * @param taskconf the task.json file uploaded
      * @return {"result" : "valid"} if the file's content is valid, otherwise
      * {"result" : "invalid"} will be returned.
      */
-    @RequestMapping("/check")
+    @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
-    public String checkJsonFile(@RequestParam("taskconf") MultipartFile taskconf) {
+    public String checkJsonFile(HttpServletRequest request, @RequestParam MultipartFile taskconf) {
         JsonObject result = new JsonObject();
         Gson gson = JsonConfig.getGson();
 

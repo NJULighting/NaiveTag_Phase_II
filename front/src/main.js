@@ -11,18 +11,22 @@ import taskblock from './components/worker/taskBlock.vue'
 import Page from './components/worker/workerNavi.vue'
 import Search from './components/worker/workerSearch.vue'
 import User from './components/worker/workerUserPage.vue'
-import App from  './App.vue'
+import App from './App.vue'
 import router from './router/index'
 import jQuery from 'jquery';
+import Vuex from 'vuex'
+import echarts from 'echarts'
 
 window.$ = jQuery;
 window.jQuery = jQuery;
 
-axios.defaults.baseURL='http://localhost:8000/naive/';
+axios.defaults.baseURL = 'http://localhost:8000/naive/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-Vue.use(ElementUI)
-Vue.prototype.$axios=axios;
+Vue.use(ElementUI);
+Vue.use(Vuex);
+Vue.prototype.$axios = axios;
+Vue.prototype.$echarts=echarts;
 
 Vue.component('taskblock', taskblock);
 

@@ -1,10 +1,12 @@
 <template>
-    <el-row>
-        <el-col :span="16" :offset="4">
-
-            <task-box v-for="(item,key)  in taskList" :task="item" :key="key"></task-box>
-        </el-col>
-    </el-row>
+    <div>
+        <el-row>
+            <el-col :span="16" :offset="4">
+                <!--// username:{{localStorage.username}}-->
+                <task-box v-for="(item,key)  in taskList" :task="item" :key="key"></task-box>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 <script>
@@ -18,7 +20,7 @@
                 taskList: [
                     {
                         taskName: 'firstTask',
-                        taskId: '213213',
+                        taskId: '001',
                         taskType: 101,
                         process: 0.4,
                         state: 'completed',
@@ -26,7 +28,7 @@
                     },
                     {
                         taskName: 'secondTask',
-                        taskId: '213213',
+                        taskId: '002',
                         taskType: 101,
                         process: 0.5,
                         state: 'underway',
@@ -34,7 +36,7 @@
                     },
                     {
                         taskName: 'thirdTask',
-                        taskId: '213213',
+                        taskId: '003',
                         taskType: 101,
                         process: 1,
                         state: 'completed',
@@ -42,6 +44,10 @@
                     }
                 ]
             }
+        },
+        created:function () {
+            console.log(localStorage.username);
+
         }
     }
 </script>

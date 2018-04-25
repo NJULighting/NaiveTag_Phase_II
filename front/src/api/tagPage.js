@@ -1,17 +1,36 @@
-export function search(key,callback) {
+export function taskInfo(taskId,callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/search.html",
+        url: "http://localhost:8000/naive/tag/taskInfo.html",
         type: 'GET',
         // xhrFields:{withCredentials:true},
         data: {
             'username': localStorage.username,
-            "key" : key,
-            "begin": 1, //从哪个开始，因为是搜索跳过去，所以必须是1
-            "step": 20 //获取task的个数
+            "taskId" : taskId
         },
         success: function(result){
-            console.log("key: "+key);
+            console.log("taskInfo/taskId: "+taskId);
+            console.log('success');
+            console.log(result);
+            callback(JSON.parse(result));
+        },
+        // contentType:"application/x-www-form-urlencoded; charset=utf-8"
+    })
+}
+export function getLabelInfo(taskId, picUrl, callback) {
+
+    $.ajax({
+        url: "http://localhost:8000/naive/tag/getLabelInfo.html",
+        type: 'GET',
+        // xhrFields:{withCredentials:true},
+        data: {
+            'username': localStorage.username,
+            "taskId" : taskId,
+            "picURL" : picUrl
+        },
+        success: function(result){
+            console.log("getLabelInfo/taskId: "+taskId);
+            console.log("getLabelInfo/picUrl: "+picUrl);
             console.log('success');
             console.log(result);
             callback(JSON.parse(result));
