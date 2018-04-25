@@ -1,5 +1,5 @@
 <template>
-    <div id="navi" >
+    <div id="navi">
         <div style="height: 100%;" >
             <el-row style="background-image: url('/src/assets/bar.png');width: 100%;height: 60px;" >
 
@@ -38,8 +38,8 @@
             </el-row>
         </div>
 
-        <div>
-            <router-view></router-view>
+        <div style="height: 100%">
+            <router-view style="height: 100%"></router-view>
         </div>
 
     </div>

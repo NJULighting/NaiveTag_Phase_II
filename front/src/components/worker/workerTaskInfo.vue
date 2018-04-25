@@ -40,6 +40,7 @@
                     <el-col :span="8"><div class="center" style="padding-top: 100px;">
                         <button v-if="canAccept === true" class="center button" v-on:click="accept()">接受</button>
                         <button v-else-if="canAccept === false && !state" class="center button accept">不可接受</button>
+                        <button v-else-if="state === 'finish'" class="center button" v-on:click="submit()">提交</button>
                         <button v-else-if="state" class="center button accept">{{getState()}}</button>
                     </div></el-col>
 
@@ -74,6 +75,7 @@
     import simplenavi from './simpleNavi.vue'
     import Vue from 'vue'
     import {taskAccept} from '../../api/taskDetails.js'
+    import {submit} from '../../api/workerSubmit.js'
 
     export default {
 
@@ -114,12 +116,23 @@
                 }
             },
 
+            submit () {
+                let result = submit(this.$route.params.taskId, res=> {
+                    console.log("submit result: ");
+                    console.log(res.result);
+                    if(res.result){
+                        this.$emit('refreshData');
+                    }
+                });
+            },
+
             accept () {
                 let result = taskAccept(this.$route.params.taskId, res=> {
                     console.log("accept result: ");
                     console.log(res.result);
                     if(res.result){
                         this.$emit('refreshData');
+                        this.$message.info('点击任意一张图片开始进行标注！');
                     }
                 });
             },

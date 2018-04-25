@@ -1,81 +1,78 @@
 <template>
     <div class="taskBlock" id="app" v-on:click="showTask">
+        <div style="padding: 10px">
+            <el-card :body-style="{ padding: '0px' }">
 
-            <span class="taskTitle">{{taskName}}</span>
-            <p></p>
-            <img :src="getCover" alt="CoverImage">
-            <p></p>
+                <img :src="getCover" alt="CoverImage" class="image">
 
-            <div>
+                <div style="padding: 14px;">
 
-                <!--积分和实际分数-->
-                <div class="part score margin inline">
-            <span>
-                <span v-if="actualScore">
-                    <span class="keynumber">{{taskActualScore()}}</span><!--
-                 --><span class="y">/</span><!--
-                --></span><!--
-                --><span class="y">{{averageScore}}</span><!--
-                --><span class="chinese">分</span>
-            </span>
-                </div>
+                    <span>{{taskName}}</span>
 
-                <!--标注类型和状态-->
-                <div class="part inline">
+                    <!--标注类型和状态-->
+                    <div class="inline">
 
-                    <label class="label inline type">
-                        <span class="label text">{{taskTypeName()}}</span>
-                    </label>
+                        <label class="label type">
+                            <span class="label text">{{taskTypeName()}}</span>
+                        </label>
 
-                    <label v-if="state === 'doing'" class="label inline going">
-                        <span class="label text">进行中</span>
-                    </label>
+                        <label v-if="state === 'doing'" class="label going">
+                            <span class="label text">进行中</span>
+                        </label>
 
-                    <label v-else-if="state === 'finish'" class="label inline finish">
-                        <span class="label text">已完成</span>
-                    </label>
+                        <label v-else-if="state === 'finish'" class="label finish">
+                            <span class="label text">已完成</span>
+                        </label>
 
-                    <label v-else-if="state === 'unpay'" class="label inline unclaimed">
-                        <span class="label text">等待结算</span>
-                    </label>
+                        <label v-else-if="state === 'unpay'" class="label unclaimed">
+                            <span class="label text">等待结算</span>
+                        </label>
 
-                    <label v-else-if="state === 'expired'" class="label inline expired">
-                        <span class="label text">已过期</span>
-                    </label>
+                        <label v-else-if="state === 'expired'" class="label expired">
+                            <span class="label text">已过期</span>
+                        </label>
 
-                </div>
-
-                <!--图片张数和截止日期-->
-                <div>
-                    <div class="part date margin inline" v-if="picAmount">
-                        <span class="keynumber">{{picAmount}}</span>
-                        <span>张</span>
-                    </div>
-                    <div v-if="payDay" class="part date margin inline keyword away">
-                        <span class="keyword">End: </span>
-                        <span>{{payDay}}</span>
-                    </div>
-                </div>
-
-                <!--进度条-->
-                <div v-if="process" class="part margin">
-                    <el-progress :percentage="process" color="#336fff"></el-progress>
-                </div>
-
-                <!--开始日期、结束日期-->
-                <div class="keyword">
-                    <div v-if="beginDate" class="part margin date inline">
-                        <span class="keyword">Start: </span>
-                        <span>{{beginDate}}</span>
-                    </div>
-                    <div v-if="endDate" class="part margin date inline">
-                        <span class="keyword">End: </span>
-                        <span>{{endDate}}</span>
                     </div>
 
+                    <div class="bottom clearfix">
+
+                        <!--积分和实际分数-->
+                        <div>
+                        <span v-if="actualScore">
+                            <span style="color: #00af43;">{{taskActualScore()}}</span><!--
+                            --><span>/</span><!--
+                        --></span><!--
+                        --><span>{{averageScore}}分</span>
+
+                            <div class="inline" style="float: right" v-if="picAmount">
+                                <span>{{picAmount}}张</span>
+                            </div>
+
+                        </div>
+
+                        <!--图片张数和截止日期-->
+
+
+                        <div class="bottom">
+                            <time v-if="payDay" class="time"  style="float: right">END：{{payDay}}</time>
+                        </div>
+
+                        <!--进度条-->
+                        <div v-if="process || process === 0" class="part margin">
+                            <el-progress :percentage="process" color="#336fff"></el-progress>
+                        </div>
+
+                        <!--开始日期、结束日期-->
+                        <div class="bottom">
+                            <time v-if="beginDate" class="time" style="float: left">FROM：{{beginDate}}</time>
+                            <time v-if="endDate" class="time" style="float: right">TO：{{endDate}}</time>
+                        </div>
+
+                    </div>
                 </div>
 
-            </div>
+            </el-card>
+        </div>
 
     </div>
 </template>
@@ -161,43 +158,24 @@
 </script>
 
 <style>
-    p {
-        margin: 10px;
-    }
-
     img {
         width: 100%;
     }
 
-
-
     .taskBlock {
-        font-family: Microsoft YaHei;
-        border-radius: 10px 10px 10px 10px;
-        background-color: #eeeeee;
-        padding: 25px 25px 20px 25px;
-        width: 15%;
         display:inline-block;
-        margin: 15px;
         cursor: pointer;
         cursor: hand;
         text-align: left;
-    }
-
-    .taskTitle {
-        font-family: SimSun-ExtB;
-        font-size: 24px;
-        width: 100%;
+        width: 20%;
     }
 
     label {
-        margin-bottom: 5px;
         display:inline-block;
-        border-radius: 13px 13px 13px 13px;
-        width: 60px;
-        height: 25px;
+        border-radius: 8px;
+        width: 45px;
+        height: 18px;
         text-align: center;
-        vertical-align: middle;
     }
 
     .label.type {
@@ -222,8 +200,11 @@
 
     .label.text {
         color: white;
-        font-size: 13px;
-        font-family: Microsoft YaHei;
+        font-size: 11px;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
     }
 
     .part.margin {
@@ -234,36 +215,29 @@
         display:inline-block;
     }
 
-    .part.score {
-        text-align: left;
-        vertical-align: middle;
+    .time {
+        font-size: 13px;
+        color: #999;
     }
 
-    .part.date {
-        font-size: 18px;
+    .bottom {
+        margin-top: 13px;
+        line-height: 12px;
     }
 
-    .keynumber {
-        color: #00af43;
-        font-size: 24px;
+    .image {
+        width: 100%;
+        display: block;
     }
 
-    .keyword {
-        font-size: 22px;
-        font-family: "Caviar Dreams";
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
     }
 
-    .y {
-        font-size: 24px;
-        color: black;
+    .clearfix:after {
+        clear: both
     }
 
-    .chinese {
-        font-size: 18px;
-        color: black;
-    }
-
-    .away {
-        padding-right: 20px;
-    }
 </style>
