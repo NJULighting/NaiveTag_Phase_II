@@ -18,7 +18,7 @@ import java.util.function.Function;
 @Repository
 public class WebStatisticDao {
 
-    public Pair<Integer, Integer> completedTotalTaskNumPair() {
+    public Pair<Integer, Integer> getAllTaskInfo() {
         Table<FirstLevelTaskPO> firstLevelTaskTable = TableFactory.firstLevelTaskTable();
         int completedTaskNum = firstLevelTaskTable.getPOsBy(FirstLevelTaskState.completed,
                 FirstLevelTaskPO::getState).size();

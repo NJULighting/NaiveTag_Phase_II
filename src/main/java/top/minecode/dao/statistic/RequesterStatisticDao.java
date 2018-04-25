@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
 @Repository
 public class RequesterStatisticDao {
 
-    private Map<Integer, Double> pointTable = new HashMap<>();
-
     /**
      * Get process table of tasks.(For FirstLevelTask)
      * @param ownerId id of the requester(FirstLevelTask's id)

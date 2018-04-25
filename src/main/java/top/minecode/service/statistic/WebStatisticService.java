@@ -7,8 +7,6 @@ import top.minecode.domain.statistic.TimeNumberGraph;
 import top.minecode.domain.statistic.WebStatisticInfo;
 import top.minecode.utils.Pair;
 
-import java.time.LocalDate;
-
 /**
  * Created on 2018/4/21.
  * Description:
@@ -25,7 +23,7 @@ public class WebStatisticService {
     }
 
     public WebStatisticInfo getWebStatistic() {
-        Pair<Integer, Integer> completedTotalTaskNumPair = webStatisticDao.completedTotalTaskNumPair();
+        Pair<Integer, Integer> completedTotalTaskNumPair = webStatisticDao.getAllTaskInfo();
         TimeNumberGraph activeWorkerTrend = webStatisticDao.activeWorkerTrend();
         TimeNumberGraph totalWorkerTrend = webStatisticDao.totalWorkerTrend();
         TimeNumberGraph totalRequesterTrend = webStatisticDao.totalRequesterTrend();
