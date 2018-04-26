@@ -15,7 +15,10 @@
 
         created: function () {
             // `this` 指向 vm 实例
-            this.$message.info('点击任意一张图片开始进行标注！');
+            if(this.taskData.state && this.taskData.state === "accept"){
+                this.$message.info('点击任意一张图片开始进行标注！');
+            }
+
             this.fetchDetails();
         },
 
@@ -47,21 +50,21 @@
         data() {
             return {
                 taskData: {
-                    "averageScore": 100.0,
-                    "finishedPicList": [],
-                    "unfinishedPicList": [
-                        "iznauy/董建华.jpg",
-                        "iznauy/伊丽莎白.jpg",
-                        "iznauy/华莱士.jpg",
-                        "iznauy/江泽民.jpg"
-                    ],
-                    "beginDate": "2018 4 21",
-                    "endDate": "2018 4 24",
-                    "state": "accept",
-                    "cover": "iznauy/董建华.jpg",
-                    "taskName": "黎明杀机_1",
-                    "taskType": 100,
-                    "taskDescription": null
+//                    "averageScore": 100.0,
+//                    "finishedPicList": [],
+//                    "unfinishedPicList": [
+//                        "iznauy/董建华.jpg",
+//                        "iznauy/伊丽莎白.jpg",
+//                        "iznauy/华莱士.jpg",
+//                        "iznauy/江泽民.jpg"
+//                    ],
+//                    "beginDate": "2018 4 21",
+//                    "endDate": "2018 4 24",
+//                    "state": "accept",
+//                    "cover": "iznauy/董建华.jpg",
+//                    "taskName": "黎明杀机_1",
+//                    "taskType": 100,
+//                    "taskDescription": null
                 }
             }
         }

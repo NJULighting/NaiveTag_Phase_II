@@ -25,8 +25,6 @@
     export default {
 
         created: function () {
-            this.picUrl = this.$route.params.picUrl;
-            console.log("picUrl" + this.picUrl);
             this.fetchTagData();
         },
 
@@ -37,6 +35,10 @@
         },
 
         methods: {
+            tagPicReflash(picUrl) {
+                console.log("picUrl: " + picUrl);
+                this.$router.push({ name: 'tag', params: { taskId: this.$route.params.taskId, picUrl: picUrl}});
+            },
 
             lastPic: function () {
                 console.log(this.tagData);
@@ -45,7 +47,7 @@
                     console.log("previousResult:");
                     console.log(res);
                     if(res.url){
-                        this.picUrl = res.url;
+                        this.tagPicReflash(res.url);
                     }else{
                         this.$message.info(res.description);
                     }
@@ -59,7 +61,7 @@
                     console.log("previousResult:");
                     console.log(res);
                     if(res.url){
-                        this.picUrl = res.url;
+                        this.tagPicReflash(res.url);
                     }else{
                         this.$message.info(res.description);
                     }
@@ -78,6 +80,8 @@
             },
 
             fetchTagData () {
+                this.picUrl = this.$route.params.picUrl;
+                console.log("picUrl" + this.picUrl);
                 let result = taskInfo(this.$route.params.taskId, res=> {
                     console.log("taskInfo:");
                     console.log(res);
@@ -143,7 +147,7 @@
                     "label": null,
                     "frames":[
                     ],
-                    "tagType":"",
+                    "tagType":"t_100",
                     //若能画，points必有
                     "points":[
                     ],

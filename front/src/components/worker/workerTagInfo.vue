@@ -360,15 +360,32 @@
             },
 
             checkNext: function () {
-                if(this.frames.length === 0){
-                    this.$message.error('请填写至少一个标注信息！');
-                    return false;
-                }else if(this.frames[this.frames.length - 1].label){
-                    return true;
+                if(this.isRectsTypeNoLabel){
+                    if(this.frames.length === 0){
+                        this.$message.error('请填写至少一个标注信息！');
+                        return false;
+                    }else if(this.frames[this.frames.length - 1].label){
+                        return true;
+                    }else{
+                        this.$message.error('有标注信息未填写！');
+                        return false;
+                    }
                 }else{
-                    this.$message.error('有标注信息未填写！');
-                    return false;
+                    if(this.labelInput.length === 0){
+                        this.$message.error('请填写标注信息！');
+                        return false;
+                    }
+                    if(this.isCanvasType){
+                        if(this.points && this.points.length > 0){
+                            return true;
+                        }else{
+                            this.$message.error('请画出标注区域！');
+                            return false;
+                        }
+                    }
+                    return true;
                 }
+
             },
 
             lastPic: function () {

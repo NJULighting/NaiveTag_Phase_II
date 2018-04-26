@@ -1,7 +1,9 @@
 <template>
-    <div id="userinfo" class="userinfo">
+    <div id="userinfo">
         <div class="top"></div>
-        <img v-if="!onSelect" v-bind:src="imageSrc" alt="headPicture" class="headpicture" v-on:click="selectPic">
+        <div style="width: 400px;text-align: center;">
+            <img v-if="!onSelect" v-bind:src="imageSrc" alt="headPicture" class="headpicture" v-on:click="selectPic">
+        </div>
         <div v-if="onSelect">
             <el-upload
                     class="avatar-uploader"
@@ -13,18 +15,28 @@
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
         </div>
-        <div class="top">用户名：{{username}}</div>
-        <div class="top">昵称：{{name}}</div>
-        <div class="top">邮箱：{{email}}</div>
-        <div class="top inline">总得分：</div>
-        <div class="score inline">{{totalScore}}</div>
-        <p></p>
-        <span>您的能力值已达到：</span>
-        <el-progress type="circle" :percentage="averageScoreRatio"></el-progress>
-        <p></p>
-        <span>您的排名目前为：</span>
-        <span class="score">{{rank}}</span>
-        <span>名！</span>
+
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span>{{username}}</span>
+            </div>
+            <div class="text item">
+                昵称：{{name}}
+            </div>
+            <div class="text item">
+                邮箱：{{email}}
+            </div>
+            <div class="text item">
+                得分：{{totalScore}}
+            </div>
+            <div class="text item">
+                排名：{{rank}}
+            </div>
+            <div class="text item">
+                能力值：
+                <el-progress :percentage="averageScoreRatio"></el-progress>
+            </div>
+        </el-card>
     </div>
 </template>
 
@@ -58,13 +70,13 @@
             },
             beforeAvatarUpload(file) {
                 const isJPG = file.type === 'image/jpeg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
+                const isLt2M = file.size / 1024 / 1024 < 20;
 
                 if (!isJPG) {
                     this.$message.error('上传头像图片只能是 JPG 格式!');
                 }
                 if (!isLt2M) {
-                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                    this.$message.error('上传头像图片大小不能超过 20MB!');
                 }
                 return isJPG && isLt2M;
             }
@@ -82,6 +94,26 @@
 </script>
 
 <style>
+    .text {
+        font-size: 14px;
+    }
+
+    .item {
+        margin-bottom: 18px;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
+    }
+    .clearfix:after {
+        clear: both
+    }
+
+    .box-card {
+        width: 400px;
+    }
 
     .avatar-uploader .el-upload {
         border: 1px dashed #d9d9d9;
@@ -110,23 +142,6 @@
     .top {
         padding-top: 10px;
     }
-
-    .score {
-        font-size: 30px;
-        color: #00af43;
-    }
-
-    .inline {
-        display: inline-block;
-    }
-
-    .userinfo {
-        font-family: SimSun-ExtB;
-        font-size: 20px;
-        color: black;
-        text-align: center;
-    }
-
     .headpicture {
         border-radius: 75px 75px 75px 75px;
         height: 150px;

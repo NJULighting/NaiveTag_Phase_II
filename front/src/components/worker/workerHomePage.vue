@@ -5,11 +5,11 @@
         <!--任务进行中-->
         <div style="width: 100%;text-align: center;padding-top: 40px;padding-bottom: 20px">
             <el-tooltip content="选择“历史任务”以查看更多" placement="right-start" effect="light">
-                <span v-if="taskDoingList" style="font-family: SimSun-ExtB;font-size: 30px">任务进行中</span>
+                <span v-if="taskDoingList" style="font-size: 28px">任务进行中</span>
             </el-tooltip>
         </div>
 
-        <div style="text-align: center;width: 100%">
+        <div style="width: 100%;text-align: center">
             <div style="text-align: left">
                 <taskblock v-for="(taskData,key) in taskDoingList" v-bind:key="key" v-bind="taskData"></taskblock>
             </div>
@@ -17,11 +17,13 @@
 
         <!--任务推荐-->
         <div style="width: 100%;text-align: center;padding-top: 30px;padding-bottom: 20px">
-            <span v-if="taskRecommendList" style="font-family: SimSun-ExtB;font-size: 30px">任务推荐</span>
+            <span v-if="taskRecommendList" style="font-size: 28px">任务推荐</span>
         </div>
 
-        <div style="text-align: center">
-            <taskblock v-for="(taskData,key) in taskRecommendList" v-bind:key="key" v-bind="taskData"></taskblock>
+        <div style="width: 100%;text-align: center">
+            <div style="text-align: left">
+                <taskblock v-for="(taskData,key) in taskRecommendList" v-bind:key="key" v-bind="taskData"></taskblock>
+            </div>
         </div>
 
     </div>
