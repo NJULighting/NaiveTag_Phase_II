@@ -72,7 +72,7 @@ public class RequesterTasksController extends BaseController {
      */
     @RequestMapping("/new")
     @ResponseBody
-    public String newTask(HttpServletRequest request, NewTaskInfo taskInfo,
+    public String newTask(HttpServletRequest request, String taskInfo,
                           @RequestParam("dataset") MultipartFile dataset,
                           @RequestParam("taskconf") MultipartFile taskconf) {
 
@@ -85,8 +85,9 @@ public class RequesterTasksController extends BaseController {
         // Save the file
         try {
             User user = getSessionUser(request);
-            taskInfo.setOwnerId(user.getId());
-            service.saveFile(dataset, taskconf, rawDataSetPath, taskInfo);
+            NewTaskInfo newTaskInfo = JsonConfig.getGson().fromJson(taskInfo, NewTaskInfo.class);
+            newTaskInfo.setOwnerId(user.getId());
+            service.saveFile(dataset, taskconf, rawDataSetPath, newTaskInfo);
         } catch (InvalidFileStructureException e) {
             e.printStackTrace();
             result.addProperty("result", "failure");
@@ -109,7 +110,7 @@ public class RequesterTasksController extends BaseController {
      */
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
-    public String checkJsonFile(HttpServletRequest request, @RequestParam MultipartFile taskconf) {
+    public String checkJsonFile(@RequestParam MultipartFile taskconf) {
         JsonObject result = new JsonObject();
         Gson gson = JsonConfig.getGson();
 

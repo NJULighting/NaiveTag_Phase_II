@@ -34,7 +34,7 @@ public class RequesterTaskServiceTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test
-    public void saveFile() throws Exception {
+    public void testSaveFile() throws Exception {
         String classPath = RequesterTaskServiceTest.class.getResource("/").getPath() + File.separator;
 
         // Create a file in class path
