@@ -29,7 +29,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLConnection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created on 2018/4/3.
@@ -138,6 +140,12 @@ public class RequesterTasksController extends BaseController {
 
         String resultPath = service.getResult(taskId);
         Resource resource = new FileSystemResource(resultPath);
+        File target = new File(resultPath);
+        String mimeType = Optional.ofNullable(URLConnection.guessContentTypeFromName(target.getName()))
+                .orElse("application/octet-stream");
+        response.setContentType(mimeType);
+        response.setHeader("Content-Disposition", "inline; filename=\"" + target.getName() +"\"");
+        response.setContentLength((int)target.length());
         try {
             IOUtils.copy(resource.getInputStream(), response.getOutputStream());
             response.flushBuffer();

@@ -63,7 +63,10 @@ public class RequesterTaskService {
                 .collect(Collectors.toList());
     }
 
-    public String getResult(int taskId) {
+    public String
+
+
+    getResult(int taskId) {
         return requesterTaskDao.getTaskResultPath(taskId);
     }
 

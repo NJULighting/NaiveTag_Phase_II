@@ -53,6 +53,7 @@ public class TableFactory {
 
         SecondLevelTaskPO secondLevelTaskPO = new SecondLevelTaskPO();
         secondLevelTaskPO.setId(1);
+        secondLevelTaskPO.setFirstLevelTaskId(1);
         secondLevelTaskPO.setTaskName("Boy ♂ Next ♂ Door");
         secondLevelTaskPO.setEndDate(LocalDate.now().plusDays(5));
         secondLevelTaskPO.setTaskDetailsId(1);
@@ -68,11 +69,12 @@ public class TableFactory {
 
         // 编号为2的二级任务
         SecondLevelTaskPO secondLevelTaskPO2 = new SecondLevelTaskPO();
-        secondLevelTaskPO.setId(2);
-        secondLevelTaskPO.setTaskName("Are you OK");
-        secondLevelTaskPO.setEndDate(LocalDate.now().plusDays(5));
-        secondLevelTaskPO.setTaskDetailsId(2);
-        secondLevelTaskPO.setTotalScore(2000.0);
+        secondLevelTaskPO2.setId(2);
+        secondLevelTaskPO2.setFirstLevelTaskId(1);
+        secondLevelTaskPO2.setTaskName("Are you OK");
+        secondLevelTaskPO2.setEndDate(LocalDate.now().plusDays(5));
+        secondLevelTaskPO2.setTaskDetailsId(2);
+        secondLevelTaskPO2.setTotalScore(2000.0);
 
         // 编号为2的二级任务的详细信息
         TaskDetailsPO taskDetailsPO2 = new TaskDetailsPO();
