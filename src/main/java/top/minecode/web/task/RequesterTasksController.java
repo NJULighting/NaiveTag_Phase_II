@@ -70,9 +70,9 @@ public class RequesterTasksController extends BaseController {
      * @param taskconf task.json which is the configuration file of the task
      * @return see details in the documents
      */
-    @RequestMapping("/new")
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
     @ResponseBody
-    public String newTask(HttpServletRequest request, String taskInfo,
+    public String newTask(HttpServletRequest request, @RequestParam("taskInfo") String taskInfo,
                           @RequestParam("dataset") MultipartFile dataset,
                           @RequestParam("taskconf") MultipartFile taskconf) {
 
@@ -85,6 +85,7 @@ public class RequesterTasksController extends BaseController {
         // Save the file
         try {
             User user = getSessionUser(request);
+            System.out.println(taskInfo);
             NewTaskInfo newTaskInfo = JsonConfig.getGson().fromJson(taskInfo, NewTaskInfo.class);
             newTaskInfo.setOwnerId(user.getId());
             service.saveFile(dataset, taskconf, rawDataSetPath, newTaskInfo);
@@ -155,6 +156,7 @@ public class RequesterTasksController extends BaseController {
     private String getPath(String basePath, HttpServletRequest request) {
         User user = getSessionUser(request);
         String separator = File.separator;
+
         int taskSequenceNumber = service.getNewTaskSequenceNumber(user.getId());
 
         // Change the file path to standard from which is like 'servletContextPath/basePath/userId/taskSequenceNumber/'

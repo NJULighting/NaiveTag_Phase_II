@@ -23,9 +23,9 @@ public enum TaskMaps {
     private Map<Integer, List<Integer>> oneThreeMap;
 
     TaskMaps() {
-        updateOneThreeMap();
-        updateOneThreeMap();
         updateTwoThreeMap();
+        updateOneTwoMap();
+        updateOneThreeMap();
     }
 
     public List<Integer> getSecondTasks(int firstTaskId) {
