@@ -60,11 +60,8 @@ public class RegisterController extends BaseController{
     @RequestMapping(value = "/worker", method = RequestMethod.POST)
     public @ResponseBody String createWorkerId(HttpServletRequest request, Worker worker) {
         worker.setUserType(UserType.worker);
-        String temp = register(request, worker);
-        System.out.println(temp);
-     //   return register(request, worker);
+        return register(request, worker);
 
-        return temp;
     }
 
     @RequestMapping(value = "/requester", method = RequestMethod.POST)

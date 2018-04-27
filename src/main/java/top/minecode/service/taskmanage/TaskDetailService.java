@@ -35,7 +35,6 @@ public class TaskDetailService {
     public WorkerTaskDetail getWorkerTaskDetail(User user, int taskId) {
         ThirdLevelTaskPO rawTaskPO = workerTaskDao.loadTaskByTaskId(taskId);
         ThirdLevelTaskResultPO taskResultPO = workerTaskDao.loadTaskResultByUserAndTaskId(user, taskId);
-        System.out.println(JsonConfig.getGson().toJson(taskResultPO));
         if (taskResultPO == null) { //此前没接过这个任务
 
             UnacceptedTaskDetail unacceptedTaskDetail = new UnacceptedTaskDetail();

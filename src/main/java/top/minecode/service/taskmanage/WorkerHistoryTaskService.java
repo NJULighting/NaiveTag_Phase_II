@@ -73,11 +73,10 @@ public class WorkerHistoryTaskService {
 
     public List<WorkerHistoryTaskInfo> getWorkerHistoryTaskInfo(User user) {
         List<ThirdLevelTaskResultPO> userAllResults = workerTaskDao.loadAllTaskResultByUserId(user.getId());
-        System.out.println("IN history");
-        System.out.println(JsonConfig.getGson().toJson(userAllResults));
+
         List<ThirdLevelTaskPO> userAllTasks = userAllResults.stream().map(e -> workerTaskDao.loadTaskByTaskId(e.getThirdLevelTaskId()))
                 .collect(Collectors.toList());
-        System.out.println(JsonConfig.getGson().toJson(userAllTasks));
+
         List<WorkerHistoryTaskInfo> workerHistoryTaskInfoList = new ArrayList<>(userAllResults.size());
         for (int i = 0; i < userAllResults.size(); i++) {
             ThirdLevelTaskResultPO taskResult = userAllResults.get(i);
@@ -104,7 +103,7 @@ public class WorkerHistoryTaskService {
             workerHistoryTaskInfoList.add(workerHistoryTaskInfo);
         }
         Collections.sort(workerHistoryTaskInfoList);
-        System.out.println(JsonConfig.getGson().toJson(workerHistoryTaskInfoList));
+
         return workerHistoryTaskInfoList;
     }
 

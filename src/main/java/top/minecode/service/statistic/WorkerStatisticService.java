@@ -36,7 +36,6 @@ public class WorkerStatisticService {
     }
 
     public List<Double> getUserAbilityChanges(User user) {
-        System.out.println(workerStatisticDao == null ? "nullllllllllllll" : "23333333333333333");
         return workerStatisticDao.getWorkerSettlementHistory(user.getId());
     }
 

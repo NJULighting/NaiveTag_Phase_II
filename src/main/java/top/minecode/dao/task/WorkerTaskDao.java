@@ -78,13 +78,11 @@ public class WorkerTaskDao {
 
     public ThirdLevelTaskPO loadTaskByTaskId(int taskId) {
         List<ThirdLevelTaskPO> thirdLevelTaskPOS = TableFactory.thirdLevelTaskTable().getAll();
-        System.out.println("In load task");
         return thirdLevelTaskPOS.stream().filter(e -> e.getId().equals(taskId))
                 .findFirst().orElse(null);
     }
 
     public List<ThirdLevelTaskResultPO> loadAllTaskResultByUserId(int userId) {
-        System.out.println(TableFactory.thirdLevelTaskResultTable().getPOsBy(userId, ThirdLevelTaskResultPO::getDoerId));
         return TableFactory.thirdLevelTaskResultTable().getPOsBy(userId, ThirdLevelTaskResultPO::getDoerId);
     }
 
@@ -102,7 +100,6 @@ public class WorkerTaskDao {
 
     public boolean commit(User user, int taskId) {
 
-        System.out.println("I am in commit!");
 
         Table<ThirdLevelTaskPO> thirdLevelTaskPOTable
                 = TableFactory.thirdLevelTaskTable();

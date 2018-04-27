@@ -48,7 +48,6 @@ public class LoginController extends BaseController {
         LoginResponse loginResponse = new LoginResponse();
         try {
             user = userService.login(user);
-            System.out.println(JsonConfig.getGson().toJson(user));
             loginResponse.setResult(LoginResponse.SUCCESS);
             loginResponse.setUserType(user.getUserType().toString());
             setSessionUser(request, user);
