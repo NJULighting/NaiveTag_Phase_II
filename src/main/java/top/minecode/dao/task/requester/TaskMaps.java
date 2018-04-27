@@ -53,18 +53,7 @@ public enum TaskMaps {
 
     private Function<Integer, List<ThirdLevelTaskPO>> idThirdLevelTaskMapper(Map<Integer, List<Integer>> relations) {
         Table<ThirdLevelTaskPO> thirdLevelTasks = TableFactory.thirdLevelTaskTable();
-        System.out.println("Are you OK");
-        for (Map.Entry<Integer, List<Integer>> entry : relations.entrySet()) {
-//            System.out.println("ParentId");
-//            System.out.println(entry.getKey());
-//            System.out.println("====================");
-//            entry.getValue().forEach(System.out::println);
-//            System.out.println("====================");
-            for (Integer thirdId : entry.getValue()) {
-                System.out.println(thirdLevelTasks.getPOBy(thirdId, ThirdLevelTaskPO::getId));
-            }
-        }
-        System.out.println("I am OK");
+       
         return id -> relations.get(id).stream()
                 .map(thirdId -> thirdLevelTasks.getPOBy(thirdId, ThirdLevelTaskPO::getId))
                 .collect(Collectors.toList());
