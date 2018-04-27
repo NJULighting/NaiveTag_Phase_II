@@ -1,49 +1,53 @@
 <template>
-    <div id="navi">
-        <div style="height: 100%;" >
-            <el-row style="background-image: url('/src/assets/bar.png');width: 100%;height: 60px;" >
+    <div id="navi"  style="background-image: url('/src/assets/fish.gif');width: 100%;height: 100%;
+    background-attachment: fixed;background-position: bottom;background-repeat: no-repeat;">
+        <div>
+            <div style="height: 100%;" >
+                <el-row style="background-image: url('/src/assets/bar.png');width: 100%;height: 60px;" >
 
-                <div class="height center" style="width: 250px;float: left;">
-                    <img src="../../assets/naive_tag.png" style="height: 50px;width: auto;"
-                         ondragstart="return false;"
-                         oncontextmenu="return false;">
-                </div>
+                    <div class="height center" style="width: 250px;float: left;">
+                        <img src="../../assets/naive_tag.png" style="height: 50px;width: auto;"
+                             ondragstart="return false;"
+                             oncontextmenu="return false;">
+                    </div>
 
-                <el-input
-                        v-model="inputText"
-                        placeholder="任务搜索"
-                        suffix-icon="el-icon-search"
-                        class="height center"
-                        style="width: 30%;float: left;width: 300px;"
-                        @keyup.enter.native="doSearch">
-                </el-input>
+                    <el-input
+                            v-model="inputText"
+                            placeholder="任务搜索"
+                            suffix-icon="el-icon-search"
+                            class="height center"
+                            style="width: 30%;float: left;width: 300px;"
+                            @keyup.enter.native="doSearch">
+                    </el-input>
 
-                <div class="height center" style="float: right;">
-                    <img src="../../assets/head.jpg" alt="headPicture" class="headpic" v-on:click="showUserInfo"
-                         ondragstart="return false;"
-                         oncontextmenu="return false;">
-                </div>
+                    <div class="height center" style="float: right;">
+                        <img src="../../assets/head.jpg" alt="headPicture" class="headpic" v-on:click="showUserInfo"
+                             ondragstart="return false;"
+                             oncontextmenu="return false;">
+                    </div>
 
-                <div style="width: 250px;height: 100%;float: right;">
-                    <el-menu :default-active="activeIndex" class="el-menu-demo height" mode="horizontal"
-                             background-color= "transparent"
-                             text-color="white"
-                             active-text-color="white"
-                             :router="true">
+                    <div style="width: 250px;height: 100%;float: right;">
+                        <el-menu :default-active="activeIndex" class="el-menu-demo height" mode="horizontal"
+                                 background-color= "transparent"
+                                 text-color="white"
+                                 active-text-color="white"
+                                 :router="true">
 
-                        <el-menu-item class="height center" index="/worker/home">首页</el-menu-item>
-                        <el-menu-item class="height center" index="/worker/history">历史任务</el-menu-item>
-                        <button type="text" class="height center exit" @click="exit">退出登录</button>
+                            <el-menu-item class="height center" index="/worker/home">首页</el-menu-item>
+                            <el-menu-item class="height center" index="/worker/history">历史任务</el-menu-item>
+                            <button type="text" class="height center exit" @click="exit">退出登录</button>
 
-                    </el-menu>
-                </div>
+                        </el-menu>
+                    </div>
 
-            </el-row>
+                </el-row>
+            </div>
+
+            <div style="height: 100%;">
+                <router-view style="height: 100%"></router-view>
+            </div>
         </div>
 
-        <div style="height: 100%">
-            <router-view style="height: 100%"></router-view>
-        </div>
 
     </div>
 

@@ -1,6 +1,6 @@
 <template>
-    <div id="page">
-        <!--style="background-image: url('')"-->
+    <div id="page" style="height: 100%;">
+
 
         <!--<button v-on:click="getRecommendation">button</button>-->
         <!--任务进行中-->

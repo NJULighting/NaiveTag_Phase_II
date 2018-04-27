@@ -310,6 +310,7 @@
         background-color: transparent;
         font-size: 14px;
         border: none;
+        outline:none;
         cursor: pointer;
         cursor: hand;
     }
