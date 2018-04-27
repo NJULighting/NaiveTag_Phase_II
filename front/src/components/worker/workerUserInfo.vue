@@ -66,7 +66,8 @@
         data() {
             return {
                 imageUrl: '',
-                imageSrc: '/src/assets/head.jpg'
+                imageSrc: '/src/assets/head.jpg',
+                averageScore: 0,
             }
         }
     }

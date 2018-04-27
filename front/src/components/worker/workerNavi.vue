@@ -109,10 +109,12 @@
         border: 0px;
         cursor: pointer;
         cursor: hand;
+        outline:none;
     }
 
     .exit:hover {
         color: #336fff;
+        outline:none;
     }
 
     .search {
