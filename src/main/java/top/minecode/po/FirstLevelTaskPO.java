@@ -27,20 +27,21 @@ public class FirstLevelTaskPO implements Serializable {
      * Constructor for creating a new task
      * @param taskInfo information about the new task
      */
-    public FirstLevelTaskPO(NewTaskInfo taskInfo, int id, String resultFilePath, int workerFilterId) {
+    public FirstLevelTaskPO(NewTaskInfo taskInfo, int id, int workerFilterId) {
         ownerId = taskInfo.getOwnerId();
         taskName = taskInfo.getTaskName();
         totalScore = taskInfo.getScore();
         endDate = taskInfo.getEndTime();
 
         this.id = id;
-        this.resultFilePath = resultFilePath;
         this.workerFilterId = workerFilterId;
 
         state = FirstLevelTaskState.ongoing;
     }
 
     public String getResultFilePath() {
+        if (resultFilePath == null)
+            throw new IllegalStateException("result path is not assigned");
         return resultFilePath;
     }
 
