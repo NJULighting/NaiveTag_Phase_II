@@ -15,15 +15,18 @@ export function uploadTaskDescription(file, callback) {
     })
 }
 
-export function uploadTask(form,callback) {
-     let formData=new FormData();
+export function uploadTask(form, callback) {
+    let formData = new FormData();
 
-     let task={
-         taskName:form.taskName,
-         workerFilter:form.workerFilter,
-         endTime:form.endTime,
-         score:form.score,
-     };
+    let task = {
+        taskName: form.taskName,
+        workerFilter: form.workerFilter,
+        endTime: form.endTime,
+        score: form.score,
+    };
+
+    console.log(JSON.stringify(task));
+
 
      formData.append('taskInfo',JSON.stringify(task));
     formData.append('dataset',form.file);
@@ -32,7 +35,6 @@ export function uploadTask(form,callback) {
     let username=localStorage.username;
 
 
-     console.log(localStorage.username);
 
     $.ajax({
         url: 'http://localhost:8000/naive/requester/new.html',
@@ -47,6 +49,6 @@ export function uploadTask(form,callback) {
 
 }
 
-export function createTask(taskForm,callback){
+export function createTask(taskForm, callback) {
 
 }

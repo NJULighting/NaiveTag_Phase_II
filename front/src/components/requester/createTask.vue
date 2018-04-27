@@ -5,10 +5,10 @@
             <el-form-item label="任务名称" prop="taskName">
                 <el-input v-model="taskForm.taskName" clearable></el-input>
             </el-form-item>
-            <el-form-item label="截止日期" prop="endDate">
+            <el-form-item label="截止日期" prop="endTime">
                 <el-date-picker type="date" placeholder="选择日期" style="width: 100%"
                                 value-format="yyyy-MM-dd"
-                                v-model="taskForm.endDate">
+                                v-model="taskForm.endTime">
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="添加任务描述文件" prop="taskDescription">
@@ -80,17 +80,17 @@
                 }
             };
 
-            const validateTaskConf=(rule, value, callback)=>{
-              if (this.validTask===true){
-                  callback();
-              }   else {
-                  callback(new Error('请上传正确的任务描述文件'));
-              }
+            const validateTaskConf = (rule, value, callback) => {
+                if (this.validTask === true) {
+                    callback();
+                } else {
+                    callback(new Error('请上传正确的任务描述文件'));
+                }
             };
 
 
-            const validateDataSet=(rule,value,callback)=>{
-                if (this.taskForm.fileList.length!==0){
+            const validateDataSet = (rule, value, callback) => {
+                if (this.taskForm.fileList.length !== 0) {
                     callback();
                 } else {
                     callback(new Error('请选择数据集'));
@@ -99,8 +99,8 @@
 
             return {
                 taskForm: {
-                    taskName:'',
-                    endDate: '',
+                    taskName: '',
+                    endTime: '',
                     taskDescription: [],
                     fileList: [],
                     score: '',
@@ -160,13 +160,14 @@
                 this.taskForm.file = item.file;
             },
             createTask() {
-               // this.$refs['taskForm'].validate((valid)=>{
-               //     console.log(valid)
-               //     if (valid){
-               //
-               //     }
-               // })
+                // this.$refs['taskForm'].validate((valid)=>{
+                //     console.log(valid)
+                //     if (valid){
+                //
+                //     }
+                // })
 
+                console.log(this.taskForm.endTime);
                 uploadTask(this.taskForm, res => {
                     if (res.result === 'success') {
                         this.$router.push('/requester/home');
