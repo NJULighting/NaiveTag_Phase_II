@@ -32,5 +32,4 @@ public class JsonConfig {
                     .create();
         return gson;
     }
-
 }
