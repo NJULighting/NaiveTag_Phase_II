@@ -1,7 +1,7 @@
 export function submit(taskId, callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/tag/commit.html",
+        url: "http://localhost:8000/naive/task/commit.html",
         type: 'GET',
         data: {
             'username': localStorage.username,
