@@ -53,7 +53,7 @@ public enum TaskMaps {
 
     private Function<Integer, List<ThirdLevelTaskPO>> idThirdLevelTaskMapper(Map<Integer, List<Integer>> relations) {
         Table<ThirdLevelTaskPO> thirdLevelTasks = TableFactory.thirdLevelTaskTable();
-       
+
         return id -> relations.get(id).stream()
                 .map(thirdId -> thirdLevelTasks.getPOBy(thirdId, ThirdLevelTaskPO::getId))
                 .collect(Collectors.toList());

@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Type;
-import java.net.Inet4Address;
 import java.util.List;
 
 /**
@@ -36,7 +35,7 @@ public enum Config {
         }
     }
 
-    public String getRawFilePath() {
+    public String getRawFileName() {
         return configuration.get("rawFilePath").getAsString();
     }
 
@@ -59,6 +58,11 @@ public enum Config {
 
     public List<Integer> getWithoutClassesTypes() {
         return getTaskTypes("withoutClassesTask");
+    }
+
+    public String getLogicPath(String absolutePath) {
+        int index = absolutePath.indexOf(getRawFileName());
+        return absolutePath.substring(index);
     }
 
     public int getThirdLevelTaskImagesNum() {

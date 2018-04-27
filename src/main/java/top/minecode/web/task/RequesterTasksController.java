@@ -82,12 +82,11 @@ public class RequesterTasksController extends BaseController {
         Gson gson = JsonConfig.getGson();
         Config config = Config.INSTANCE;
 
-        String rawDataSetPath = getPath(config.getRawFilePath(), request);
+        String rawDataSetPath = getPath(config.getRawFileName(), request);
 
         // Save the file
         try {
             User user = getSessionUser(request);
-            System.out.println(taskInfo);
             NewTaskInfo newTaskInfo = JsonConfig.getGson().fromJson(taskInfo, NewTaskInfo.class);
             newTaskInfo.setOwnerId(user.getId());
             service.saveFile(dataset, taskconf, rawDataSetPath, newTaskInfo);

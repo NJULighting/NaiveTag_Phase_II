@@ -27,6 +27,7 @@ public class JsonConfig {
                     .registerTypeAdapter(TagResult.class, new TagSerializer())
                     .registerTypeAdapter(TagResult.class, new TagDeserializer())
                     .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+                    .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer())
                     .registerTypeAdapter(TimeNumberGraph.GraphPoint.class, new TimeNumberGraphSerializer())
                     .create();
         return gson;

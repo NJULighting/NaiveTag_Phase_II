@@ -29,7 +29,7 @@ public class ImagesSet implements Iterable<ImagesSet.SubImageSet> {
         List<String> supportedFormats = Config.INSTANCE.getSupportFormats();
         File[] imageFiles = imageFile.listFiles(pathname -> supportedFormats.contains(getFormat(pathname)));
         assert imageFiles != null;
-        images = Stream.of(imageFiles).map(File::getPath).collect(Collectors.toList());
+        images = Stream.of(imageFiles).map(f -> Config.INSTANCE.getLogicPath(f.getPath())).collect(Collectors.toList());
         this.scoreOfEachImage = totalScore / images.size();
     }
 

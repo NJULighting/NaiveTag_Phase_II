@@ -5,6 +5,7 @@ import top.minecode.domain.task.TaskInfo;
 import top.minecode.domain.task.requester.NewTaskInfo;
 import top.minecode.exception.InvalidFileStructureException;
 import top.minecode.po.*;
+import top.minecode.utils.Config;
 import top.minecode.utils.ImagesSet;
 
 import java.io.File;
@@ -22,15 +23,16 @@ public class TaskDeliveryDao {
         // Create FirstLevelTaskPO
         Table<FirstLevelTaskPO> flTaskTable = TableFactory.firstLevelTaskTable();
 
+        File resultFile = new File(dataDirectory + "result.json");
+
         // Add worker filter
         Table<WorkerFilterPO> filterTable = TableFactory.workerFilterTable();
         WorkerFilterPO filterPO = new WorkerFilterPO(taskInfo.getWorkerFilter(), filterTable.getNextId());
         filterTable.add(filterPO);
 
-        // TODO: 2018/4/27 Add result path and deserializer for end date
-
         // Add first level task
-        FirstLevelTaskPO flTask = new FirstLevelTaskPO(taskInfo, flTaskTable.getNextId(), filterPO.getId());
+        String resultFilePath = Config.INSTANCE.getLogicPath(resultFile.getPath());
+        FirstLevelTaskPO flTask = new FirstLevelTaskPO(taskInfo, resultFilePath, flTaskTable.getNextId(), filterPO.getId());
         flTaskTable.add(flTask);
         return flTask;
     }

@@ -21,19 +21,21 @@ public class FirstLevelTaskPO implements Serializable {
     private FirstLevelTaskState state;
     private Integer workerFilterId;
 
-    public FirstLevelTaskPO() {}
+    public FirstLevelTaskPO() {
+    }
 
     /**
      * Constructor for creating a new task
      * @param taskInfo information about the new task
      */
-    public FirstLevelTaskPO(NewTaskInfo taskInfo, int id, int workerFilterId) {
+    public FirstLevelTaskPO(NewTaskInfo taskInfo, String resultFilePath, int id, int workerFilterId) {
         ownerId = taskInfo.getOwnerId();
         taskName = taskInfo.getTaskName();
         totalScore = taskInfo.getScore();
         endDate = taskInfo.getEndTime();
 
         this.id = id;
+        this.resultFilePath = resultFilePath;
         this.workerFilterId = workerFilterId;
 
         state = FirstLevelTaskState.ongoing;
