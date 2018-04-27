@@ -27,6 +27,8 @@ public class TaskDeliveryDao {
         WorkerFilterPO filterPO = new WorkerFilterPO(taskInfo.getWorkerFilter(), filterTable.getNextId());
         filterTable.add(filterPO);
 
+        // TODO: 2018/4/27 Add result path and deserializer for end date
+
         // Add first level task
         FirstLevelTaskPO flTask = new FirstLevelTaskPO(taskInfo, flTaskTable.getNextId(), filterPO.getId());
         flTaskTable.add(flTask);
