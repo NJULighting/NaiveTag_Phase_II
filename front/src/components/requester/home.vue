@@ -2,7 +2,9 @@
     <div>
         <el-row>
             <el-col :span="16" :offset="4">
-                <!--// username:{{localStorage.username}}-->
+                <div  v-if="taskList.length===0">
+                    <h2> 您还没有任务，快去创建吧</h2>
+                </div>
                 <task-box v-for="(item,key)  in taskList" :task="item" :key="key"></task-box>
             </el-col>
         </el-row>
@@ -46,12 +48,12 @@
                 ]
             }
         },
-        created:function () {
-          fetchTaskList(localStorage.username,res=>{
-              console.log('taskList');
-              console.log(res);
-              this.taskList=res;
-          })
+        created: function () {
+            fetchTaskList(localStorage.username, res => {
+                console.log('taskList');
+                console.log(res);
+                this.taskList = res;
+            })
 
         }
     }
