@@ -29,7 +29,9 @@
             }
         },
         created:function () {
-            this.taskList=getTaskDetail('1')
+           getTaskDetail(localStorage.username,res=>{
+               this.taskList=res;
+           });
         },
         methods:{
 

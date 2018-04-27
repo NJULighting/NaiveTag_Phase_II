@@ -1,7 +1,13 @@
 import axios from 'axios'
+import {getUrl} from "~/api/tool";
 
-export function getTaskDetail(taskId) {
-    return mockTaskDetail(taskId);
+export function getTaskDetail(taskId,callback) {
+    fetchFromServer(taskId,callback);
+}
+
+function fetchFromServer(taskId,callback) {
+    $.get(getUrl('requester/details.html'),{taskId:taskId},
+            res=>callback(JSON.parse(res)));
 }
 
 function mockTaskDetail(taskId) {
