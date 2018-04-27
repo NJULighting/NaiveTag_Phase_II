@@ -59,9 +59,10 @@ public class TaskDeliveryDao {
     public void addThirdLevelTask(String imageFilePath, SecondLevelTaskPO secondLevelTaskPO, TaskInfo taskInfo, FirstLevelTaskPO firstLevelTaskPO) {
         Table<ThirdLevelTaskPO> taskTable = TableFactory.thirdLevelTaskTable();
         ImagesSet images = new ImagesSet(imageFilePath, secondLevelTaskPO.getTotalScore());
+        int i = 1;
         for (ImagesSet.SubImageSet image : images) {
             ThirdLevelTaskPO thirdLevelTaskPO = new ThirdLevelTaskPO(taskTable.getNextId(), secondLevelTaskPO.getId(),
-                    secondLevelTaskPO.getTaskName(), image.getScores() / 3, secondLevelTaskPO.getEndDate(),
+                    secondLevelTaskPO.getTaskName() + "-" + i++, image.getScores() / 3, secondLevelTaskPO.getEndDate(),
                     secondLevelTaskPO.getTaskDetailsId(), image.getImages(), taskInfo.getDescription(),
                     firstLevelTaskPO.getWorkerFilterId(), taskInfo.getTaskType());
             taskTable.add(thirdLevelTaskPO);

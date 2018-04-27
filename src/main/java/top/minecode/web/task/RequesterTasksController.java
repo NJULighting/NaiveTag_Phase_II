@@ -133,13 +133,14 @@ public class RequesterTasksController extends BaseController {
      * @param response http response
      */
     @RequestMapping("/download")
-    public void download(@RequestParam("taskId") int taskId, HttpServletResponse response) {
+    public void download(HttpServletRequest request, @RequestParam("taskId") int taskId, HttpServletResponse response) {
         // Check state of the task
         if (!service.isDone(taskId))
             return;
 
         String resultPath = service.getResult(taskId);
-        Resource resource = new FileSystemResource(resultPath);
+        Resource resource = new FileSystemResource(request.getSession().getServletContext().getRealPath(resultPath));
+
         File target = new File(resultPath);
         String mimeType = Optional.ofNullable(URLConnection.guessContentTypeFromName(target.getName()))
                 .orElse("application/octet-stream");
