@@ -20,6 +20,7 @@ import top.minecode.web.common.BaseController;
 import top.minecode.web.common.CommonConstant;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -59,12 +60,6 @@ public class LoginController extends BaseController {
         return JsonConfig.getGson().toJson(loginResponse);
     }
 
-
-    //登出
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public void logout(String username) {
-        ActiveUsers.removeUserByUsername(username);
-    }
 
 
 }
