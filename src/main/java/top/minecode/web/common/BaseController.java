@@ -19,7 +19,8 @@ public class BaseController {
     }
 
     protected void setSessionUser(HttpServletRequest request, User user) {
-        ActiveUsers.addUser(user.getUsername(), user);
+        if (ActiveUsers.getUserByUserName(user.getName()) == null)
+            ActiveUsers.addUser(user.getUsername(), user);
     }
 
     public final String getAppBaseUrl(HttpServletRequest request, String url) {

@@ -3,22 +3,28 @@
         <div style="height: 100%;" >
             <el-row style="background-image: url('/src/assets/bar.png');width: 100%;height: 60px;" >
 
-                <el-col :span="4" class="height"><div class="height logo">
-                    <div class="height center">Naive Tag</div>
-                </div></el-col>
+                <div class="height center" style="width: 250px;float: left;">
+                    <img src="../../assets/naive_tag.png" style="height: 50px;width: auto;"
+                         ondragstart="return false;"
+                         oncontextmenu="return false;">
+                </div>
 
-                <el-col :span="15" class="height"><div class="height search">
-                    <el-input
-                            v-model="inputText"
-                            placeholder="任务搜索"
-                            suffix-icon="el-icon-search"
-                            class="height center"
-                            style="width: 30%;"
-                            @keyup.enter.native="doSearch">
-                    </el-input>
-                </div></el-col>
+                <el-input
+                        v-model="inputText"
+                        placeholder="任务搜索"
+                        suffix-icon="el-icon-search"
+                        class="height center"
+                        style="width: 30%;float: left;width: 300px;"
+                        @keyup.enter.native="doSearch">
+                </el-input>
 
-                <el-col :span="4" class="height"><div class="height">
+                <div class="height center" style="float: right;">
+                    <img src="../../assets/head.jpg" alt="headPicture" class="headpic" v-on:click="showUserInfo"
+                         ondragstart="return false;"
+                         oncontextmenu="return false;">
+                </div>
+
+                <div style="width: 250px;height: 100%;float: right;">
                     <el-menu :default-active="activeIndex" class="el-menu-demo height" mode="horizontal"
                              background-color= "transparent"
                              text-color="white"
@@ -30,11 +36,8 @@
                         <button type="text" class="height center exit" @click="exit">退出登录</button>
 
                     </el-menu>
-                </div></el-col>
+                </div>
 
-                <el-col :span="1" class="height"><div class="height">
-                    <img src="../../assets/head.jpg" alt="headPicture" class="headpic" v-on:click="showUserInfo">
-                </div></el-col>
             </el-row>
         </div>
 
@@ -75,7 +78,15 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-
+                    $.ajax({
+                        url: "http://localhost:8000/naive/lgo.html",
+                        type: 'POST',
+                        data: {
+                            'username': localStorage.username,
+                        }
+                        // contentType:"application/x-www-form-urlencoded; charset=utf-8"
+                    });
+                    this.$router.push("/login");
                 }).catch(() => {
 
                 });

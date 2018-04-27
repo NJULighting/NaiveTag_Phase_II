@@ -54,12 +54,12 @@
 
 
                         <div class="bottom">
-                            <time v-if="payDay" class="time"  style="float: right">END：{{payDay}}</time>
+                            <time v-if="payDay" class="time"  style="float: right">PAYDAY：{{payDay}}</time>
                         </div>
 
                         <!--进度条-->
                         <div v-if="process || process === 0" class="part margin">
-                            <el-progress :percentage="process" color="#336fff"></el-progress>
+                            <el-progress :percentage="getProcess" color="#336fff"></el-progress>
                         </div>
 
                         <!--开始日期、结束日期-->
@@ -103,6 +103,10 @@
         computed: {
             getCover: function () {
                 return "http://localhost:8000/naive/" + this.cover;
+            },
+
+            getProcess: function () {
+                return this.process*100;
             },
         },
 
