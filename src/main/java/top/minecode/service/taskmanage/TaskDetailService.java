@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import top.minecode.dao.task.WorkerTaskDao;
 import top.minecode.domain.task.*;
 import top.minecode.domain.user.User;
+import top.minecode.json.JsonConfig;
 import top.minecode.po.ThirdLevelTaskPO;
 import top.minecode.po.ThirdLevelTaskResultPO;
 
@@ -34,6 +35,7 @@ public class TaskDetailService {
     public WorkerTaskDetail getWorkerTaskDetail(User user, int taskId) {
         ThirdLevelTaskPO rawTaskPO = workerTaskDao.loadTaskByTaskId(taskId);
         ThirdLevelTaskResultPO taskResultPO = workerTaskDao.loadTaskResultByUserAndTaskId(user, taskId);
+        System.out.println(JsonConfig.getGson().toJson(taskResultPO));
         if (taskResultPO == null) { //此前没接过这个任务
 
             UnacceptedTaskDetail unacceptedTaskDetail = new UnacceptedTaskDetail();

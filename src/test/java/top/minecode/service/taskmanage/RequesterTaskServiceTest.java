@@ -33,7 +33,7 @@ public class RequesterTaskServiceTest extends AbstractTestNGSpringContextTests{
         this.service = service;
     }
 
-    @Test
+    //@Test
     public void saveFile() throws Exception {
         String classPath = RequesterTaskServiceTest.class.getResource("/").getPath() + File.separator;
 

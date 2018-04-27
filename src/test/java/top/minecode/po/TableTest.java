@@ -47,7 +47,7 @@ public class TableTest {
 //        assertEquals(size + 1, adminTable.size());
 //    }
 
-    @Test(priority = 1)
+//    @Test(priority = 1)
     public void testFilterAndGet() throws Exception {
         Table<ThirdLevelTaskPO> tasks = TableFactory.thirdLevelTaskTable();
         Predicate<ThirdLevelTaskPO> filter = e -> e.getState() == ThirdLevelTaskState.doing;

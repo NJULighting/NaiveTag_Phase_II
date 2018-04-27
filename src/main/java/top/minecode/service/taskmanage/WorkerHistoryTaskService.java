@@ -8,6 +8,7 @@ import top.minecode.domain.task.WorkerHistoryTaskInfo;
 import top.minecode.domain.task.WorkerRecentTaskInfo;
 import top.minecode.domain.user.User;
 import top.minecode.domain.user.Worker;
+import top.minecode.json.JsonConfig;
 import top.minecode.po.ThirdLevelTaskPO;
 import top.minecode.po.ThirdLevelTaskResultPO;
 
@@ -72,8 +73,11 @@ public class WorkerHistoryTaskService {
 
     public List<WorkerHistoryTaskInfo> getWorkerHistoryTaskInfo(User user) {
         List<ThirdLevelTaskResultPO> userAllResults = workerTaskDao.loadAllTaskResultByUserId(user.getId());
-        List<ThirdLevelTaskPO> userAllTasks = userAllResults.stream().map(e -> workerTaskDao.loadTaskByTaskId(e.getId()))
+        System.out.println("IN history");
+        System.out.println(JsonConfig.getGson().toJson(userAllResults));
+        List<ThirdLevelTaskPO> userAllTasks = userAllResults.stream().map(e -> workerTaskDao.loadTaskByTaskId(e.getThirdLevelTaskId()))
                 .collect(Collectors.toList());
+        System.out.println(JsonConfig.getGson().toJson(userAllTasks));
         List<WorkerHistoryTaskInfo> workerHistoryTaskInfoList = new ArrayList<>(userAllResults.size());
         for (int i = 0; i < userAllResults.size(); i++) {
             ThirdLevelTaskResultPO taskResult = userAllResults.get(i);
@@ -100,6 +104,7 @@ public class WorkerHistoryTaskService {
             workerHistoryTaskInfoList.add(workerHistoryTaskInfo);
         }
         Collections.sort(workerHistoryTaskInfoList);
+        System.out.println(JsonConfig.getGson().toJson(workerHistoryTaskInfoList));
         return workerHistoryTaskInfoList;
     }
 

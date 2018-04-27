@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
  */
 public class ImagesSetTest {
 
-    @Test
+//    @Test
     public void testGetImages() throws Exception {
         throw new SkipException("Skip the test");
 //        ImagesSet imageSets = new ImagesSet("C:\\Users\\liao\\Desktop\\image", 3000);

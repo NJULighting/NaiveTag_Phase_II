@@ -1,5 +1,6 @@
 package top.minecode.web.user;
 
+import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,6 +45,8 @@ public class UserInfoController extends BaseController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public @ResponseBody String getUserInfo(HttpServletRequest request) {
         GeneralUser user = (GeneralUser) getSessionUser(request);
+        System.out.println("In user info: ");
+        System.out.println(JsonConfig.getGson().toJson(user));
         UserInfoResponse userInfoResponse = null;
         if (user.getUserType() == UserType.worker) {
             Worker worker = (Worker) user;

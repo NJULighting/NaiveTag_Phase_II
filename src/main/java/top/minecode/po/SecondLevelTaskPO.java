@@ -1,6 +1,7 @@
 package top.minecode.po;
 
 import top.minecode.domain.task.TaskInfo;
+import top.minecode.json.JsonConfig;
 import top.minecode.utils.Config;
 
 import java.io.Serializable;
@@ -36,7 +37,13 @@ public class SecondLevelTaskPO implements Serializable {
 
     public TaskInfo getTaskInfo() {
         Table<TaskDetailsPO> taskDetailsTable = TableFactory.taskDetailsTable();
+        System.out.println("test");
+        System.out.println(JsonConfig.getGson().toJson(taskDetailsTable));
         TaskDetailsPO detail = taskDetailsTable.getPOBy(taskDetailsId, TaskDetailsPO::getId);
+
+        System.out.println(JsonConfig.getGson().toJson(this));
+        System.out.println("detail");
+        System.out.println(JsonConfig.getGson().toJson(detail));
 
         if (Config.INSTANCE.isWithClassesType(detail.getTaskType()))
             return new TaskInfo(detail.getTaskType(), detail.getDescription(), detail.getClasses());

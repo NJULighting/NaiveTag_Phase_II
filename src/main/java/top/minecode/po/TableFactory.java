@@ -143,7 +143,7 @@ public class TableFactory {
         thirdLevelTaskPO2_1.setState(ThirdLevelTaskState.doing);
 
         List<String> picList2_1 = new ArrayList<>();
-        picList2_1.add("iznauyVan.jpg");
+        picList2_1.add("Van.jpg");
 
         thirdLevelTaskPO2_1.setPicList(picList2_1);
         thirdLevelTaskPO2_1.setTaskDescription("Are you OK?");
@@ -173,8 +173,10 @@ public class TableFactory {
         workerPO.setScores(100.0);
         workerPO.setId(1);
         workerPO.setEmail("zy05160516@126.com");
-        workerPO.setUsername("iznauy");
-        workerPO.setPassword("iznauy");
+        workerPO.setUsername("1");
+        workerPO.setPassword("1");
+        workerPO.setAverageScoreRatio(1.0);
+        workerPO.setName("iznauy");
 
         TableFactory.workerTable().getAll().add(workerPO);
 
@@ -190,7 +192,7 @@ public class TableFactory {
         TaskDetailsPO girlFriendTaskDetail = new TaskDetailsPO();
         girlFriendTaskDetail.setId(5);
         girlFriendTaskDetail.setSLTaskId(10);
-        girlFriendTaskDetail.setTaskType(100);
+        girlFriendTaskDetail.setTaskType(401);
         girlFriendTaskDetail.setDescription("这张图片写的是谁？");
         List<String> classes = new ArrayList<>();
         classes.add("伊丽莎白");
@@ -198,6 +200,8 @@ public class TableFactory {
         classes.add("华莱士");
         classes.add("董建华");
         girlFriendTaskDetail.setClasses(classes);
+
+        TableFactory.taskDetailsTable().getAll().add(girlFriendTaskDetail);
 
         TableFactory.secondLevelTaskTable().getAll().add(girlFriendsSLTask);
         TableFactory.taskDetailsTable().getAll().add(taskDetailsPO);
@@ -221,7 +225,7 @@ public class TableFactory {
         gfTask.setCurrentDoingWorkerIds(new ArrayList<>());
         gfTask.setFinishedWorkerIds(new ArrayList<>());
         gfTask.setWorkerFilterId(1);
-        gfTask.setTaskType(100);
+        gfTask.setTaskType(401);
         gfTask.setState(ThirdLevelTaskState.doing);
 
         TableFactory.thirdLevelTaskTable().getAll().add(gfTask);
