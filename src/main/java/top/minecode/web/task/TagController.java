@@ -36,11 +36,12 @@ public class TagController extends BaseController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public void save(HttpServletRequest request, int taskId, String url, String data) {
+    public String save(HttpServletRequest request, int taskId, String url, String data) {
 
         TagResult tagResult = JsonConfig.getGson().fromJson(data, TagResult.class);
         User user = getSessionUser(request);
         tagService.saveTag(taskId, user, url, tagResult);
+        return "666";
     }
 
     @RequestMapping("/next")

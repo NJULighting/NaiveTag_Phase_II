@@ -1,5 +1,6 @@
 <template>
     <div id="page">
+        <!--style="background-image: url('')"-->
 
         <!--<button v-on:click="getRecommendation">button</button>-->
         <!--任务进行中-->
@@ -16,7 +17,7 @@
         </div>
 
         <!--任务推荐-->
-        <div v-if="taskRecommendList && taskRecommendList != 0" style="width: 100%;text-align: center;padding-top: 30px;padding-bottom: 20px">
+        <div v-if="taskRecommendList && taskRecommendList != 0" style="width: 100%;text-align: center;padding-top: 40px;padding-bottom: 20px">
             <span style="font-size: 24px">任务推荐</span>
         </div>
 

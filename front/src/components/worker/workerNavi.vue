@@ -106,7 +106,7 @@
         padding-left: 10px;
         background-color: transparent;
         font-size: 14px;
-        border: 0px;
+        border: none;
         cursor: pointer;
         cursor: hand;
         outline:none;

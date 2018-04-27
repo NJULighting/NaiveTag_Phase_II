@@ -31,7 +31,7 @@
         name: "navi",
         methods:{
             logout:function () {
-                $.get(getUrl('logout.html'),function () {
+                $.get(getUrl('lgo.html'),function () {
                     this.$router.push('/login');
                 });
 

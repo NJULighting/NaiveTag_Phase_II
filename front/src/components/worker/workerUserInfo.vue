@@ -67,7 +67,6 @@
             return {
                 imageUrl: '',
                 imageSrc: '/src/assets/head.jpg',
-                averageScore: 0,
             }
         }
     }

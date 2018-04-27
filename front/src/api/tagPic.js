@@ -10,10 +10,11 @@ export function save(taskId,picUrl,JSONObject,callback) {
             "url": picUrl, // 图片的url
             "data": JSONObject //迭代一中已经定义好的图片标注信息
         },
-        success: function(){
+        success: function(result){
             console.log("JSONObject: ");
             console.log(JSONObject);
             console.log('save success');
+            callback(result);
         },
         // contentType:"application/x-www-form-urlencoded; charset=utf-8"
     })

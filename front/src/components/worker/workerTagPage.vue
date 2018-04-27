@@ -3,13 +3,15 @@
         <div style="height: 100%;" >
             <el-row style="background-image: url('/src/assets/bar.png');width: 100%;height: 60px;" >
 
-                <el-col :span="4" class="height"><div class="height logo">
-                    <div class="height center">Naive Tag</div>
-                </div></el-col>
+                <div class="height center" style="width: 250px;float: left;">
+                    <img src="../../assets/naive_tag.png" style="height: 50px;width: auto;"
+                         ondragstart="return false;"
+                         oncontextmenu="return false;">
+                </div>
 
-                <el-col :span="20" class="height"><div class="height">
+                <div class="height" style="width: 100px;float: left;">
                     <button type="text" class="height center back"  v-on:click="back">返回</button>
-                </div></el-col>
+                </div>
 
             </el-row>
         </div>
@@ -54,6 +56,7 @@
                 console.log(json);
                 let result = save(this.$route.params.taskId,this.picUrl,json, res=> {
                     console.log("saveResult success!");
+                    console.log(res);
                     this.$router.push({ name: 'task', params: { taskId: this.$route.params.taskId }});
                 });
             },
@@ -213,7 +216,7 @@
         padding-left: 10px;
         background-color: transparent;
         font-size: 14px;
-        border: 0px;
+        border: none;
         cursor: pointer;
         cursor: hand;
     }

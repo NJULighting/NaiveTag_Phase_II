@@ -1,9 +1,12 @@
 <template>
-    <div class="taskBlock" id="app" v-on:click="showTask">
+    <div class="taskBlock" v-bind:class="getBlockStyle" id="app" v-on:click="showTask">
         <div style="padding: 10px">
             <el-card :body-style="{ padding: '0px' }">
 
-                <img :src="getCover" alt="CoverImage" class="image">
+                <div style="width: 100%;">
+                    <!--height: 250px;overflow: hidden;-->
+                    <img :src="getCover" alt="CoverImage" class="image" style="position: relative;">
+                </div>
 
                 <div style="padding: 14px;">
 
@@ -112,9 +115,35 @@
 
         methods: {
 
+            getBlockStyle: function () {
+                if(this.isChooseable()){
+                    return {
+                        cursor: 'pointer',
+                        cursor: 'hand'
+                    }
+                }else{
+                    return {};
+                }
+
+            },
+
+            isChooseable: function () {
+                if(this.state){
+                    if(this.state === 'unpay' || this.state === 'finish' || this.state === 'expired'){
+                    }else{
+                        return true;
+                    }
+                }else{
+                    return true;
+                }
+            },
+
             showTask: function () {
 //                this.$router.push("/task");
-                this.$router.push({ name: 'task', params: { taskId: this.taskId }});
+                if(this.isChooseable()){
+                    this.$router.push({ name: 'task', params: { taskId: this.taskId }});
+                }
+
             },
 
             taskActualScore: function () {
@@ -168,8 +197,6 @@
 
     .taskBlock {
         display:inline-block;
-        cursor: pointer;
-        cursor: hand;
         text-align: left;
         width: 20%;
     }
