@@ -1,8 +1,6 @@
 package top.minecode.dao.task.requester;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import top.minecode.dao.statistic.RequesterStatisticDao;
 import top.minecode.domain.task.TaskInfo;
 import top.minecode.domain.task.requester.TaskParticipant;
 import top.minecode.po.*;
@@ -10,7 +8,6 @@ import top.minecode.po.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;

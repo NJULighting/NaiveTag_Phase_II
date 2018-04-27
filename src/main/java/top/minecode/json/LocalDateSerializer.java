@@ -17,9 +17,9 @@ public class LocalDateSerializer implements JsonSerializer<LocalDate> {
     public JsonElement serialize(LocalDate localDate, Type type, JsonSerializationContext jsonSerializationContext) {
         StringBuilder sb = new StringBuilder();
         sb.append(localDate.getYear());
-        sb.append(" ");
+        sb.append("-");
         sb.append(localDate.getMonthValue());
-        sb.append(" ");
+        sb.append("-");
         sb.append(localDate.getDayOfMonth());
         return new JsonPrimitive(sb.toString());
     }

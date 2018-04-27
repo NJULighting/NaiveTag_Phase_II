@@ -11,7 +11,7 @@ public class NewTaskInfo {
     private Integer ownerId;
     private String taskName; // Task
     private WorkerFilter workerFilter; // The limit set for worker
-    private LocalDate endTime; // DDL of the task
+    private LocalDate endTime; // DDL of the task todo change to endDate
     private Double score; // Score provided for the workers
 
     public NewTaskInfo() {}
@@ -24,6 +24,7 @@ public class NewTaskInfo {
         this.endTime = endTime;
         this.score = score;
     }
+
 
     public String getTaskName() {
         return taskName;

@@ -40,10 +40,10 @@ public class RankTable implements Serializable {
         }
 
         // If the user has no rank, then return the end of the rank list
-        return null;
+        return rankItems.size() + 1;
     }
 
-    public int getRankById(int id) {
+    public Integer getRankById(int id) {
         String name = TableFactory.workerTable().getPOBy(id, WorkerPO::getId).getName();
         return getRankByName(name);
     }
@@ -62,7 +62,7 @@ public class RankTable implements Serializable {
     }
 
     public List<RankItem> getWorkerRank() {
-        int length = rank.size() > StatisticConstant.RANK_BOARD_SHOW_COUNT
+        int length = rank.size() < StatisticConstant.RANK_BOARD_SHOW_COUNT
                 ? rank.size() : StatisticConstant.RANK_BOARD_SHOW_COUNT;
 
         sort();

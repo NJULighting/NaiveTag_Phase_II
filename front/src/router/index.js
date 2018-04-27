@@ -14,6 +14,9 @@ import requesterHome from '../components/requester/home.vue'
 import requesterCreateTask from '../components/requester/createTask.vue'
 import requesterTaskDetail from '../components/requester/taskDetail.vue'
 import requesterDetail from  '../components/requester/requesterDetail.vue'
+import adminIndex from '../components/admin/adminIndex'
+import adminHome from '../components/admin/adminHome'
+import adminUser from   '../components/admin/adminUser'
 
 
 Vue.use(VueRouter)
@@ -26,7 +29,7 @@ const router = new VueRouter({
         {
             path: '/worker', component: worker_navi,
             children: [
-                {path: 'home', component: home},
+                {path: 'home', component: home, name: 'workerHome'},
                 {path: 'history', component: history},
                 {path: 'search/:key', component: search, name: 'search'},
                 {path: 'user', component: user},
@@ -43,6 +46,13 @@ const router = new VueRouter({
                 {path: 'createTask', component: requesterCreateTask},
                 {path:'taskDetail',component:requesterTaskDetail,name:'taskDetail'},
                 {path:'requesterDetail',component:requesterDetail}
+            ]
+        },
+        {
+            path:'/admin',component:adminIndex,
+            children:[
+                {path:'home',component:adminHome},
+                {path:'user',component:adminUser}
             ]
         }
     ],

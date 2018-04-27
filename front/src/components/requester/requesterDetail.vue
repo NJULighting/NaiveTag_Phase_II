@@ -39,24 +39,6 @@
                     </el-main>
                 </el-container>
 
-                <chart
-                        type="line"
-                        :data="data1"
-                        unique-id="01"
-                        series-name="人数">
-                </chart>
-                <chart
-                        type="line"
-                        :data="data2"
-                        unique-id="02"
-                        series-name="人数">
-                </chart>
-                <chart
-                        type="line"
-                        :data="data3"
-                        unique-id="03"
-                        series-name="人数">
-                </chart>
             </el-card>
         </el-col>
 
@@ -68,12 +50,11 @@
     import RequesterDetailItem from "~/components/requester/requesterDetailItem";
     import {fetchRequesterDetail} from "~/api/requesterDetail";
     import {fetchAdminDetail} from "~/api/adminDetail";
-    import Chart from "~/components/chart";
 
 
     export default {
         name: "requesterDetail",
-        components: { Chart, RequesterDetailItem},
+        components: {  RequesterDetailItem},
         data: function () {
 
             return {

@@ -33,8 +33,6 @@ public class UserDao {
 
     public User getUserByUsername(String userName) {
 
-        System.out.println(userName);
-
         // 查数据库，迭代三替换成数据库查询代码
         WorkerPO workerPO = TableFactory.workerTable().getPOBy(userName, WorkerPO::getUsername);
         if (workerPO != null)
@@ -101,7 +99,6 @@ public class UserDao {
             workerPO.setId(id);
             TableFactory.workerTable().add(workerPO);
         }
-        System.out.println("Add User: " + JsonConfig.getGson().toJson(user));
         addRegisterLoginLog(user);
     }
 

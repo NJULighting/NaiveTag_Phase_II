@@ -2,18 +2,7 @@
     <div id="userinfo">
         <div class="top"></div>
         <div style="width: 400px;text-align: center;">
-            <img v-if="!onSelect" v-bind:src="imageSrc" alt="headPicture" class="headpicture" v-on:click="selectPic">
-        </div>
-        <div v-if="onSelect">
-            <el-upload
-                    class="avatar-uploader"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
-                    :before-upload="beforeAvatarUpload">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
+            <img v-bind:src="imageSrc" alt="headPicture" class="headpicture">
         </div>
 
         <el-card class="box-card">
@@ -27,14 +16,14 @@
                 邮箱：{{email}}
             </div>
             <div class="text item">
-                得分：{{totalScore}}
+                得分：{{score}}
             </div>
             <div class="text item">
                 排名：{{rank}}
             </div>
             <div class="text item">
                 能力值：
-                <el-progress :percentage="averageScoreRatio"></el-progress>
+                <el-progress :percentage="averageScoreRatio*100"></el-progress>
             </div>
         </el-card>
     </div>
@@ -47,24 +36,15 @@
             username: String, //用户名
             name: String, //昵称
             email: String, // 用户注册邮箱
-            rank: String, //用户群体排名
+            rank: Number, //用户群体排名
             averageScoreRatio: Number, //用户得分占满分的比例，相当于能力值
-            totalScore: Number //用户赚取的总得分
-        },
-
-        created: function () {
-            // `this` 指向 vm 实例
-            this.$message.info('点击头像进行更改！');
+            score: Number //用户赚取的总得分
         },
 
         methods: {
-            selectPic: function () {
-                this.onSelect = true;
-            },
             handleAvatarSuccess(res, file) {
                 this.imageUrl = URL.createObjectURL(file.raw);
                 this.imageSrc = this.imageUrl;
-                this.onSelect = false;
                 this.imageUrl = '';
                 this.$message.success('更换头像成功！');
             },
@@ -85,9 +65,8 @@
 
         data() {
             return {
-                onSelect: false,
                 imageUrl: '',
-                imageSrc: '/src/assets/head.jpg'
+                imageSrc: '/src/assets/head.jpg',
             }
         }
     }

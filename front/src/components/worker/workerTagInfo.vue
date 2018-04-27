@@ -16,7 +16,7 @@
                     <!--已画的框-->
                     <div class="rect" v-for="(item, index) in frames"
                          v-bind:style="{
-                            'border-color': rectColors[index],
+                            'border-color': rectColor,
                             left: item.leftTop.x + 'px',
                             top: item.leftTop.y + 'px',
                             width: item.rightDown.x - item.leftTop.x + 'px',
@@ -58,10 +58,14 @@
                 <div v-bind:style="getBlocksStyle()">
                     <div class="tagblocks">
 
-                        <!--颜色选择器-->
-                        <div v-if="isRectsTypeNoLabel" class="block center" style="padding-top: 20px;">
-                            <span class="demonstration">颜色</span>
-                            <el-color-picker v-model="rectColor"></el-color-picker>
+                        <!--&lt;!&ndash;颜色选择器&ndash;&gt;-->
+                        <!--<div v-if="isRectsTypeNoLabel" class="block center" style="padding-top: 20px;">-->
+                            <!--<span class="demonstration">颜色</span>-->
+                            <!--<el-color-picker v-model="rectColor"></el-color-picker>-->
+                        <!--</div>-->
+
+                        <div v-if="description" class="block center" style="padding-top: 20px;">
+                            {{description}}
                         </div>
 
                         <!--标注块-->
@@ -88,7 +92,7 @@
                             <!--选择框-->
                             <div v-if="isSelectType">
                                 <div v-if="!isRectsTypeNoLabel">
-                                    <el-select v-model="labelInput" filterable placeholder="请选择" class="select">
+                                    <el-select v-model="labelSelect" filterable placeholder="请选择" class="select">
                                         <el-option
                                                 v-for="item in options"
                                                 :key="item.value"
@@ -145,17 +149,37 @@
                this.picHeight = this.$refs.image.getBoundingClientRect().height;
                this.ctx = this.$refs.canvas.getContext('2d');
 
-               for(var i=0; i<this.frames.length;i++){
-                   this.rectColors.push(this.rectColor);
-               }
                if(this.points && (this.points.length > 0)){
                    this.drawPolygon();
                }
 
-               console.log("rectColors:")
-               console.log(this.rectColors);
 
            })
+        },
+
+        created: function(){
+            console.log("tagInfo created");
+            console.log("frames");
+            console.log(this.frames);
+            if(this.label){
+                this.updateLabel();
+            }
+        },
+
+        watch: {
+            label: function (newLabel) {
+                this.updateLabel();
+            },
+
+            points: function (newPoints) {
+                if(this.points){
+                    if(this.points.length > 0){
+                        this.drawPolygon();
+                    }else{
+                        this.ctx.clearRect(0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
+                    }
+                }
+            },
         },
 
         props: {
@@ -164,6 +188,7 @@
             frames: Array,
             points: Array,
             options: Array,
+            description: String,
 
             picUrl: String
         },
@@ -171,6 +196,7 @@
         data() {
             return {
                 labelInput: "",
+                labelSelect: null,
                 rectColor : 'red',
                 defaultColor:[
                     'red',
@@ -178,9 +204,6 @@
                     'blue',
                     'green',
                     'yellow'
-                ],
-                rectColors:[
-
                 ],
 
                 picHeight :  800,
@@ -242,10 +265,10 @@
 
             isCanvasType: function () {
                 switch (this.getTagTypeNum) {
-                    case 400:
+                    case 401:
                         return true;
                         break;
-                    case 401:
+                    case 400:
                         return true;
                         break;
                     default:
@@ -262,10 +285,10 @@
                     case 101:
                         return false;
                         break;
-                    case 400:
+                    case 401:
                         return false;
                         break;
-                    case 401:
+                    case 400:
                         return false;
                         break;
                     default:
@@ -294,10 +317,10 @@
                     case 301:
                         return true;
                         break;
-                    case 400:
+                    case 401:
                         return true;
                         break;
-                    case 401:
+                    case 400:
                         return false;
                         break;
                 }
@@ -323,10 +346,10 @@
                     case 301:
                         return false;
                         break;
-                    case 400:
+                    case 401:
                         return false;
                         break;
-                    case 401:
+                    case 400:
                         return false;
                         break;
                 }
@@ -348,6 +371,29 @@
         },
 
         methods: {
+
+            updateLabel: function () {
+                if(!this.isRectsTypeNoLabel && this.getTagTypeNum!=400){
+                    if(this.isInputType){
+                        this.labelInput = this.label;
+                        if(this.labelInput === null){
+                            this.labelInput = "";
+                        }
+                    }
+                    if(this.isSelectType){
+                        console.log("tagInfo isSelectType");
+                        console.log("this.label "+ this.label);
+                        console.log(this.options);
+                        for(var index in this.options){
+                            if(this.options[index].label === this.label){
+                                this.labelSelect = index;
+                                return;
+                            }
+                        }
+                        this.labelSelect = null;
+                    }
+                }
+            },
 
             checkDraw: function () {
                 if(this.frames.length === 0){
@@ -371,7 +417,7 @@
                         return false;
                     }
                 }else{
-                    if(this.labelInput.length === 0){
+                    if(!this.isRectsTypeNoLabel && this.getTagTypeNum != 400 && (this.labelSelect === null && this.labelInput.length === 0)){
                         this.$message.error('请填写标注信息！');
                         return false;
                     }
@@ -390,15 +436,27 @@
 
             lastPic: function () {
                 if(this.checkNext()){
-                    this.label = this.labelInput;
+//                    this.label = this.labelInput;
+                    this.changeLabel();
                     this.$emit('lastPic');
                 }
             },
 
             nextPic: function () {
                 if(this.checkNext()){
-                    this.label = this.labelInput;
+//                    this.label = this.labelInput;
+                    this.changeLabel();
                     this.$emit('nextPic');
+                }
+            },
+
+            changeLabel: function () {
+                if(!this.isRectsTypeNoLabel && this.getTagTypeNum != 400){
+                    if(this.labelInput.length > 0){
+                        this.$emit('changeLabel', "" + this.labelInput);
+                    }else{
+                        this.$emit('changeLabel', "" + this.options[this.labelSelect].label);
+                    }
                 }
             },
 
@@ -441,9 +499,6 @@
             },
 
             drawPolygon: function() {
-
-                console.log("points:");
-                console.log(this.points);
                 this.ctx.clearRect(0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
 
                 this.ctx.beginPath();
@@ -460,7 +515,6 @@
 
             deleteFramesItem(index) {
                 this.frames.splice(index, 1);
-                this.rectColors.splice(index, 1);
                 console.log(this.frames);
             },
 
@@ -528,7 +582,6 @@
                             if(this.frames.length === 1){
                                 label = this.frames[0].label;
                                 this.frames.pop();
-                                this.rectColors.pop();
                             }
                         }
                         this.frames.push({
@@ -536,15 +589,18 @@
                             "rightDown": {x:this.getRectLeft + this.getRectWidth,y:this.getRectTop + this.getRectHeight},
                             "label":label,
                         });
-                        this.rectColors.push(this.rectColor);
                         console.log(this.frames);
                     }
                 }
             },
 
             getChangeRectStyle: function () {
+                var zIndex = 0;
+                if(this.frames){
+                    zIndex = this.frames.length;
+                }
                 return {
-                    'z-index': this.frames.length,
+                    'z-index': zIndex,
                     left: this.getRectLeft + 'px',
                     top: this.getRectTop + 'px',
                     width: this.getRectWidth + 'px',
@@ -557,8 +613,12 @@
 
             getTagCanvasStyle: function () {
                 if(this.isCanvasType){
+                    var zIndex = 0;
+                    if(this.frames){
+                        zIndex = this.frames.length;
+                    }
                     return {
-                        'z-index': this.frames.length + 3,
+                        'z-index': zIndex + 3,
                         left: '0px',
                         top: '0px',
                         position: 'absolute',
@@ -575,8 +635,12 @@
             },
 
             getCanvasStyle: function () {
+                var zIndex = 0;
+                if(this.frames){
+                    zIndex = this.frames.length;
+                }
                 return {
-                    'z-index': this.frames.length + 2,
+                    'z-index': zIndex + 2,
                     left: '0px',
                     top: '0px',
                     width: this.picWidth + 'px',
@@ -586,8 +650,12 @@
             },
 
             getBlocksStyle: function () {
+                var zIndex = 0;
+                if(this.frames){
+                    zIndex = this.frames.length;
+                }
                 return {
-                    'z-index': this.frames.length + 1,
+                    'z-index': zIndex + 1,
                     position:'absolute',
                     left: '0px',
                     top: '10px',

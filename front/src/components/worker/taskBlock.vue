@@ -1,9 +1,12 @@
 <template>
-    <div class="taskBlock" id="app" v-on:click="showTask">
+    <div class="taskBlock" v-bind:class="getBlockStyle" id="app" v-on:click="showTask">
         <div style="padding: 10px">
             <el-card :body-style="{ padding: '0px' }">
 
-                <img :src="getCover" alt="CoverImage" class="image">
+                <div style="width: 100%;">
+                    <!--height: 250px;overflow: hidden;-->
+                    <img :src="getCover" alt="CoverImage" class="image" style="position: relative;">
+                </div>
 
                 <div style="padding: 14px;">
 
@@ -54,12 +57,12 @@
 
 
                         <div class="bottom">
-                            <time v-if="payDay" class="time"  style="float: right">END：{{payDay}}</time>
+                            <time v-if="payDay" class="time"  style="float: right">PAYDAY：{{payDay}}</time>
                         </div>
 
                         <!--进度条-->
                         <div v-if="process || process === 0" class="part margin">
-                            <el-progress :percentage="process" color="#336fff"></el-progress>
+                            <el-progress :percentage="getProcess" color="#336fff"></el-progress>
                         </div>
 
                         <!--开始日期、结束日期-->
@@ -104,13 +107,43 @@
             getCover: function () {
                 return "http://localhost:8000/naive/" + this.cover;
             },
+
+            getProcess: function () {
+                return this.process*100;
+            },
         },
 
         methods: {
 
+            getBlockStyle: function () {
+                if(this.isChooseable()){
+                    return {
+                        cursor: 'pointer',
+                        cursor: 'hand'
+                    }
+                }else{
+                    return {};
+                }
+
+            },
+
+            isChooseable: function () {
+                if(this.state){
+                    if(this.state === 'unpay' || this.state === 'finish' || this.state === 'expired'){
+                    }else{
+                        return true;
+                    }
+                }else{
+                    return true;
+                }
+            },
+
             showTask: function () {
 //                this.$router.push("/task");
-                this.$router.push({ name: 'task', params: { taskId: this.taskId }});
+                if(this.isChooseable()){
+                    this.$router.push({ name: 'task', params: { taskId: this.taskId }});
+                }
+
             },
 
             taskActualScore: function () {
@@ -164,8 +197,6 @@
 
     .taskBlock {
         display:inline-block;
-        cursor: pointer;
-        cursor: hand;
         text-align: left;
         width: 20%;
     }

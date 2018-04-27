@@ -5,6 +5,7 @@ import top.minecode.domain.task.TaskInfo;
 import top.minecode.domain.task.requester.NewTaskInfo;
 import top.minecode.exception.InvalidFileStructureException;
 import top.minecode.po.*;
+import top.minecode.utils.Config;
 import top.minecode.utils.ImagesSet;
 
 import java.io.File;
@@ -22,13 +23,16 @@ public class TaskDeliveryDao {
         // Create FirstLevelTaskPO
         Table<FirstLevelTaskPO> flTaskTable = TableFactory.firstLevelTaskTable();
 
+        File resultFile = new File(dataDirectory + "result.json");
+
         // Add worker filter
         Table<WorkerFilterPO> filterTable = TableFactory.workerFilterTable();
         WorkerFilterPO filterPO = new WorkerFilterPO(taskInfo.getWorkerFilter(), filterTable.getNextId());
         filterTable.add(filterPO);
 
         // Add first level task
-        FirstLevelTaskPO flTask = new FirstLevelTaskPO(taskInfo, flTaskTable.getNextId(), filterPO.getId());
+        String resultFilePath = Config.INSTANCE.getLogicPath(resultFile.getPath());
+        FirstLevelTaskPO flTask = new FirstLevelTaskPO(taskInfo, resultFilePath, flTaskTable.getNextId(), filterPO.getId());
         flTaskTable.add(flTask);
         return flTask;
     }
@@ -55,12 +59,14 @@ public class TaskDeliveryDao {
     public void addThirdLevelTask(String imageFilePath, SecondLevelTaskPO secondLevelTaskPO, TaskInfo taskInfo, FirstLevelTaskPO firstLevelTaskPO) {
         Table<ThirdLevelTaskPO> taskTable = TableFactory.thirdLevelTaskTable();
         ImagesSet images = new ImagesSet(imageFilePath, secondLevelTaskPO.getTotalScore());
+        int i = 1;
         for (ImagesSet.SubImageSet image : images) {
             ThirdLevelTaskPO thirdLevelTaskPO = new ThirdLevelTaskPO(taskTable.getNextId(), secondLevelTaskPO.getId(),
-                    secondLevelTaskPO.getTaskName(), image.getScores() / 3, secondLevelTaskPO.getEndDate(),
+                    secondLevelTaskPO.getTaskName() + "-" + i++, image.getScores() / 3, secondLevelTaskPO.getEndDate(),
                     secondLevelTaskPO.getTaskDetailsId(), image.getImages(), taskInfo.getDescription(),
                     firstLevelTaskPO.getWorkerFilterId(), taskInfo.getTaskType());
             taskTable.add(thirdLevelTaskPO);
+            System.out.println(thirdLevelTaskPO);// TODO: 2018/4/27 delete
         }
     }
 }

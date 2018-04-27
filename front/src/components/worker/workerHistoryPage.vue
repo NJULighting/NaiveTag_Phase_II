@@ -3,7 +3,7 @@
 
         <!--历史人物记录-->
         <div style="width: 100%;text-align: center;padding-top: 40px;padding-bottom: 20px">
-            <span style="font-family: SimSun-ExtB;font-size: 30px">历史任务记录</span>
+            <span style="font-size: 24px">历史任务记录</span>
         </div>
 
         <div style="text-align: center">

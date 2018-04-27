@@ -13,9 +13,8 @@ export function save(taskId,picUrl,JSONObject,callback) {
         success: function(result){
             console.log("JSONObject: ");
             console.log(JSONObject);
-            console.log('success');
-            console.log(result);
-            callback(JSON.parse(result));
+            console.log('save success');
+            callback(result);
         },
         // contentType:"application/x-www-form-urlencoded; charset=utf-8"
     })

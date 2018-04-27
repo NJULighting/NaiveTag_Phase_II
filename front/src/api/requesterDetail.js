@@ -1,6 +1,24 @@
+import {getUrl} from "~/api/tool";
+
 export function fetchRequesterDetail(username, callback) {
-    mockDetail(username, callback);
+    fetchFromServer(username, callback);
 }
+
+function fetchFromServer(username,callback) {
+    $.get(getUrl('userInfo/index.html'),{username:username},
+        function (res) {
+            callback(JSON.parse(res));
+        })
+
+}
+
+export function fetchTaskList(username,callback) {
+    $.get(getUrl('requester/index.html'),{username:username},function (res) {
+        callback(JSON.parse(res));
+    })
+}
+
+
 
 
 function mockDetail(username, calllback) {

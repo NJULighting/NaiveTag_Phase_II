@@ -9,12 +9,15 @@
             <el-col :span="8"><div class="grid-content" style="text-align: center;">
                 <div style="height: 90px;"></div>
                 <div style="width: 600px;">个人能力变换曲线</div>
-                <chart
+
+                <line-chart
+
                         type="line"
-                        :data="userData"
+                        :series-data="userData"
                         unique-id="-1"
-                        series-name="个人能力变换曲线">
-                </chart>
+                        :series-name="lineData">
+
+                </line-chart>
             </div></el-col>
 
             <el-col :span="5"><div class="grid-content">
@@ -46,16 +49,18 @@
 
 <script>
     import userinfo from './workerUserInfo.vue'
-    import Chart from "~/components/chart"
+
     import {userInfo} from '../../api/workerInfo.js'
     import {ability} from '../../api/workerInfo.js'
     import {rank} from '../../api/workerInfo.js'
+    import LineChart from "../common/lineChart.vue";
 
     export default {
 
         components: {
+            LineChart,
             userinfo: userinfo,
-            chart: Chart,
+
         },
 
         created: function () {
@@ -72,6 +77,11 @@
 
         data() {
             return {
+
+                lineData: [
+                    "个人能力变换曲线",
+                ],
+
                 tableData: [
 //                    {
 //                        "score": 99,

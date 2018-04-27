@@ -1,20 +1,34 @@
 <template>
     <div id="tagPage">
-        <simplenavi></simplenavi>
+        <div style="height: 100%;" >
+            <el-row style="background-image: url('/src/assets/bar.png');width: 100%;height: 60px;" >
+
+                <div class="height center" style="width: 250px;float: left;">
+                    <img src="../../assets/naive_tag.png" style="height: 50px;width: auto;"
+                         ondragstart="return false;"
+                         oncontextmenu="return false;">
+                </div>
+
+                <div class="height" style="width: 100px;float: left;">
+                    <button type="text" class="height center back"  v-on:click="back">返回</button>
+                </div>
+
+            </el-row>
+        </div>
         <tag v-bind:tagType="tagData.tagType"
              v-bind:options="options"
              v-bind:picUrl="getPicUrl"
-             :label.sync="tagData.label"
+             v-bind:label="tagData.label"
              :points.sync="tagData.points"
              :frames.sync="tagData.frames"
              @lastPic="lastPic"
-             @nextPic="nextPic"></tag>
+             @nextPic="nextPic"
+             @changeLabel="changeLabel"></tag>
     </div>
 </template>
 
 <script>
 
-    import simplenavi from './simpleNavi.vue'
     import tag from './workerTagInfo.vue'
     import {taskInfo} from '../../api/tagPage.js'
     import {getLabelInfo} from '../../api/tagPage.js'
@@ -35,6 +49,22 @@
         },
 
         methods: {
+            back(){
+                console.log(this.tagData);
+                var json = JSON.stringify(this.tagData);
+                console.log("json: ");
+                console.log(json);
+                let result = save(this.$route.params.taskId,this.picUrl,json, res=> {
+                    console.log("saveResult success!");
+                    console.log(res);
+                    this.$router.push({ name: 'task', params: { taskId: this.$route.params.taskId }});
+                });
+            },
+
+            changeLabel(newLabel){
+                this.tagData.label = newLabel;
+            },
+
             tagPicReflash(picUrl) {
                 console.log("picUrl: " + picUrl);
                 this.$router.push({ name: 'tag', params: { taskId: this.$route.params.taskId, picUrl: picUrl}});
@@ -58,7 +88,7 @@
                 console.log(this.tagData);
                 this.saveData();
                 let result = next(this.$route.params.taskId,this.picUrl, res=> {
-                    console.log("previousResult:");
+                    console.log("nextResult:");
                     console.log(res);
                     if(res.url){
                         this.tagPicReflash(res.url);
@@ -74,8 +104,7 @@
                 console.log("json: ");
                 console.log(json);
                 let result = save(this.$route.params.taskId,this.picUrl,json, res=> {
-                    console.log("saveResult:");
-                    console.log(res);
+                    console.log("saveResult success!");
                 });
             },
 
@@ -103,7 +132,19 @@
                     console.log(res);
                     if(res){
                         this.tagData = res;
+                        console.log("this.tagData");
+                        console.log(this.tagData);
                     }else{
+                        this.tagData = {
+                            "label": null,
+                            "frames":[
+                            ],
+                            "tagType":null,
+                            //若能画，points必有
+                            "points":[
+                            ],
+                        };
+
                         this.tagData.tagType = "t_" + this.taskType;
                     }
                 });
@@ -156,7 +197,7 @@
         },
 
         components: {
-            'simplenavi': simplenavi,
+//            'simplenavi': simplenavi,
             'tag': tag,
         },
 
@@ -170,5 +211,34 @@
 </script>
 
 <style>
+    .back {
+        color: white;
+        padding-left: 10px;
+        background-color: transparent;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+        cursor: hand;
+    }
 
+    .back:hover {
+        color: #336fff;
+    }
+
+    .logo {
+        text-align: center;
+        font-family: 'Caviar Dreams';
+        font-size: 36px;
+        color: white;
+    }
+
+    .center {
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .height {
+        height: 100%;
+    }
 </style>

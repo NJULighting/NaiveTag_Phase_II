@@ -1,6 +1,20 @@
 <template>
     <div id="taskinfo" >
-        <simplenavi></simplenavi>
+        <div style="height: 100%;" >
+            <el-row style="background-image: url('/src/assets/bar.png');width: 100%;height: 60px;" >
+
+                <div class="height center" style="width: 250px;float: left;">
+                    <img src="../../assets/naive_tag.png" style="height: 50px;width: auto;"
+                         ondragstart="return false;"
+                         oncontextmenu="return false;">
+                </div>
+
+                <div class="height" style="width: 100px;float: left;">
+                    <button type="text" class="height center back"  v-on:click="back">返回</button>
+                </div>
+
+            </el-row>
+        </div>
 
         <div style="height: 20px">
 
@@ -13,9 +27,12 @@
                     <el-col :span="16" class="height"><div class="height">
                         <span class="title">{{taskName}}</span>
 
-                        <label class="label type center inline">
-                            <span class="label text">{{taskTypeName()}}</span>
-                        </label>
+                        <div class="inline">
+                            <label class="label type center">
+                                <span class="label text">{{taskTypeName()}}</span>
+                            </label>
+                        </div>
+
 
                         <p></p>
                         <span>描述：{{taskDescription}}</span>
@@ -40,7 +57,7 @@
                     <el-col :span="8"><div class="center" style="padding-top: 100px;">
                         <button v-if="canAccept === true" class="center button" v-on:click="accept()">接受</button>
                         <button v-else-if="canAccept === false && !state" class="center button accept">不可接受</button>
-                        <button v-else-if="state === 'finish'" class="center button" v-on:click="submit()">提交</button>
+                        <button v-else-if="finishedPicList && unfinishedPicList.length === 0" class="center button" v-on:click="submit()">提交</button>
                         <button v-else-if="state" class="center button accept">{{getState()}}</button>
                     </div></el-col>
 
@@ -109,6 +126,10 @@
         },
 
         methods: {
+
+            back(){
+                this.$router.push({ name: 'workerHome'});
+            },
 
             clickPicList(picUrl){
                 if(this.state && (this.state === "accept")){
@@ -219,24 +240,20 @@
 
     .date {
         font-size: 20px;
-        font-family: "Caviar Dreams";
     }
 
     .logo {
         text-align: center;
-        font-family: 'Caviar Dreams';
         font-size: 36px;
         color: white;
     }
 
     label {
-        margin-bottom: 5px;
         display:inline-block;
-        border-radius: 13px 13px 13px 13px;
-        width: 60px;
-        height: 25px;
+        border-radius: 8px;
+        width: 45px;
+        height: 18px;
         text-align: center;
-        vertical-align: middle;
     }
 
     .label.type {
@@ -245,8 +262,11 @@
 
     .label.text {
         color: white;
-        font-size: 13px;
-        font-family: Microsoft YaHei;
+        font-size: 11px;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
     }
 
     .button {
@@ -289,7 +309,8 @@
         padding-left: 10px;
         background-color: transparent;
         font-size: 14px;
-        border: 0px;
+        border: none;
+        outline:none;
         cursor: pointer;
         cursor: hand;
     }
@@ -299,8 +320,7 @@
     }
 
     .title {
-        font-size: 30px;
-        font-family: SimSun-ExtB;
+        font-size: 24px;
     }
 
     .center {
@@ -320,4 +340,5 @@
     .away {
         padding-left: 50px;
     }
+
 </style>

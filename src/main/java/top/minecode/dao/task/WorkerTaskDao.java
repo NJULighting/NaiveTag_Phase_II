@@ -100,6 +100,7 @@ public class WorkerTaskDao {
 
     public boolean commit(User user, int taskId) {
 
+
         Table<ThirdLevelTaskPO> thirdLevelTaskPOTable
                 = TableFactory.thirdLevelTaskTable();
 
@@ -122,7 +123,7 @@ public class WorkerTaskDao {
         if (finishUser.size() == 3) //假定每个任务派发给3个人，那么就设置为完成
             thirdLevelTaskPO.setState(ThirdLevelTaskState.finished);
 
-        thirdLevelTaskPOTable.save();
+        TableFactory.thirdLevelTaskResultTable().save();
 
         return true;
     }
@@ -151,8 +152,12 @@ public class WorkerTaskDao {
             taskId, user.getId(), acceptDate, expiredDate
         );
 
+
         Table<ThirdLevelTaskResultPO> thirdLevelTaskResultPOTable =
                 TableFactory.thirdLevelTaskResultTable();
+
+        thirdLevelTaskResultPO.setId(thirdLevelTaskResultPOTable.getNextId());
+
         thirdLevelTaskResultPOTable.add(thirdLevelTaskResultPO);
 
         return true;

@@ -18,11 +18,11 @@ public class WorkerStatisticService {
 
     private WorkerStatisticDao workerStatisticDao;
 
+    @Autowired
     public void setWorkerStatisticDao(WorkerStatisticDao workerStatisticDao) {
         this.workerStatisticDao = workerStatisticDao;
     }
 
-    @Autowired
     public WorkerStatisticDao getWorkerStatisticDao() {
         return workerStatisticDao;
     }

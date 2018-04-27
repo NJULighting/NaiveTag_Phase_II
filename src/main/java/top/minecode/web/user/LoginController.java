@@ -20,6 +20,7 @@ import top.minecode.web.common.BaseController;
 import top.minecode.web.common.CommonConstant;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -45,10 +46,6 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody String login(HttpServletRequest request, User user) {
         Table<WorkerPO> table = TableFactory.workerTable();
-        System.out.println("Table Info" + table.getAll().size());
-        System.out.println(JsonConfig.getGson().toJson(
-                TableFactory.workerTable().getAll()
-        ));
         LoginResponse loginResponse = new LoginResponse();
         try {
             user = userService.login(user);
@@ -60,16 +57,9 @@ public class LoginController extends BaseController {
         } catch (InvalidPasswordException e) {
             loginResponse.setResult(LoginResponse.INVALID_PASSWORD);
         }
-        System.out.println(JsonConfig.getGson().toJson(loginResponse));
         return JsonConfig.getGson().toJson(loginResponse);
     }
 
-
-    //登出
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public void logout(String username) {
-        ActiveUsers.removeUserByUsername(username);
-    }
 
 
 }

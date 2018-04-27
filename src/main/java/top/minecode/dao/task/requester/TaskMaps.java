@@ -1,5 +1,6 @@
 package top.minecode.dao.task.requester;
 
+import top.minecode.json.JsonConfig;
 import top.minecode.po.*;
 
 import java.util.HashMap;
@@ -23,18 +24,16 @@ public enum TaskMaps {
     private Map<Integer, List<Integer>> oneThreeMap;
 
     TaskMaps() {
-        updateOneTwoMap();
-        updateTwoThreeMap();
-        updateOneThreeMap();
+        updateMap();
     }
 
     public List<Integer> getSecondTasks(int firstTaskId) {
-        updateOneTwoMap();
+        updateMap();
         return oneTwoMap.get(firstTaskId);
     }
 
     public Map<Integer, List<ThirdLevelTaskPO>> oneThreeIdObjMap(int ownerId) {
-        updateOneThreeMap();
+        updateMap();
         List<Integer> firstLevelTasks = getUserFirstLevelTaskIds(ownerId);
         Function<Integer, List<ThirdLevelTaskPO>> mapper = idThirdLevelTaskMapper(oneThreeMap);
 
@@ -42,7 +41,7 @@ public enum TaskMaps {
     }
 
     public Map<Integer, List<ThirdLevelTaskPO>> twoThreeIdObjMap(int firstLevelTaskId) {
-        updateTwoThreeMap();
+        updateMap();
         List<Integer> secondLevelTasks = getSecondTasks(firstLevelTaskId);
 
         return transformIdToObject(secondLevelTasks, idThirdLevelTaskMapper(twoThreeMap));
@@ -95,5 +94,11 @@ public enum TaskMaps {
                 oneThreeMap.get(firstLevelTaskId).addAll(twoThreeEntry.getValue());
             }
         }
+    }
+
+    private void updateMap() {
+        updateOneTwoMap();
+        updateTwoThreeMap();
+        updateOneThreeMap();
     }
 }

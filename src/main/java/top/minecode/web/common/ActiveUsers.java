@@ -26,7 +26,8 @@ public class ActiveUsers {
     }
 
     public static void removeUserByUsername(String userName) {
-        nameToUser.remove(userName);
+        if (nameToUser.containsKey(userName))
+            nameToUser.remove(userName);
     }
 
 }

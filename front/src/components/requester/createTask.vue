@@ -2,22 +2,23 @@
     <el-col :span="8" :offset="8">
         <el-form :model="taskForm" :rules="rules" ref="taskForm" label-position='left' label-width="160px"
                  style="margin-top: 50px">
-            <el-form-item label="任务名称">
-                <el-input></el-input>
+            <el-form-item label="任务名称" prop="taskName">
+                <el-input v-model="taskForm.taskName" clearable></el-input>
             </el-form-item>
-            <el-form-item label="截止日期">
+            <el-form-item label="截止日期" prop="endTime">
                 <el-date-picker type="date" placeholder="选择日期" style="width: 100%"
-                                v-model="taskForm.endDate">
+                                value-format="yyyy-MM-dd"
+                                v-model="taskForm.endTime">
                 </el-date-picker>
             </el-form-item>
-            <el-form-item label="添加任务描述文件">
+            <el-form-item label="添加任务描述文件" prop="taskDescription">
                 <el-upload
 
                         action="http://localhost:8000/naive/requester/check.html"
                         :http-request="validateTask"
                         :limit="1"
                         :file-list="taskForm.taskDescription"
-                         name="taskconf">
+                        name="taskconf">
                     <el-button icon="el-icon-upload" style="width: 100%">上传</el-button>
                 </el-upload>
             </el-form-item>
@@ -25,11 +26,15 @@
                 <div>
                     <div class="filter-item">
                         工人RankRate
-                        <el-input size="small" class="filter-input"></el-input>
+                        <el-input size="small" v-model="taskForm.workerFilter.workerRankRate"
+                                  clearable
+                                  class="filter-input"></el-input>
                     </div>
                     <div class="filter-item">
                         工人平均得分
-                        <el-input size="small" class="filter-input"></el-input>
+                        <el-input size="small" v-model="taskForm.workerFilter.averageScore"
+                                  clearable
+                                  class="filter-input"></el-input>
                     </div>
 
                 </div>
@@ -42,16 +47,15 @@
                         style="width: 100%">
                 </el-input-number>
             </el-form-item>
-            <el-form-item label="添加数据集">
+            <el-form-item label="添加数据集" prop="fileList">
                 <el-upload
                         action="null"
                         :http-request="uploadDataSet"
-                        :limit="1"
-                        :file-list="taskForm.dataSet">
+                        :limit="1">
                     <el-button icon="el-icon-upload" style="width: 100%">点击上传</el-button>
                 </el-upload>
             </el-form-item>
-            <el-button type="primary" style="width: 100%">提交</el-button>
+            <el-button type="primary" style="width: 100%" @click="createTask">提交</el-button>
         </el-form>
     </el-col>
 </template>
@@ -61,6 +65,7 @@
     import {uploadTaskDescription} from "../../api/createTask";
     import {fetchRequesterDetail} from "~/api/requesterDetail";
     import ElCollapseTransition from "element-ui/src/transitions/collapse-transition";
+    import {uploadTask} from "~/api/createTask";
 
     export default {
         name: "page2",
@@ -75,26 +80,56 @@
                 }
             };
 
+            const validateTaskConf = (rule, value, callback) => {
+                if (this.validTask === true) {
+                    callback();
+                } else {
+                    callback(new Error('请上传正确的任务描述文件'));
+                }
+            };
+
+
+            const validateDataSet = (rule, value, callback) => {
+                if (this.taskForm.fileList.length !== 0) {
+                    callback();
+                } else {
+                    callback(new Error('请选择数据集'));
+                }
+            };
+
             return {
                 taskForm: {
-                    endDate: '',
+                    taskName: '',
+                    endTime: '',
                     taskDescription: [],
-                    dataSet: [],
+                    fileList: [],
                     score: '',
-
+                    workerFilter: {
+                        workerRankRate: null,
+                        averageScore: null,
+                    },
+                    file: undefined,
+                    taskConf: undefined
                 },
+                dataSet: undefined,
                 rules: {
-                    score: [
-                        {validator: validateNUmber, trigger: 'blur'}
+                    // taskName:[
+                    //     {required:true,message:'请输入任务名称',trigger:'blur'}
+                    // ],
+                    // endDate: [
+                    //     // {type: 'date', required: true, message: '请选择日期', trigger: 'blur'}
+                    // ],
+                    // fileList:[
+                    //     {validator:validateTaskConf,trigger:'blur'}
+                    //     ],
+                    // taskDescription:[
+                    //     {validator:validateDataSet,trigger:'blur'}
+                    // ]
 
-                    ]
+
                 },
-                success: false,
-                done: false,
+                validTask: false,
                 maxScore: 0,
-                header:{
-
-                }
 
             }
         },
@@ -110,18 +145,36 @@
         },
         methods: {
             validateTask(item) {
-                uploadTaskDescription(item.file, res=> {
-                    console.log(res)
+                uploadTaskDescription(item.file, res => {
+                    this.taskForm.taskConf = item.file;
+                    if (res.result === 'valid') {
+                        this.validTask = true;
+
+                    } else {
+                        alert('任务文件格式不正确');
+                        this.validTask = false;
+                    }
                 })
             },
-            validate(response, file, fileList){
-              console.log(response);
-            },
-            // validateTask(response, file, fileList){
-            //   console.log(response);
-            // },
             uploadDataSet(item) {
+                this.taskForm.file = item.file;
+            },
+            createTask() {
+                // this.$refs['taskForm'].validate((valid)=>{
+                //     console.log(valid)
+                //     if (valid){
+                //
+                //     }
+                // })
 
+                console.log(this.taskForm.endTime);
+                uploadTask(this.taskForm, res => {
+                    if (res.result === 'success') {
+                        this.$router.push('/requester/home');
+                    } else {
+                        alert('创建任务失败');
+                    }
+                })
             }
         }
     }
