@@ -21,8 +21,6 @@ public class TaskDeliveryDao {
     public FirstLevelTaskPO addFirstLevelTask(String dataDirectory, NewTaskInfo taskInfo) throws IOException {
         // Create FirstLevelTaskPO
         Table<FirstLevelTaskPO> flTaskTable = TableFactory.firstLevelTaskTable();
-        // Create result file for the task
-        File resultFile = new File(dataDirectory + "result.json");
 
         // Add worker filter
         Table<WorkerFilterPO> filterTable = TableFactory.workerFilterTable();
@@ -30,9 +28,7 @@ public class TaskDeliveryDao {
         filterTable.add(filterPO);
 
         // Add first level task
-        System.out.println(resultFile.getPath());
-        FirstLevelTaskPO flTask = new FirstLevelTaskPO(taskInfo, flTaskTable.getNextId(),
-                resultFile.getPath(), filterPO.getId());
+        FirstLevelTaskPO flTask = new FirstLevelTaskPO(taskInfo, flTaskTable.getNextId(), filterPO.getId());
         flTaskTable.add(flTask);
         return flTask;
     }

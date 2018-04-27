@@ -16,7 +16,6 @@ import top.minecode.domain.task.requester.TaskParticipant;
 import top.minecode.exception.InvalidFileStructureException;
 import top.minecode.po.FirstLevelTaskPO;
 import top.minecode.po.SecondLevelTaskPO;
-import top.minecode.utils.ImagesSet;
 import top.minecode.utils.unzip.ZipHelper;
 
 import java.io.File;
@@ -24,8 +23,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created on 2018/4/8.
@@ -63,7 +62,10 @@ public class RequesterTaskService {
                 .collect(Collectors.toList());
     }
 
-    public String getResult(int taskId) {
+    public String
+
+
+    getResult(int taskId) {
         return requesterTaskDao.getTaskResultPath(taskId);
     }
 
@@ -92,12 +94,20 @@ public class RequesterTaskService {
         // Save the file
         String dataSetPath = dataDirectory + dataSet.getOriginalFilename();
         String taskJsonPath = dataDirectory + "task.json";
-        dataSet.transferTo(new File(dataSetPath));
-        taskJson.transferTo(new File(taskJsonPath));
+        // Handle duplicated situation
+        File dataSetFile = handelDuplicated(new File(dataSetPath));
+        File taskJsonFile = handelDuplicated(new File(taskJsonPath));
+        // Make sure the directory already exists todo: may not necessary
+        File dir = dataSetFile.getParentFile();
+        if (!dir.exists() && !dir.mkdirs()) {
+            throw new IOException("Make data directory failed");
+        }
+        dataSet.transferTo(dataSetFile);
+        taskJson.transferTo(taskJsonFile);
 
         // Add first level task
         FirstLevelTaskPO flTask = taskDeliveryDao.addFirstLevelTask(dataDirectory, newTaskInfo);
-        String imageFilePath = unZip(dataDirectory, dataSetPath);
+        String imageFilePath = unZip(dataDirectory, dataSetFile.getPath());
 
         // Check File's Structure
         if (!validFileStructure(imageFilePath))
@@ -110,6 +120,16 @@ public class RequesterTaskService {
             SecondLevelTaskPO secondLevelTask = taskDeliveryDao.addSecondLevelTask(info, flTask, score);
             taskDeliveryDao.addThirdLevelTask(imageFilePath, secondLevelTask, info, flTask);
         }
+    }
+
+    private File handelDuplicated(File file) {
+        Random random = new Random();
+        while (file.exists()) {
+            String filePath = file.getPath();
+            int dotIndex = filePath.lastIndexOf(".");
+            file = new File(filePath.substring(0, dotIndex) + random.nextInt() + filePath.substring(dotIndex));
+        }
+        return file;
     }
 
     @NotNull

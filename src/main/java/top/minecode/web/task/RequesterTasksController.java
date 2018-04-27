@@ -29,7 +29,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLConnection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created on 2018/4/3.
@@ -70,9 +72,9 @@ public class RequesterTasksController extends BaseController {
      * @param taskconf task.json which is the configuration file of the task
      * @return see details in the documents
      */
-    @RequestMapping("/new")
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
     @ResponseBody
-    public String newTask(HttpServletRequest request, NewTaskInfo taskInfo,
+    public String newTask(HttpServletRequest request, @RequestParam("taskInfo") String taskInfo,
                           @RequestParam("dataset") MultipartFile dataset,
                           @RequestParam("taskconf") MultipartFile taskconf) {
 
@@ -85,8 +87,10 @@ public class RequesterTasksController extends BaseController {
         // Save the file
         try {
             User user = getSessionUser(request);
-            taskInfo.setOwnerId(user.getId());
-            service.saveFile(dataset, taskconf, rawDataSetPath, taskInfo);
+            System.out.println(taskInfo);
+            NewTaskInfo newTaskInfo = JsonConfig.getGson().fromJson(taskInfo, NewTaskInfo.class);
+            newTaskInfo.setOwnerId(user.getId());
+            service.saveFile(dataset, taskconf, rawDataSetPath, newTaskInfo);
         } catch (InvalidFileStructureException e) {
             e.printStackTrace();
             result.addProperty("result", "failure");
@@ -109,7 +113,7 @@ public class RequesterTasksController extends BaseController {
      */
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
-    public String checkJsonFile(HttpServletRequest request, @RequestParam MultipartFile taskconf) {
+    public String checkJsonFile(@RequestParam MultipartFile taskconf) {
         JsonObject result = new JsonObject();
         Gson gson = JsonConfig.getGson();
 
@@ -137,6 +141,12 @@ public class RequesterTasksController extends BaseController {
 
         String resultPath = service.getResult(taskId);
         Resource resource = new FileSystemResource(resultPath);
+        File target = new File(resultPath);
+        String mimeType = Optional.ofNullable(URLConnection.guessContentTypeFromName(target.getName()))
+                .orElse("application/octet-stream");
+        response.setContentType(mimeType);
+        response.setHeader("Content-Disposition", "inline; filename=\"" + target.getName() +"\"");
+        response.setContentLength((int)target.length());
         try {
             IOUtils.copy(resource.getInputStream(), response.getOutputStream());
             response.flushBuffer();
@@ -154,6 +164,7 @@ public class RequesterTasksController extends BaseController {
     private String getPath(String basePath, HttpServletRequest request) {
         User user = getSessionUser(request);
         String separator = File.separator;
+
         int taskSequenceNumber = service.getNewTaskSequenceNumber(user.getId());
 
         // Change the file path to standard from which is like 'servletContextPath/basePath/userId/taskSequenceNumber/'

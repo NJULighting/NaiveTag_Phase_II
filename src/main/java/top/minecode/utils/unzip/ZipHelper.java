@@ -32,7 +32,7 @@ public class ZipHelper {
 
         File outPathFile = new File(outPath + File.separator + folderName + File.separator);
         if (!outPathFile.mkdirs())
-            throw new IOException("Make target file failed");
+            throw new IOException("File duplicated");
 
         while ((zipEntry = zin.getNextEntry()) != null) {
             File targetFile = new File(outPathFile.getPath() + File.separator + zipEntry.getName());
