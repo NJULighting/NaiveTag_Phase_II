@@ -15,12 +15,12 @@ public class WebsiteInfoControllerTest extends AbstractTestNGSpringContextTests{
 
     private WebsiteInfoController controller;
 
-    @Autowired
+//    @Autowired
     public void setController(WebsiteInfoController controller) {
         this.controller = controller;
     }
 
-    @Test
+//    @Test
     public void getInfo() {
         System.out.println(controller.getInfo());
     }

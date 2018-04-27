@@ -14,7 +14,7 @@ import static org.testng.Assert.assertNotNull;
  */
 public class TaskConfigTest {
 
-    @Test
+//    @Test
     public void testCheck() throws Exception {
         Resource resource = new ClassPathResource("task.json");
         TaskConfig taskConfig = new TaskConfig(resource.getFile().getPath());

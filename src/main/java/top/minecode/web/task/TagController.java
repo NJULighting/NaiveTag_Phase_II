@@ -37,6 +37,7 @@ public class TagController extends BaseController {
     @RequestMapping("/save")
     @ResponseBody
     public void save(HttpServletRequest request, int taskId, String url, String data) {
+
         TagResult tagResult = JsonConfig.getGson().fromJson(data, TagResult.class);
         User user = getSessionUser(request);
         tagService.saveTag(taskId, user, url, tagResult);
@@ -58,7 +59,7 @@ public class TagController extends BaseController {
     public String getLabelInformation(HttpServletRequest request, int taskId, String picURL) {
         User user = getSessionUser(request);
         TagResult tagResult = tagService.getTagResult(taskId, user, picURL);
-        return JsonConfig.getGson().toJson(tagResult);
+        return JsonConfig.getGson().toJson(tagResult, TagResult.class);
     }
 
     @RequestMapping("/previous")

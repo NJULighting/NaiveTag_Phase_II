@@ -36,8 +36,6 @@ public class TaskRecommendationService {
     public List<WorkerGeneralTaskInfo> getRecommendations(User user) {
         List<ThirdLevelTaskPO> possibleTasks = workerTaskDao.getAccessibleTaskList(user);
 
-        System.out.println(JsonConfig.getGson().toJson(possibleTasks));
-
         // 迭代二使用随机化推荐算法
         List<Integer> targetTasksIndex = new ArrayList<>();
         int totalTaskAmount = possibleTasks.size();

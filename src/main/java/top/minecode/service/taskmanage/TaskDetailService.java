@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import top.minecode.dao.task.WorkerTaskDao;
 import top.minecode.domain.task.*;
 import top.minecode.domain.user.User;
+import top.minecode.json.JsonConfig;
 import top.minecode.po.ThirdLevelTaskPO;
 import top.minecode.po.ThirdLevelTaskResultPO;
 

@@ -45,10 +45,6 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody String login(HttpServletRequest request, User user) {
         Table<WorkerPO> table = TableFactory.workerTable();
-        System.out.println("Table Info" + table.getAll().size());
-        System.out.println(JsonConfig.getGson().toJson(
-                TableFactory.workerTable().getAll()
-        ));
         LoginResponse loginResponse = new LoginResponse();
         try {
             user = userService.login(user);
@@ -60,7 +56,6 @@ public class LoginController extends BaseController {
         } catch (InvalidPasswordException e) {
             loginResponse.setResult(LoginResponse.INVALID_PASSWORD);
         }
-        System.out.println(JsonConfig.getGson().toJson(loginResponse));
         return JsonConfig.getGson().toJson(loginResponse);
     }
 

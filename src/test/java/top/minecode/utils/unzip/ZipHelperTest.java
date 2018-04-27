@@ -13,7 +13,7 @@ import static org.testng.Assert.assertTrue;
  * @author Liao
  */
 public class ZipHelperTest {
-    @Test
+//    @Test
     public void testUnzip() throws Exception {
         File zipFile = new File(ZipHelperTest.class.getResource("/").getPath() + "test.zip");
         assertTrue(zipFile.createNewFile());
