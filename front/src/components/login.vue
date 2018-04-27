@@ -50,9 +50,9 @@
                     console.log(res.result);
                         if (res.result === 'success') {
                             localStorage.username=this.username;
-                            console.log('success');
                             switch (res.userType) {
                                 case 'admin':
+                                    router.push('/admin/home');
                                     break;
                                 case 'worker':
                                     router.push('/worker/home');
@@ -67,7 +67,7 @@
                                     break;
                             }
                         }else {
-                        console.log('failure');
+                                alert(res.result);
                         }
                     });
 

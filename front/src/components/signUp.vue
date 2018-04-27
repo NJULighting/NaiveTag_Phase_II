@@ -106,6 +106,8 @@
                             alert(res.result);
                             if (res.result==='success'){
                                 that.$router.push('/login');
+                            }else {
+                                alert(res.result);
                             }
                         });
                     } else {
