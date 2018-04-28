@@ -35,20 +35,20 @@
 
 
                         <p></p>
-                        <span>描述：{{taskDescription}}</span>
-                        <p></p>
-                        <span>总积分：{{averageScore}}分</span>
-                        <span class="away">图片：{{getPicAmount()}}张</span>
+                        <span v-if="taskDescription">描述：{{taskDescription}}</span>
+                        <p v-if="taskDescription"></p>
+                        <span v-if="averageScore" style="padding-right: 50px">总积分：{{averageScore}}分</span>
+                        <span v-if="(getPicAmount() && getPicAmount()!=0)">图片：{{getPicAmount()}}张</span>
                         <span v-if="finishedPicList" class="away">已标注：{{getPicFinishAmount()}}张</span>
                         <p></p>
 
-                        <div v-if="payDay" class="date">
-                            <span>End: {{payDay}}</span>
+                        <div v-if="payDay">
+                            <span>PAYDAY: {{payDay}}</span>
                         </div>
 
-                        <div v-if="beginDate && endDate" class="date">
-                            <span>Start: {{beginDate}}</span>
-                            <span class="away">End: {{endDate}}</span>
+                        <div v-if="beginDate && endDate">
+                            <span>FROM: {{beginDate}}</span>
+                            <span class="away">TO: {{endDate}}</span>
                         </div>
 
                         <p></p>
@@ -159,7 +159,6 @@
             },
 
             getPicSrc: function (picUrl) {
-                console.log("addPicSrc");
                 return "http://localhost:8000/naive/" + picUrl;
             },
 

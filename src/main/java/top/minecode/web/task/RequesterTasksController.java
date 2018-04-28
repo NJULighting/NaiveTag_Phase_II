@@ -130,31 +130,11 @@ public class RequesterTasksController extends BaseController {
     /**
      * Download the result file
      * @param taskId id of the task
-     * @param response http response
      */
+    @ResponseBody
     @RequestMapping("/download")
-    public void download(HttpServletRequest request, @RequestParam("taskId") int taskId, HttpServletResponse response) {
-        // Check state of the task
-        if (!service.isDone(taskId))
-            return;
-
-        String resultPath = service.getResult(taskId);
-        resultPath = request.getSession().getServletContext().getRealPath(resultPath);
-        System.out.println(resultPath);
-        Resource resource = new FileSystemResource(resultPath);
-
-        File target = new File(resultPath);
-        String mimeType = Optional.ofNullable(URLConnection.guessContentTypeFromName(target.getName()))
-                .orElse("application/octet-stream");
-        response.setContentType(mimeType);
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + target.getName() +"\"");
-        response.setContentLength((int)target.length());
-        try {
-            IOUtils.copy(resource.getInputStream(), response.getOutputStream());
-            response.flushBuffer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String download(@RequestParam("taskId") int taskId) {
+        return service.getResult(taskId);
     }
 
     /**

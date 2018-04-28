@@ -7,10 +7,10 @@
 
         <el-card class="box-card">
             <div slot="header" class="clearfix">
-                <span>{{username}}</span>
+                <span>{{name}}</span>
             </div>
             <div class="text item">
-                昵称：{{name}}
+                用户名：{{username}}
             </div>
             <div class="text item">
                 邮箱：{{email}}
@@ -124,8 +124,6 @@
     .headpicture {
         border-radius: 75px 75px 75px 75px;
         height: 150px;
-        width: 150px;
-        cursor: pointer;
-        cursor: hand;
+        width: 150px
     }
 </style>
