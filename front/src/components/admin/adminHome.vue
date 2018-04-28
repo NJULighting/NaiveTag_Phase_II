@@ -31,7 +31,7 @@
         },
         created:function () {
             fetchAdminDetail(res=>{
-                console.log(res);
+
                 this.adminDetail=res;
                 this.pieChartData.push(res.taskQuantity-res.completedTask);
                 this.pieChartData.push(res.completedTask);

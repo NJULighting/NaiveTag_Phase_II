@@ -17,11 +17,22 @@
     export default {
         name: "lineChart",
         props: ['title', 'xData', 'seriesData', 'seriesName', 'uniqueId'],
-        mounted: function () {
-            this.drawLineChart();
+        watch: {
+            seriesData: {
+                handler: function () {
+                    console.log('lineChange')
+                    console.log(this.seriesData)
+                    this.drawLineChart();
+                },
+                deep: true
+
+            }
+
+
         },
         methods: {
             drawLineChart: function () {
+
                 let color = ['#8e44ad', '#e67e22', '#3498db', '#e74c3c']
                 let lineChart = this.$echarts.init(document.getElementById(this.uniqueId));
                 let option = {
@@ -29,8 +40,8 @@
                     xAxis: {
                         data: this.xData
                     },
-                    legend:{
-                        data:[],
+                    legend: {
+                        data: [],
 
                     },
                     tooltip: {},
@@ -59,14 +70,12 @@
                     option.series.push(seriesItem);
                 }
 
-                console.log('legend');
-                console.log(option.legend);
-                console.log(option.series);
                 // for (let key in this.data){
                 //     option.xAxis.data.push(key);
                 //     option.series[0].data.push(this.data[key]);
                 // }
-
+                console.log('series')
+                console.log(this.seriesData);
                 lineChart.setOption(option)
             }
         }

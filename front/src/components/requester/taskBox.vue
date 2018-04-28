@@ -16,10 +16,11 @@
                         </el-col>
                         <el-col :span="8" :offset="2" class="text-col">
                            <span>
-                               截止日期：{{task.endTime}}
+                               截止日期：{{task.endDate}}
                            </span>
                         </el-col>
-                        <el-button icon="el-icon-download" style="margin: 20px" @click.prevent="exportResult">下载结果
+                        <el-button icon="el-icon-download" style="margin: 20px" @click.prevent="exportResult"
+                                   v-if="task.state==='completed'">下载结果
                         </el-button>
                     </el-row>
                 </el-main>
@@ -34,6 +35,13 @@
     export default {
         name: "taskBox",
         props: ['task'],
+        data: function () {
+            return {
+                isCompleted: function () {
+
+                }
+            }
+        },
         methods: {
             exportResult() {
                 $.get(getUrl('requester/download.html'), {taskId: this.task.taskId});

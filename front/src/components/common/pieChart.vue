@@ -10,6 +10,11 @@
         mounted: function () {
             this.drawPieChart();
         },
+        watch:{
+            'data':function () {
+                this.drawPieChart();
+            }
+        },
         methods: {
 
             drawPieChart: function () {
@@ -39,8 +44,8 @@
                         name: this.name[i],
                         value: this.data[i]
                     })
+
                 }
-                console.log(option)
 
                 this.$echarts.init(document.getElementById(this.uniqueId)).setOption(option)
             }

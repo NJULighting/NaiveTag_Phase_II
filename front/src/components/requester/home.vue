@@ -50,9 +50,8 @@
         },
         created: function () {
             fetchTaskList(localStorage.username, res => {
-                console.log('taskList');
-                console.log(res);
                 this.taskList = res;
+
             })
 
         }
