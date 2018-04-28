@@ -140,6 +140,7 @@ public class RequesterTasksController extends BaseController {
 
         String resultPath = service.getResult(taskId);
         resultPath = request.getSession().getServletContext().getRealPath(resultPath);
+        System.out.println(resultPath);
         Resource resource = new FileSystemResource(resultPath);
 
         File target = new File(resultPath);
