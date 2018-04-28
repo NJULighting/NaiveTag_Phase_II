@@ -31,10 +31,10 @@
         name: "navi",
         methods:{
             logout:function () {
-                $.get(getUrl('lgo.html'),function () {
-                    this.$router.push('/login');
-                });
-
+                // $.get(getUrl('lgo.html'),function () {
+                //     this.$router.push('/login');
+                // });
+                this.$router.push('/login');
             }
         }
     }
