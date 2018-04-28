@@ -20,7 +20,7 @@
                            </span>
                         </el-col>
                         <el-button icon="el-icon-download" style="margin: 20px" @click.prevent="exportResult"
-                                   v-if="task.state==='completed'">下载结果
+                        v-if="isCompleted" >下载结果
                         </el-button>
                     </el-row>
                 </el-main>
@@ -37,17 +37,29 @@
         props: ['task'],
         data: function () {
             return {
-                isCompleted: function () {
 
-                }
+            }
+        },
+        computed:{
+            isCompleted: function () {
+                return this.task.state==='completed';
             }
         },
         methods: {
             exportResult() {
-                $.get(getUrl('requester/download.html'), {taskId: this.task.taskId});
+                $.get(getUrl('requester/download.html'), {taskId: this.task.taskId}, res => {
+
+                    let link = document.createElement('a')
+                    link.style.display = 'none'
+                    link.href = getUrl(res);
+                    link.setAttribute('download','*');
+                    document.body.appendChild(link);
+                    link.click()
+
+                });
             }
         },
-        created:function () {
+        created: function () {
         }
     }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-col :span="8" :offset="8">
-            <el-form :model="signUpForm"  :rules="rules" ref="signUpForm" status-icon>
+            <el-form :model="signUpForm" :rules="rules" ref="signUpForm" status-icon>
                 <el-form-item label="账号" prop="username">
                     <el-input v-model="signUpForm.username"></el-input>
                 </el-form-item>
@@ -88,28 +88,41 @@
             }
         },
         methods: {
-            fastSignUp(){
-                let form=this.signUpForm;
-                form.userType='worker';
-                form.password='123456789';
-                form.checkPass='123456789';
-                form.email='111@qq.com';
-                form.nickname='naive';
-                form.username='1';
+            fastSignUp() {
+                let form = this.signUpForm;
+                form.userType = 'worker';
+                form.password = '123456789';
+                form.checkPass = '123456789';
+                form.email = '111@qq.com';
+                form.nickname = 'naive';
+                form.username = '1';
             },
             signUp() {
-                let that=this;
+                let that = this;
                 this.$refs['signUpForm'].validate((valid) => {
                     if (valid) {
                         signUp(this.signUpForm,
-                           res=> {
-                            alert(res.result);
-                            if (res.result==='success'){
-                                that.$router.push('/login');
-                            }else {
-                                alert(res.result);
-                            }
-                        });
+                            res => {
+                                if (res.result === 'success') {
+                                    that.$router.push('/login');
+                                } else {
+                                    let message;
+                                    switch (res.result) {
+                                        case 'repeatedUsername':
+                                            message = '用户名重复';
+                                            break;
+                                        case 'repeatedName':
+                                            message='昵称重复';
+                                            break;
+                                        case 'repeatedEmail':
+                                            message='邮箱重复';
+                                            break
+                                    }
+                                    this.$alert(message,'',{
+                                        confirmButtonText:'确定'
+                                    })
+                                }
+                            });
                     } else {
 
                     }

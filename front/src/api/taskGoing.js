@@ -1,7 +1,9 @@
+import {getUrl} from "~/api/tool";
+
 export function taskGoing(count,callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/worker/recent.html",
+        url: getUrl('worker/recent.html'),
         type: 'GET',
         // xhrFields:{withCredentials:true},
         data: {

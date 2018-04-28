@@ -1,7 +1,9 @@
+import {getUrl} from "~/api/tool";
+
 export function taskDetails(taskId,callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/task/details.html",
+        url: getUrl('task/details.html'),
         type: 'GET',
         // xhrFields:{withCredentials:true},
         data: {
@@ -21,7 +23,7 @@ export function taskDetails(taskId,callback) {
 export function taskAccept(taskId,callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/task/accept.html",
+        url: getUrl('task/accept.html'),
         type: 'GET',
         // xhrFields:{withCredentials:true},
         data: {
