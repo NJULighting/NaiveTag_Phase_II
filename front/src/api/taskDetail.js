@@ -1,12 +1,12 @@
 import axios from 'axios'
 import {getUrl} from "~/api/tool";
 
-export function getTaskDetail(taskId,callback) {
-    fetchFromServer(taskId,callback);
+export function getTaskDetail(taskId,username,callback) {
+    fetchFromServer(taskId,username,callback);
 }
 
-function fetchFromServer(taskId,callback) {
-    $.get(getUrl('requester/details.html'),{taskId:taskId},
+function fetchFromServer(taskId,username,callback) {
+    $.get(getUrl('requester/details.html'),{taskId:taskId,username:username},
             res=>callback(JSON.parse(res)));
 }
 
