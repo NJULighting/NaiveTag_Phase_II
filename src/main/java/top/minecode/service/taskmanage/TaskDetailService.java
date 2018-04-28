@@ -52,6 +52,7 @@ public class TaskDetailService {
             if (taskResultPO.getState() == ThirdLevelTaskResultType.doing) {
 
                 AcceptedTaskDetail acceptedTaskDetail = new AcceptedTaskDetail();
+                acceptedTaskDetail.setTaskDescription(rawTaskPO.getTaskDescription());
                 acceptedTaskDetail.setState(WorkerTaskState.accept);
                 acceptedTaskDetail.setTaskName(rawTaskPO.getTaskName());
                 acceptedTaskDetail.setTaskType(rawTaskPO.getTaskType());
@@ -80,6 +81,7 @@ public class TaskDetailService {
             } else if (taskResultPO.getState() == ThirdLevelTaskResultType.unpay) {
 
                 UnpayedTaskDetail unpayedTaskDetail = new UnpayedTaskDetail();
+                unpayedTaskDetail.setAverageScore(rawTaskPO.getStandardScore());
                 unpayedTaskDetail.setState(WorkerTaskState.unpay);
                 unpayedTaskDetail.setTaskName(rawTaskPO.getTaskName());
                 unpayedTaskDetail.setTaskType(rawTaskPO.getTaskType());
@@ -88,6 +90,8 @@ public class TaskDetailService {
                 unpayedTaskDetail.setEndDate(taskResultPO.getExpireTime());
                 unpayedTaskDetail.setPayDay(rawTaskPO.getEndDate());
                 unpayedTaskDetail.setCover(rawTaskPO.getCover());
+                unpayedTaskDetail.setPicCount(rawTaskPO.getPicList().size());
+                unpayedTaskDetail.setPicList(rawTaskPO.getPicList());
                 return unpayedTaskDetail;
 
             } else if (taskResultPO.getState() == ThirdLevelTaskResultType.finish) {
