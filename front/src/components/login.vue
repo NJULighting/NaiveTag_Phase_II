@@ -1,8 +1,8 @@
 <template>
     <div style="background-image: url('/src/assets/loginbackground.png');width: 100%;height: 100%;background-size: cover;">
-        <div>
-            <el-row style="padding-top: 260px">
-                <el-col :span="5" :offset="16">
+        <div style="height: 100%;">
+            <el-row style="height: 100%;display:flex;justify-content:center;align-items:center;" >
+                <el-col :span="5" :offset="13">
                     <el-card class="login-card">
                         <el-col :span="22" :offset="1">
                             <el-form>
