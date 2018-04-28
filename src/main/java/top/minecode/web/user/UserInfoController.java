@@ -19,6 +19,7 @@ import top.minecode.service.user.UserService;
 import top.minecode.web.common.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,7 +76,13 @@ public class UserInfoController extends BaseController {
     public String getAbilityGraph(HttpServletRequest request) {
         User user = getSessionUser(request);
         List<Double> recentEarnedScores = workerStatisticService.getUserAbilityChanges(user);
-        return JsonConfig.getGson().toJson(recentEarnedScores);
+        List<Double> naive = new ArrayList<>();
+        naive.add(17.2);
+        naive.add(27.2);
+        naive.add(47.2);
+        naive.add(77.2);
+//        return JsonConfig.getGson().toJson(recentEarnedScores);
+        return JsonConfig.getGson().toJson(naive);
     }
 
 }

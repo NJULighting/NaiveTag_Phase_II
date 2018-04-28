@@ -114,6 +114,9 @@ public class TaskSettlementService {
             // 插入结算日志
             taskSettlementDao.addWorkerTaskSettlement(logPO);
         }
+        System.out.println("对于任务：" + taskPO.getId());
+        System.out.println("当前都有以下人已经提交：");
+        System.out.println(taskPO.getFinishedWorkerIds());
         return new Pair<>(tagResults, totalPayedScore);
     }
 
@@ -139,7 +142,7 @@ public class TaskSettlementService {
 
     public void settle() {
         System.out.println("Start settlement task!");
-        LocalDateTime time = LocalDateTime.of(2018, 4, 28, 10, 25);
+        LocalDateTime time = LocalDateTime.of(2018, 4, 28, 11, 36);
         System.out.println("target_time " + time.toString());
         LocalDateTime now = LocalDateTime.now();
         System.out.println("now_time " + now.toString());

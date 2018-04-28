@@ -1,6 +1,7 @@
 package top.minecode.domain.task;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Created on 2018/4/8.
@@ -9,6 +10,37 @@ import java.time.LocalDate;
  * @author iznauy
  */
 public class UnpayedTaskDetail extends WorkerTaskDetail {
+
+    private double averageScore;
+
+    public double getAverageScore() {
+        return averageScore;
+    }
+
+    public void setAverageScore(double averageScore) {
+        this.averageScore = averageScore;
+    }
+
+
+    private int picCount;
+
+    private List<String> picList;
+
+    public int getPicCount() {
+        return picCount;
+    }
+
+    public void setPicCount(int picCount) {
+        this.picCount = picCount;
+    }
+
+    public List<String> getPicList() {
+        return picList;
+    }
+
+    public void setPicList(List<String> picList) {
+        this.picList = picList;
+    }
 
     private LocalDate payDay;
 
