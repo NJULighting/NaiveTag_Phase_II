@@ -1,5 +1,6 @@
 package top.minecode.dao.task.requester;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,9 +12,9 @@ import static org.junit.Assert.*;
  */
 public class TaskMapsTest {
 
-    @Test
+    @Ignore
     public void getSecondTasks() {
-        TaskMaps.INSTANCE.getSecondTasks(1).forEach(System.out::println);
+        TaskMaps.INSTANCE.getSecondTasks(2).forEach(System.out::println);
     }
 
     @Test
