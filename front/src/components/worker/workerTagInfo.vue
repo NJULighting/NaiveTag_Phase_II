@@ -22,9 +22,10 @@
                             width: item.rightDown.x - item.leftTop.x + 'px',
                             height: item.rightDown.y - item.leftTop.y + 'px',
                             'z-index': index,
+                            color: rectColor,
                          }"
                          v-bind:index="index"
-                         v-bind:key="item.id"></div>
+                         v-bind:key="item.id">#{{index + 1}}</div>
 
                     <!--框画板-->
                     <div v-if="isRectsTypeNoLabel" ref="canvas" v-bind:style="getCanvasStyle()"
