@@ -139,7 +139,9 @@ public class RequesterTasksController extends BaseController {
             return;
 
         String resultPath = service.getResult(taskId);
-        Resource resource = new FileSystemResource(request.getSession().getServletContext().getRealPath(resultPath));
+        resultPath = request.getSession().getServletContext().getRealPath(resultPath);
+        System.out.println(resultPath);
+        Resource resource = new FileSystemResource(resultPath);
 
         File target = new File(resultPath);
         String mimeType = Optional.ofNullable(URLConnection.guessContentTypeFromName(target.getName()))

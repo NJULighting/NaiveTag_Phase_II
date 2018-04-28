@@ -2,6 +2,7 @@ package top.minecode.domain.task;
 
 import com.google.gson.*;
 import org.jetbrains.annotations.NotNull;
+import top.minecode.utils.Config;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,31 +17,18 @@ import java.util.*;
  */
 public class TaskConfig implements Iterable<TaskInfo> {
 
-    private static final int TOTAL_MARK = 100;
-    private static final int SINGLE_SQUARE_MARK = 200;
-    private static final int MULTI_SQUARE_MARK = 300;
-    private static final int AREA_MARK = 400;
-    private static final int TOTAL_DESCRIBE = 101;
-    private static final int SINGLE_SQUARE_DESCRIBE = 201;
-    private static final int MULTI_SQUARE_DESCRIBE = 301;
-    private static final int AREA_DESCRIBE = 401;
     private static final int INVALID_TASK_TYPE = -1; // This'll be used when the file doesn't contain a taskType
     private static final String TASK_TYPE = "taskType";
     private static final String DESCRIPTION = "description";
     private static final String CLASSES = "classes";
-    private static final Set<Integer> WITH_CLASS_PROBLEMS = new HashSet<>();
-    private static final Set<Integer> WITHOUT_CLASS_PROBLEMS = new HashSet<>();
+    private static final List<Integer> WITH_CLASS_PROBLEMS;
+    private static final List<Integer> WITHOUT_CLASS_PROBLEMS;
 
     static {
-        WITH_CLASS_PROBLEMS.add(TOTAL_MARK);
-        WITH_CLASS_PROBLEMS.add(SINGLE_SQUARE_MARK);
-        WITH_CLASS_PROBLEMS.add(MULTI_SQUARE_MARK);
-        WITH_CLASS_PROBLEMS.add(AREA_MARK);
+        Config config = Config.INSTANCE;
 
-        WITHOUT_CLASS_PROBLEMS.add(TOTAL_DESCRIBE);
-        WITHOUT_CLASS_PROBLEMS.add(SINGLE_SQUARE_DESCRIBE);
-        WITHOUT_CLASS_PROBLEMS.add(MULTI_SQUARE_DESCRIBE);
-        WITHOUT_CLASS_PROBLEMS.add(AREA_DESCRIBE);
+        WITH_CLASS_PROBLEMS = config.getWithClassesTypes();
+        WITHOUT_CLASS_PROBLEMS = config.getWithoutClassesTypes();
     }
 
     private JsonElement json;

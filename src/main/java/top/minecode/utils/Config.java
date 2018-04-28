@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -63,6 +64,13 @@ public enum Config {
     public String getLogicPath(String absolutePath) {
         int index = absolutePath.indexOf(getRawFileName());
         return absolutePath.substring(index);
+    }
+
+    public String getAbsolutePath(String logicPath) {
+        String classpath = this.getClass().getResource("/").getPath();
+        File classFile = new File(classpath);
+        File result = new File(classFile.getParentFile().getParentFile(), logicPath);
+        return result.getPath();
     }
 
     public int getThirdLevelTaskImagesNum() {

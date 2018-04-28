@@ -66,7 +66,6 @@ public class TaskDeliveryDao {
                     secondLevelTaskPO.getTaskDetailsId(), image.getImages(), taskInfo.getDescription(),
                     firstLevelTaskPO.getWorkerFilterId(), taskInfo.getTaskType());
             taskTable.add(thirdLevelTaskPO);
-            System.out.println(thirdLevelTaskPO);// TODO: 2018/4/27 delete
         }
     }
 }
