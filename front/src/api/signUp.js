@@ -1,16 +1,17 @@
 import axios from 'axios'
+import {getUrl} from "~/api/tool";
 
 
 export function signUp(signUpForm,callback) {
     let url;
     if (signUpForm.userType === 'worker') {
-        url = 'http://localhost:8000/naive/join/worker.html'
+        url = 'join/worker.html'
     } else {
-        url = 'http://localhost:8000/naive/join/requester.html'
+        url = 'join/requester.html'
     }
 
     console.log(signUpForm);
-    $.post(url,{
+    $.post(getUrl(url),{
                 username: signUpForm.username,
                 password: signUpForm.password,
                 name: signUpForm.nickname,

@@ -1,11 +1,12 @@
 import axios from 'axios'
+import {getUrl} from "~/api/tool";
 
 export function login(username, password, callback) {
     validateFromServer(username,password,callback)
 }
 
 function validateFromServer(username, password,callback) {
-   $.post('http://localhost:8000/naive/login.html',{
+   $.post(getUrl('login.html'),{
        username:username,
        password:password
    },function (result) {

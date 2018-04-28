@@ -1,10 +1,12 @@
+import {getUrl} from "~/api/tool";
+
 export function uploadTaskDescription(file, callback) {
     let formData = new FormData();
     formData.append('taskconf', file);
 
     // $.post('http://localhost:8000/naive/requester/check.html', formData, res => callback(res))
     $.ajax({
-        url: 'http://localhost:8000/naive/requester/check.html',
+        url:getUrl('requester/check.html'),
         type: 'POST',
         data: formData,
         processData: false,
@@ -37,7 +39,7 @@ export function uploadTask(form, callback) {
 
 
     $.ajax({
-        url: 'http://localhost:8000/naive/requester/new.html',
+        url:getUrl('requester/new.html'),
         type: 'POST',
         data: formData,
         processData: false,

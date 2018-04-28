@@ -36,6 +36,7 @@
     import {save} from '../../api/tagPic.js'
     import {next} from '../../api/tagPic.js'
     import {previous} from '../../api/tagPic.js'
+    import {getUrl} from "~/api/tool";
 
     export default {
 
@@ -45,7 +46,7 @@
 
         computed: {
             getPicUrl(){
-                return "http://localhost:8000/naive/" + this.picUrl;
+                return getUrl(this.picUrl);
             }
         },
 

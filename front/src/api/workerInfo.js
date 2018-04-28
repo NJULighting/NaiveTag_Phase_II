@@ -1,7 +1,9 @@
+import {getUrl} from "~/api/tool";
+
 export function userInfo(callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/userInfo/index.html",
+        url: getUrl('userInfo/index.html'),
         type: 'GET',
         data: {
             'username': localStorage.username,
@@ -18,7 +20,7 @@ export function userInfo(callback) {
 export function ability(callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/userInfo/ability.html",
+        url: getUrl('userInfo/ability.html'),
         type: 'GET',
         data: {
             'username': localStorage.username,
@@ -35,7 +37,7 @@ export function ability(callback) {
 export function rank(callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/rank.html",
+        url: getUrl('rank.html'),
         type: 'GET',
         data: {
             'username': localStorage.username,

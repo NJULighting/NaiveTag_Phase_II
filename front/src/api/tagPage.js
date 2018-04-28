@@ -1,7 +1,9 @@
+import {getUrl} from "~/api/tool";
+
 export function taskInfo(taskId,callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/tag/taskInfo.html",
+        url: getUrl('tag/taskInfo.html'),
         type: 'GET',
         // xhrFields:{withCredentials:true},
         data: {
@@ -20,7 +22,7 @@ export function taskInfo(taskId,callback) {
 export function getLabelInfo(taskId, picUrl, callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/tag/getLabelInfo.html",
+        url: getUrl('tag/getLabelInfo.html'),
         type: 'GET',
         // xhrFields:{withCredentials:true},
         data: {

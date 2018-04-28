@@ -1,7 +1,9 @@
+import {getUrl} from "~/api/tool";
+
 export function history(callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/worker/history.html",
+        url: getUrl('worker/history.html'),
         type: 'GET',
         data: {
             'username': localStorage.username,

@@ -1,7 +1,9 @@
+import {getUrl} from "~/api/tool";
+
 export function recommendation(callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/recommendation.html",
+        url: getUrl('recommendation.html'),
         type: 'GET',
         // xhrFields:{withCredentials:true},
         data: {

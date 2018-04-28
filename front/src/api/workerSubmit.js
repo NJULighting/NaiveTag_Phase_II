@@ -1,7 +1,9 @@
+import {getUrl} from "~/api/tool";
+
 export function submit(taskId, callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/task/commit.html",
+        url: getUrl('task/commit.html'),
         type: 'GET',
         data: {
             'username': localStorage.username,
