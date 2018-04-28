@@ -26,15 +26,15 @@ public class WorkerUtilsDao {
     }
 
     public List<SecondLevelTaskPO> getSubTaskByFirstLevelTaskId(int taskId) {
-        return TableFactory.secondLevelTaskTable().getPOsBy(taskId, SecondLevelTaskPO::getId);
+        return TableFactory.secondLevelTaskTable().getPOsBy(taskId, SecondLevelTaskPO::getFirstLevelTaskId);
     }
 
     public List<ThirdLevelTaskPO> getSubTaskBySecondLevelTaskId(int taskId) {
-        return TableFactory.thirdLevelTaskTable().getPOsBy(taskId, ThirdLevelTaskPO::getId);
+        return TableFactory.thirdLevelTaskTable().getPOsBy(taskId, ThirdLevelTaskPO::getSecondLevelTaskId);
     }
 
     public List<ThirdLevelTaskResultPO> getTaskResultsByTaskId(int taskId) {
-        return TableFactory.thirdLevelTaskResultTable().getPOsBy(taskId, ThirdLevelTaskResultPO::getId);
+        return TableFactory.thirdLevelTaskResultTable().getPOsBy(taskId, ThirdLevelTaskResultPO::getThirdLevelTaskId);
     }
 
     public WorkerPO getWorkerPOById(int id) {

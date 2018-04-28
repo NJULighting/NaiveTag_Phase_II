@@ -1,5 +1,6 @@
 package top.minecode.web.task;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,12 +21,14 @@ public class TaskSettlementController {
         return taskSettlementService;
     }
 
+    @Autowired
     public void setTaskSettlementService(TaskSettlementService taskSettlementService) {
         this.taskSettlementService = taskSettlementService;
     }
 
-    @Scheduled(cron = "0 5 0 * * ?")  // 每天早上0点5分执行
+    @Scheduled(cron = "30 * * * * ?")  // 每天早上0点5分执行
     public void settleTasks() {
+        System.out.println("Task Settlement in controller");
         taskSettlementService.settle();
     }
 

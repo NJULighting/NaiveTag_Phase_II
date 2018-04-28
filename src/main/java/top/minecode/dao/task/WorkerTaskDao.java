@@ -106,6 +106,10 @@ public class WorkerTaskDao {
 
         ThirdLevelTaskResultPO thirdLevelTaskResultPO = workerUtilsDao.getResultPOByUserIdAndTaskId(user.getId(), taskId);
         ThirdLevelTaskPO thirdLevelTaskPO = thirdLevelTaskPOTable.getPOBy(taskId, ThirdLevelTaskPO::getId);
+
+        if (thirdLevelTaskResultPO.getState() == ThirdLevelTaskResultType.expired)
+            return false;
+
         // 如果任务没有做完
         if (thirdLevelTaskResultPO.getTagResults().size() != thirdLevelTaskPO.getPicList().size())
             return false;
@@ -143,6 +147,11 @@ public class WorkerTaskDao {
 
 
         thirdLevelTaskPO.getCurrentDoingWorkerIds().add(user.getId());
+
+        if (thirdLevelTaskPO.getCurrentDoingWorkerIds().size() +
+                thirdLevelTaskPO.getFinishedWorkerIds().size() == 3)
+            thirdLevelTaskPO.setState(ThirdLevelTaskState.locked);
+
         thirdLevelTaskPOTable.save();
 
         LocalDate endDate = thirdLevelTaskPO.getEndDate();
