@@ -76,13 +76,13 @@ public class UserInfoController extends BaseController {
     public String getAbilityGraph(HttpServletRequest request) {
         User user = getSessionUser(request);
         List<Double> recentEarnedScores = workerStatisticService.getUserAbilityChanges(user);
-        List<Double> naive = new ArrayList<>();
-        naive.add(17.2);
-        naive.add(27.2);
-        naive.add(47.2);
-        naive.add(77.2);
-//        return JsonConfig.getGson().toJson(recentEarnedScores);
-        return JsonConfig.getGson().toJson(naive);
+//        List<Double> naive = new ArrayList<>();
+//        naive.add(17.2);
+//        naive.add(27.2);
+//        naive.add(47.2);
+//        naive.add(77.2);
+        return JsonConfig.getGson().toJson(recentEarnedScores);
+ //       return JsonConfig.getGson().toJson(naive);
     }
 
 }
