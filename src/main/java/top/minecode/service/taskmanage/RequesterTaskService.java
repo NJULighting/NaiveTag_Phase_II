@@ -78,7 +78,6 @@ public class RequesterTaskService {
         Map<Integer, Double> processes = requesterStatisticDao.getSecondLevelTaskProcess(taskId);
         Map<Integer, List<TaskParticipant>> participants = requesterTaskDao.getParticipants(taskId);
         Map<Integer, TaskInfo> taskInfoMap = requesterTaskDao.secondLevelTaskInfo(taskId);
-
         // Combine them to RequesterTaskDetails list
         List<RequesterTaskDetails> details = new ArrayList<>();
         for (Map.Entry<Integer, Double> entry : processes.entrySet()) {
@@ -86,6 +85,7 @@ public class RequesterTaskService {
             details.add(new RequesterTaskDetails(entry.getValue(),
                     participants.get(secondLvTaskId), taskInfoMap.get(secondLvTaskId)));
         }
+
 
         return details;
     }
