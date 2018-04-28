@@ -1,5 +1,11 @@
 <template>
+
     <el-col :span="8" :offset="8">
+        <el-date-picker type="date" placeholder="选择日期" style="width: 100%"
+                        value-format="yyyy-MM-dd"
+                        v-model="taskForm.endTime"
+                        :picker-opitons="pickerOptions">
+        </el-date-picker>
         <el-form :model="taskForm" :rules="rules" ref="taskForm" label-position='left' label-width="160px"
                  style="margin-top: 50px">
             <el-form-item label="任务名称" prop="taskName">
@@ -8,7 +14,8 @@
             <el-form-item label="截止日期" prop="endTime">
                 <el-date-picker type="date" placeholder="选择日期" style="width: 100%"
                                 value-format="yyyy-MM-dd"
-                                v-model="taskForm.endTime">
+                                v-model="taskForm.endTime"
+                                :picker-opitons="pickerOptions">
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="添加任务描述文件" prop="taskDescription">
@@ -112,6 +119,13 @@
                     taskConf: undefined
                 },
                 dataSet: undefined,
+                pickerOptions: {
+                    disabledDate: (time) => {
+                        console.log('picker');
+                        return true;
+
+                    }
+                },
                 rules: {
                     // taskName:[
                     //     {required:true,message:'请输入任务名称',trigger:'blur'}

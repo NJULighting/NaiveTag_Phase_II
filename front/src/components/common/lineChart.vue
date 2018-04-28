@@ -30,6 +30,9 @@
 
 
         },
+        mounted:function(){
+          this.drawLineChart();
+        },
         methods: {
             drawLineChart: function () {
 

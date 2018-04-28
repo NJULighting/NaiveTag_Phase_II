@@ -12,7 +12,7 @@
 
                 <line-chart
 
-                        type="line"
+                        v-bind:x-data="xData"
                         :series-data="userData"
                         unique-id="-1"
                         :series-name="lineData">
@@ -68,11 +68,19 @@
                 this.userInfo = res;
             });
             let result2 = ability(res=> {
-                this.userData = res;
+                console .log('result2');
+                console.log(res);
+                this.userData .push(res) ;
+                for (let i=0;i<res.length;i++){
+                    this.xData.push('第'+(i+1)+'次');
+                }
             });
             let result3 = rank(res=> {
                 this.tableData = res;
             });
+
+
+
         },
 
         data() {
@@ -102,12 +110,8 @@
 //                    "totalScore": 900 //用户赚取的总得分
                 },
 
-                userData: [
-//                    13,
-//                    35,
-//                    57,
-//                    67
-                ],
+                userData: [1],
+                xData:[]
             }
         },
     }
