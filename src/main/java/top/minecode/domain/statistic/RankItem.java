@@ -1,5 +1,7 @@
 package top.minecode.domain.statistic;
 
+import top.minecode.po.WorkerPO;
+
 /**
  * Created on 2018/4/4.
  * Description:
@@ -17,6 +19,11 @@ public class RankItem {
     public RankItem(Double score, String name) {
         this.score = score;
         this.name = name;
+    }
+
+    public RankItem(WorkerPO worker) {
+        score = worker.getScores();
+        name = worker.getName();
     }
 
     public Double getScore() {

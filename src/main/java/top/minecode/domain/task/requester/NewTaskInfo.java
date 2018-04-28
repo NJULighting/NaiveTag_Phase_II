@@ -87,5 +87,15 @@ public class NewTaskInfo {
         }
     }
 
+    @Override
+    public String toString() {
+        return "NewTaskInfo{" +
+                "ownerId=" + ownerId +
+                ", taskName='" + taskName + '\'' +
+                ", workerFilter=" + workerFilter +
+                ", endTime=" + endTime +
+                ", score=" + score +
+                '}';
+    }
 }
 

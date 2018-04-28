@@ -114,6 +114,10 @@ public class Table<PO> {
         }
     }
 
+    public void setPos(List<PO> pos) {
+        this.pos = pos;
+    }
+
     // Used for debug
     public void printContent() {
         pos.forEach(po -> System.out.println(JsonConfig.getGson().toJson(po)));

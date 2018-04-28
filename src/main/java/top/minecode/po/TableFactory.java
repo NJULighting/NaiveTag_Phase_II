@@ -41,10 +41,10 @@ public class TableFactory {
         taskDetailsTable = new Table<>("taskDetails");
         thirdLevelTaskTable = new Table<>("thirdLevelTask");
         thirdLevelTaskResultTable = new Table<>("thirdLevelTaskResult");
-        rankTable = new RankTable();
         registerLogTable = new Table<>("registerLog");
         loginLogTable = new Table<>("loginLog");
         workerSettlementLogTable = new Table<>("workerSettlementLog");
+        rankTable = new RankTable(); // This must be initialized after worker table's initialization
 
         // Add initial administrator
         if (adminTable.getPOBy(1926, AdministratorPO::getId) == null) {
