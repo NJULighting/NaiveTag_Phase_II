@@ -1,5 +1,5 @@
 <template>
-    <div class="taskBlock" v-bind:class="getBlockStyle" id="app" v-on:click="showTask">
+    <div v-bind:style="getBlockStyle()" id="app" v-on:click="showTask">
         <div style="padding: 10px">
             <el-card :body-style="{ padding: '0px' }">
 
@@ -118,11 +118,18 @@
             getBlockStyle: function () {
                 if(this.isChooseable()){
                     return {
+                        display:'inline-block',
+                        'text-align': 'left',
+                        width: '20%',
                         cursor: 'pointer',
-                        cursor: 'hand'
+//                        cursor: 'hand',
                     }
                 }else{
-                    return {};
+                    return {
+                        display:'inline-block',
+                        'text-align': 'left',
+                        width: '20%',
+                    };
                 }
 
             },
@@ -196,9 +203,7 @@
     }
 
     .taskBlock {
-        display:inline-block;
-        text-align: left;
-        width: 20%;
+
     }
 
     label {

@@ -7,8 +7,8 @@
             </div></el-col>
 
             <el-col :span="8"><div class="grid-content" style="text-align: center;">
-                <div style="height: 90px;"></div>
-                <div style="width: 600px;">个人能力变换曲线</div>
+                <div style="height: 120px;"></div>
+                <!--<div style="width: 600px;">个人能力变换曲线</div>-->
 
                 <line-chart
 
@@ -69,10 +69,13 @@
             });
             let result2 = ability(res=> {
                 this.userData = res;
+                console.log("userData:");
+                console.log(this.userData);
             });
             let result3 = rank(res=> {
                 this.tableData = res;
             });
+
         },
 
         data() {

@@ -64,8 +64,8 @@
                             <!--<el-color-picker v-model="rectColor"></el-color-picker>-->
                         <!--</div>-->
 
-                        <div v-if="description" class="block center" style="padding-top: 20px;">
-                            {{description}}
+                        <div v-if="description" class="block center" style="padding: 20px 20px 0px 20px;">
+                            任务描述：{{description}}
                         </div>
 
                         <!--标注块-->
@@ -81,7 +81,7 @@
                                      v-bind="item"
                                      v-bind:index="index"
                                      v-bind:key="item.id">
-                                    <span v-if="isMoreThanOne">{{index}}：</span>
+                                    <span v-if="isMoreThanOne">{{index + 1}}：</span>
                                     <el-input v-model="item.label" placeholder="请输入内容" class="input" @change="changeInputValue($event,index)"></el-input>
                                     <el-button type="danger" icon="el-icon-delete" circle
                                                v-on:click="deleteFramesItem(index)"></el-button>
@@ -107,7 +107,7 @@
                                      v-bind:index="index"
                                      v-bind:key="item.id"
                                      v-on:remove="frames.splice(index, 1)">
-                                    <span v-if="isMoreThanOne">{{index}}：</span>
+                                    <span v-if="isMoreThanOne">{{index + 1}}：</span>
                                     <el-select v-model="item.label" filterable placeholder="请选择" class="select" @change="changeSelectValue($event,index)">
                                         <el-option
                                                 v-for="item in options"

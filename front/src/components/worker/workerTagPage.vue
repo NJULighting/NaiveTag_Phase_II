@@ -19,6 +19,7 @@
              v-bind:options="options"
              v-bind:picUrl="getPicUrl"
              v-bind:label="tagData.label"
+             v-bind:description="description"
              :points.sync="tagData.points"
              :frames.sync="tagData.frames"
              @lastPic="lastPic"
@@ -123,6 +124,9 @@
                     if(res.taskType){
                         this.taskType = res.taskType;
                     }
+                    if(res.description){
+                        this.description = res.description;
+                    }
                     console.log("options:");
                     console.log(this.options);
                     this.fetchLabelDataByPicUrl(this.$route.params.picUrl);
@@ -168,6 +172,7 @@
         data() {
             return {
                 taskType: null,
+                description: "",
                 picUrl: "",
                 options: [
 //                    {
