@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name:'taskDetail', params: { id: this.task.taskId}}">
+    <router-link :to="{ name:'taskDetail', params: { taskId: this.task.taskId}}">
         <el-card style="margin-top: 20px">
             <el-container>
                 <el-aside style="width: 200px">
@@ -46,6 +46,8 @@
             exportResult() {
                 $.get(getUrl('requester/download.html'), {taskId: this.task.taskId});
             }
+        },
+        created:function () {
         }
     }
 </script>

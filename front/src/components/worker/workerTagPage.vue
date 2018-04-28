@@ -51,6 +51,7 @@
         methods: {
             back(){
                 if(this.$refs.tagPage.checkNext()){
+                    this.$refs.tagPage.changeLabel();
                     console.log(this.tagData);
                     var json = JSON.stringify(this.tagData);
                     console.log("json: ");

@@ -29,7 +29,7 @@
             }
         },
         created:function () {
-           getTaskDetail(localStorage.username,res=>{
+           getTaskDetail(this.$route.params.taskId,localStorage.username,res=>{
                this.taskList=res;
            });
         },
