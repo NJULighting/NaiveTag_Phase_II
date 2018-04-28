@@ -11,16 +11,16 @@ import static org.junit.Assert.*;
  */
 public class TaskMapsTest {
 
-    @Test
-    public void getSecondTasks() {
-        TaskMaps.INSTANCE.getSecondTasks(1).forEach(System.out::println);
-    }
-
-    @Test
-    public void oneThreeIdObjMap() {
-    }
-
-    @Test
-    public void twoThreeIdObjMap() {
-    }
+//    @Test
+//    public void getSecondTasks() {
+//        TaskMaps.INSTANCE.getSecondTasks(1).forEach(System.out::println);
+//    }
+//
+//    @Test
+//    public void oneThreeIdObjMap() {
+//    }
+//
+//    @Test
+//    public void twoThreeIdObjMap() {
+//    }
 }
