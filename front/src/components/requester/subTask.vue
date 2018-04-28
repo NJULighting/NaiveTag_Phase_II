@@ -15,35 +15,35 @@
         <el-main>
             <div>
                 <el-row type="flex">
-                    <el-col >
+                    <el-col>
                         <h4>任务描述:</h4>
-                        <blockquote > {{subTask.taskInfo.description}}</blockquote>
+                        <blockquote> {{subTask.taskInfo.description}}</blockquote>
                     </el-col>
                 </el-row>
             </div>
-           <el-collapse v-model="activeNames" style="margin-top: 30px">
-               <el-collapse-item name="1" title="参与标注人员">
-                   <el-table
-                           :data="subTask.taskParticipant">
-                       <el-table-column
-                               prop="name"
-                               label="姓名">
-                       </el-table-column>
-                       <el-table-column
-                               prop="ability"
-                               label="能力">
-                       </el-table-column>
-                       <el-table-column
-                               prop="rankRate"
-                               label="Unknown">
-                       </el-table-column>
-                       <el-table-column
-                               prop="rank"
-                               label="排名">
-                       </el-table-column>
-                   </el-table>
-               </el-collapse-item>
-           </el-collapse>
+            <el-collapse v-model="activeNames" style="margin-top: 30px">
+                <el-collapse-item name="1" title="参与标注人员">
+                    <el-table
+                            :data="subTask.participants">
+                        <el-table-column
+                                prop="name"
+                                label="姓名">
+                        </el-table-column>
+                        <el-table-column
+                                prop="ability"
+                                label="能力">
+                        </el-table-column>
+                        <el-table-column
+                                prop="rankRate"
+                                label="Unknown">
+                        </el-table-column>
+                        <el-table-column
+                                prop="rank"
+                                label="排名">
+                        </el-table-column>
+                    </el-table>
+                </el-collapse-item>
+            </el-collapse>
         </el-main>
     </el-container>
 </template>
@@ -53,17 +53,19 @@
 
     export default {
         name: "subTask",
-        props: ['subTask','index'],
-        data:function () {
+        props: ['subTask', 'index'],
+        data: function () {
             return {
-                activeNames:['1'],
-                taskName:taskName(this.subTask.taskInfo.taskType),
-                taskIndex:this.index+1
+                activeNames: ['1'],
+                taskName: taskName(this.subTask.taskInfo.taskType),
+                taskIndex: this.index + 1
 
             }
         },
-        created:function () {
-            console.log(this.key);
+        created: function () {
+            console.log('subTask');
+            console.log(this.subTask.participants);
+            //console.log(Object.values(this.subTask));
         }
     }
 </script>
