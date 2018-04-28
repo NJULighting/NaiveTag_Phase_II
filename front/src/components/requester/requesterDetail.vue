@@ -5,7 +5,7 @@
                 <el-container>
                     <el-aside>
                         <div style="margin: 35px">
-                            <img src="/src/assets/van.jpg">
+                            <img src="../../assets/van.jpg">
                         </div>
                     </el-aside>
                     <el-main>

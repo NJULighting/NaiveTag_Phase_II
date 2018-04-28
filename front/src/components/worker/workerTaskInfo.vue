@@ -93,6 +93,7 @@
     import Vue from 'vue'
     import {taskAccept} from '../../api/taskDetails.js'
     import {submit} from '../../api/workerSubmit.js'
+    import {getUrl} from "~/api/tool";
 
     export default {
 
@@ -159,7 +160,7 @@
             },
 
             getPicSrc: function (picUrl) {
-                return "http://localhost:8000/naive/" + picUrl;
+                return getUrl(picUrl) ;
             },
 
             getPicFinishAmount: function () {
