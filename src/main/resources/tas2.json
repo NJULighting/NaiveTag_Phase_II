@@ -1,0 +1,16 @@
+[
+  {
+    "taskType": 100,
+    "format": "jpg",
+    "classes": [
+      "ugly",
+      "not beautiful"
+    ],
+    "description": "您认为图片中的人物漂亮吗?"
+  },
+  {
+    "taskType": 101,
+    "format": "jpg",
+    "description": "请标出图中的动漫人物"
+  }
+]
