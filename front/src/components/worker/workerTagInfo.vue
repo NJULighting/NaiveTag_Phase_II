@@ -25,7 +25,7 @@
                             color: rectColor,
                          }"
                          v-bind:index="index"
-                         v-bind:key="item.id">#{{index + 1}}</div>
+                         v-bind:key="item.id"><span v-if="isMoreThanOne">#{{index + 1}}</span></div>
 
                     <!--框画板-->
                     <div v-if="isRectsTypeNoLabel" ref="canvas" v-bind:style="getCanvasStyle()"
