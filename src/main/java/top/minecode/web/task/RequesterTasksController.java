@@ -147,7 +147,7 @@ public class RequesterTasksController extends BaseController {
         String mimeType = Optional.ofNullable(URLConnection.guessContentTypeFromName(target.getName()))
                 .orElse("application/octet-stream");
         response.setContentType(mimeType);
-        response.setHeader("Content-Disposition", "inline; filename=\"" + target.getName() +"\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + target.getName() +"\"");
         response.setContentLength((int)target.length());
         try {
             IOUtils.copy(resource.getInputStream(), response.getOutputStream());
