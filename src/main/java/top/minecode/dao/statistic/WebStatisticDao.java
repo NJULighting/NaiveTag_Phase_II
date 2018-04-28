@@ -28,19 +28,24 @@ public class WebStatisticDao {
     public TimeNumberGraph activeWorkerTrend() {
         List<LoginLogPO> loginLogs = TableFactory.loginLogTable()
                 .getPOsBy(UserType.worker, LoginLogPO::getUserType);
+
+        loginLogs.forEach(System.out::println); // todo delete
+
         return getTrend(loginLogs, log -> log.getLoginTime().toLocalDate());
     }
 
     public TimeNumberGraph totalWorkerTrend() {
         List<RegisterLogPO> registerLogs = TableFactory.registerLogTable()
                 .getPOsBy(UserType.worker, RegisterLogPO::getUserType);
-        return getTrend(registerLogs, RegisterLogPO::getDate);
+
+        TimeNumberGraph result = getTrend(registerLogs, RegisterLogPO::getDate);
+        return result.accumulateGraph();
     }
 
     public TimeNumberGraph totalRequesterTrend() {
         List<RegisterLogPO> registerLogs = TableFactory.registerLogTable()
                 .getPOsBy(UserType.requester, RegisterLogPO::getUserType);
-        return getTrend(registerLogs, RegisterLogPO::getDate);
+        return getTrend(registerLogs, RegisterLogPO::getDate).accumulateGraph();
     }
 
     private <T> TimeNumberGraph getTrend(List<T> pos, Function<T, LocalDate> function) {

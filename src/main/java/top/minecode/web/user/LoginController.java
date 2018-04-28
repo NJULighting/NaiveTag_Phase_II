@@ -45,7 +45,6 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody String login(HttpServletRequest request, User user) {
-        Table<WorkerPO> table = TableFactory.workerTable();
         LoginResponse loginResponse = new LoginResponse();
         try {
             user = userService.login(user);

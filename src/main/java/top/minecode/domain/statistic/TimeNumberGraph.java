@@ -28,8 +28,23 @@ public class TimeNumberGraph {
         dots.merge(date, 1, (a, b) -> a + b);
     }
 
+    public TimeNumberGraph accumulateGraph() {
+        List<Map.Entry<LocalDate, Integer>> entryList = new ArrayList<>(dots.entrySet());
+        entryList.sort(Comparator.comparing(Map.Entry::getKey));
+
+        dots = new HashMap<>(entryList.size());
+        for (int i = 0, prev = 0; i < entryList.size(); i++) {
+            Map.Entry<LocalDate, Integer> entry = entryList.get(i);
+            dots.put(entry.getKey(), entry.getValue() + prev);
+            prev += entry.getValue();
+        }
+
+        return this;
+    }
+
     public static class GraphPoint {
         private LocalDate date;
+
         private int number;
 
         private GraphPoint(Map.Entry<LocalDate, Integer> entry) {
@@ -45,5 +60,4 @@ public class TimeNumberGraph {
             return number;
         }
     }
-
 }

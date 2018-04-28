@@ -2,12 +2,14 @@ package top.minecode.domain.statistic;
 
 import top.minecode.po.WorkerPO;
 
+import java.io.Serializable;
+
 /**
  * Created on 2018/4/4.
  * Description:
  * @author iznauy
  */
-public class RankItem {
+public class RankItem implements Serializable{
 
     private Double score;
 
