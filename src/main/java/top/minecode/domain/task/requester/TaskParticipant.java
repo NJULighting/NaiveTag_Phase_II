@@ -34,4 +34,13 @@ public class TaskParticipant {
     public double getRankRate() {
         return rankRate;
     }
+
+    @Override
+    public String toString() {
+        return "TaskParticipant{" +
+                "rank=" + rank +
+                ", ability=" + ability +
+                ", rankRate=" + rankRate +
+                '}';
+    }
 }

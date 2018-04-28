@@ -15,7 +15,7 @@
 
             </el-row>
         </div>
-        <tag v-bind:tagType="tagData.tagType"
+        <tag ref="tagPage" v-bind:tagType="tagData.tagType"
              v-bind:options="options"
              v-bind:picUrl="getPicUrl"
              v-bind:label="tagData.label"
@@ -50,15 +50,17 @@
 
         methods: {
             back(){
-                console.log(this.tagData);
-                var json = JSON.stringify(this.tagData);
-                console.log("json: ");
-                console.log(json);
-                let result = save(this.$route.params.taskId,this.picUrl,json, res=> {
-                    console.log("saveResult success!");
-                    console.log(res);
-                    this.$router.push({ name: 'task', params: { taskId: this.$route.params.taskId }});
-                });
+                if(this.$refs.tagPage.checkNext()){
+                    console.log(this.tagData);
+                    var json = JSON.stringify(this.tagData);
+                    console.log("json: ");
+                    console.log(json);
+                    let result = save(this.$route.params.taskId,this.picUrl,json, res=> {
+                        console.log("saveResult success!");
+                        console.log(res);
+                        this.$router.push({ name: 'task', params: { taskId: this.$route.params.taskId }});
+                    });
+                }
             },
 
             changeLabel(newLabel){

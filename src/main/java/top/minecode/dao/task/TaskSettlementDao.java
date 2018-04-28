@@ -29,7 +29,8 @@ public class TaskSettlementDao {
     public List<FirstLevelTaskPO> getAllRequireSettlementTask() {
         LocalDate currentDate = LocalDate.now();
         return TableFactory.firstLevelTaskTable().getPOsBy(currentDate,
-                FirstLevelTaskPO::getEndDate);
+                FirstLevelTaskPO::getEndDate).stream().filter(e -> e.getState() == FirstLevelTaskState.ongoing)
+                .collect(Collectors.toList());
     }
 
     public List<ThirdLevelTaskResultPO> getAllRequireExpiredTask() {

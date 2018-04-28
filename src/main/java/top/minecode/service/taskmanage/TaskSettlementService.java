@@ -13,9 +13,12 @@ import top.minecode.domain.task.requester.TaskResult;
 import top.minecode.domain.user.Worker;
 import top.minecode.json.JsonConfig;
 import top.minecode.po.*;
+import top.minecode.utils.Config;
 import top.minecode.utils.Pair;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,7 +79,7 @@ public class TaskSettlementService {
                 resultPO.setState(ThirdLevelTaskResultType.expired);
                 // 把用户从doer里面移除
                 taskPO.getCurrentDoingWorkerIds().remove(resultPO.getDoerId());
-
+                resultPO.setActualScore(0.0);
                 // 设置赚得的分数为0
                 logPO.setEarnedScore(0.0);
             } else if (resultPO.getState() == ThirdLevelTaskResultType.unpay) {
@@ -89,6 +92,8 @@ public class TaskSettlementService {
                 resultPO.setState(ThirdLevelTaskResultType.finish);
 
                 totalPayedScore += taskPO.getStandardScore();
+
+                resultPO.setActualScore(taskPO.getStandardScore());
 
                 // 设置赚得的分数
                 logPO.setEarnedScore(taskPO.getStandardScore());
@@ -133,9 +138,18 @@ public class TaskSettlementService {
     }
 
     public void settle() {
+        System.out.println("Start settlement task!");
+        LocalDateTime time = LocalDateTime.of(2018, 4, 28, 10, 25);
+        System.out.println("target_time " + time.toString());
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("now_time " + now.toString());
+        if (!now.isAfter(time)) {
+            return;
+        }
         settleRequesterCompletedTask();
         settleWorkerExpiredTask();
         TableFactory.saveAll();
+        System.out.println("End settlement task");
     }
 
     /**
@@ -146,6 +160,7 @@ public class TaskSettlementService {
         for (ThirdLevelTaskResultPO resultPO: requireExpiredTaskResult) {
 
             resultPO.setState(ThirdLevelTaskResultType.expired);
+            resultPO.setActualScore(0.0);
 
             int taskId = resultPO.getThirdLevelTaskId();
             ThirdLevelTaskPO task = workerUtilsDao.getThirdLevelTaskById(taskId);
@@ -225,7 +240,11 @@ public class TaskSettlementService {
 
             String result = JsonConfig.getGson().toJson(taskResult); // 这个任务的结果
 
-            File resultFile = new File(flTask.getResultFilePath());
+            System.out.println(result);
+
+            File resultFile = new File(Config.INSTANCE.getAbsolutePath(flTask.getResultFilePath()));
+//            System.out.println(flTask.getResultFilePath());
+//            System.out.println(resultFile.getAbsolutePath());
 
             try {
                 if (!resultFile.exists()) {

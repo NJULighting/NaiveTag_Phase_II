@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Description:
  * @author iznauy
  */
-public class RankItem implements Serializable{
+public class RankItem implements Serializable {
 
     private Double score;
 

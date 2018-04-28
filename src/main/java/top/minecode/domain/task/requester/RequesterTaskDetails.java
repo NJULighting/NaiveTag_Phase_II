@@ -11,7 +11,7 @@ import java.util.List;
  * Description:
  * @author Liao
  */
-public class RequesterTaskDetails {
+public class  RequesterTaskDetails {
 
     private double taskProcess;
     private List<TaskParticipant> participants;
@@ -33,5 +33,14 @@ public class RequesterTaskDetails {
 
     public TaskInfo getTaskInfo() {
         return taskInfo;
+    }
+
+    @Override
+    public String toString() {
+        return "RequesterTaskDetails{" +
+                "taskProcess=" + taskProcess +
+                ", participants=" + participants +
+                ", taskInfo=" + taskInfo +
+                '}';
     }
 }
