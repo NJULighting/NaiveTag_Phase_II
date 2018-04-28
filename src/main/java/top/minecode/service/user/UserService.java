@@ -60,7 +60,7 @@ public class UserService {
         if (!target.getPassword().equals(password))
             throw new InvalidPasswordException();
 
-        userDao.addUserLoginLog(user);
+        userDao.addUserLoginLog(target);
 
         return target;
     }

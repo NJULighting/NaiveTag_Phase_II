@@ -29,7 +29,6 @@ public class WebStatisticDao {
         List<LoginLogPO> loginLogs = TableFactory.loginLogTable()
                 .getPOsBy(UserType.worker, LoginLogPO::getUserType);
 
-        loginLogs.forEach(System.out::println); // todo delete
 
         return getTrend(loginLogs, log -> log.getLoginTime().toLocalDate());
     }
