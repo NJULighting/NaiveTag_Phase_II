@@ -1,7 +1,9 @@
+import {getUrl} from "~/api/tool";
+
 export function save(taskId,picUrl,JSONObject,callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/tag/save.html",
+        url: getUrl('tag/save.html'),
         type: 'POST',
         // xhrFields:{withCredentials:true},
         data: {
@@ -22,7 +24,7 @@ export function save(taskId,picUrl,JSONObject,callback) {
 export function next(taskId, picUrl, callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/tag/next.html",
+        url: getUrl('tag/next.html'),
         type: 'GET',
         // xhrFields:{withCredentials:true},
         data: {
@@ -42,7 +44,7 @@ export function next(taskId, picUrl, callback) {
 export function previous(taskId, picUrl, callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/tag/previous.html",
+        url: getUrl('tag/previous.html'),
         type: 'GET',
         // xhrFields:{withCredentials:true},
         data: {

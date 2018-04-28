@@ -1,7 +1,9 @@
+import {getUrl} from "~/api/tool";
+
 export function search(key,callback) {
 
     $.ajax({
-        url: "http://localhost:8000/naive/search.html",
+        url:getUrl('search.html'),
         type: 'GET',
         // xhrFields:{withCredentials:true},
         data: {

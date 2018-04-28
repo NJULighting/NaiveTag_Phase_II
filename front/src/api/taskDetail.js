@@ -1,4 +1,4 @@
-import axios from 'axios'
+
 import {getUrl} from "~/api/tool";
 
 export function getTaskDetail(taskId,username,callback) {
