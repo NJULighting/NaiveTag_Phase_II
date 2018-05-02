@@ -10,6 +10,7 @@ import top.minecode.po.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created on 2018/4/2.
@@ -28,6 +29,20 @@ public class UserDao {
         loginLog.setUserType(user.getUserType());
         loginLog.setLoginTime(LocalDateTime.now());
         loginLogPOTable.add(loginLog);
+    }
+
+    public void updateUserScore(User user, double score) {
+        if (user.getUserType() == UserType.worker) {
+            Table<WorkerPO> workerTable = TableFactory.workerTable();
+            WorkerPO target = workerTable.getPOBy(user.getUsername(), WorkerPO::getUsername);
+            target.setScores(target.getScores() + score);
+            workerTable.save();
+        } else if (user.getUserType() == UserType.requester) {
+            Table<RequesterPO> requesterTable = TableFactory.requesterTable();
+            RequesterPO target = requesterTable.getPOBy(user.getUsername(), RequesterPO::getUserName);
+            target.setScore(target.getScore() + score);
+            requesterTable.save();
+        }
     }
 
 

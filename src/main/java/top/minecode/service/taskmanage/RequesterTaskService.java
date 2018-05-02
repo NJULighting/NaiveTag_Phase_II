@@ -7,12 +7,14 @@ import org.springframework.web.multipart.MultipartFile;
 import top.minecode.dao.statistic.RequesterStatisticDao;
 import top.minecode.dao.task.requester.RequesterTaskDao;
 import top.minecode.dao.task.requester.TaskDeliveryDao;
+import top.minecode.dao.user.UserDao;
 import top.minecode.domain.task.TaskConfig;
 import top.minecode.domain.task.TaskInfo;
 import top.minecode.domain.task.requester.NewTaskInfo;
 import top.minecode.domain.task.requester.RequesterTaskDetails;
 import top.minecode.domain.task.requester.RequesterTaskInfo;
 import top.minecode.domain.task.requester.TaskParticipant;
+import top.minecode.domain.user.User;
 import top.minecode.exception.InvalidFileStructureException;
 import top.minecode.po.FirstLevelTaskPO;
 import top.minecode.po.SecondLevelTaskPO;
@@ -37,10 +39,16 @@ public class RequesterTaskService {
     private RequesterTaskDao requesterTaskDao;
     private RequesterStatisticDao requesterStatisticDao;
     private TaskDeliveryDao taskDeliveryDao;
+    private UserDao userDao;
 
     @Autowired
     public void setRequesterStatisticDao(RequesterStatisticDao requesterStatisticDao) {
         this.requesterStatisticDao = requesterStatisticDao;
+    }
+
+    @Autowired
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @Autowired
@@ -62,10 +70,7 @@ public class RequesterTaskService {
                 .collect(Collectors.toList());
     }
 
-    public String
-
-
-    getResult(int taskId) {
+    public String getResult(int taskId) {
         return requesterTaskDao.getTaskResultPath(taskId);
     }
 
@@ -120,6 +125,10 @@ public class RequesterTaskService {
             SecondLevelTaskPO secondLevelTask = taskDeliveryDao.addSecondLevelTask(info, flTask, score);
             taskDeliveryDao.addThirdLevelTask(imageFilePath, secondLevelTask, info, flTask);
         }
+    }
+
+    public void minusPoints(User user, double score) {
+        userDao.updateUserScore(user, -score);
     }
 
     private File handelDuplicated(File file) {

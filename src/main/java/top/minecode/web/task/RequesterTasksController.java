@@ -90,6 +90,8 @@ public class RequesterTasksController extends BaseController {
             NewTaskInfo newTaskInfo = JsonConfig.getGson().fromJson(taskInfo, NewTaskInfo.class);
             newTaskInfo.setOwnerId(user.getId());
             service.saveFile(dataset, taskconf, rawDataSetPath, newTaskInfo);
+            service.minusPoints(user, newTaskInfo.getScore());
+            // Minus points
         } catch (InvalidFileStructureException e) {
             e.printStackTrace();
             result.addProperty("result", "failure");

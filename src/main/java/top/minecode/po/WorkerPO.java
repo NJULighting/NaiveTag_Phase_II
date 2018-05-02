@@ -5,6 +5,7 @@ import top.minecode.domain.user.UserType;
 import top.minecode.domain.user.Worker;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created on 2018/4/1.
@@ -115,5 +116,22 @@ public class WorkerPO implements Serializable {
                 ", scores=" + scores +
                 ", averageScoreRatio=" + averageScoreRatio +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WorkerPO workerPO = (WorkerPO) o;
+        return Objects.equals(id, workerPO.id) &&
+                Objects.equals(username, workerPO.username) &&
+                Objects.equals(name, workerPO.name) &&
+                Objects.equals(email, workerPO.email);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, username, name, email);
     }
 }
