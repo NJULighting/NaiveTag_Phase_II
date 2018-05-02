@@ -23,7 +23,9 @@ module.exports = (options = {}) => ({
       {
         test: /\.js$/,
         use: ['babel-loader'],
-        exclude: /node_modules/
+       // exclude: /node_modules/
+          include: [resolve('src'),resolve('node_modules/element-ui/src')]
+      //     include:[resolve('src'),resolve()]
       },
       {
         test: /\.css$/,

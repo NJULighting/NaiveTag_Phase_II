@@ -11,7 +11,7 @@
                                     <el-input clearable v-model="username"></el-input>
                                 </el-form-item>
                                 <el-form-item label="密码">
-                                    <el-input clearable v-model="password"></el-input>
+                                    <el-input clearable v-model="password" type="password"></el-input>
                                 </el-form-item>
                                 <br>
                                 <el-form-item>
@@ -67,7 +67,20 @@
                                     break;
                             }
                         }else {
-                                alert(res.result);
+                            let message;
+                            switch (res.result){
+                                case  'invalid username':
+                                    message='用户名错误';
+                                    break;
+                                case  'invalid username':
+                                    message='密码错误';
+                                    break;
+                            }
+
+                            this.$alert(message,'',{
+                                confirmButtonText:'确定'
+                            })
+
                         }
                     });
 

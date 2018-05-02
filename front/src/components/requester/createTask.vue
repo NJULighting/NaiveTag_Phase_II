@@ -1,11 +1,6 @@
 <template>
 
     <el-col :span="8" :offset="8">
-        <el-date-picker type="date" placeholder="选择日期" style="width: 100%"
-                        value-format="yyyy-MM-dd"
-                        v-model="taskForm.endTime"
-                        :picker-opitons="pickerOptions">
-        </el-date-picker>
         <el-form :model="taskForm" :rules="rules" ref="taskForm" label-position='left' label-width="160px"
                  style="margin-top: 50px">
             <el-form-item label="任务名称" prop="taskName">
@@ -112,8 +107,8 @@
                     fileList: [],
                     score: '',
                     workerFilter: {
-                        workerRankRate: null,
-                        averageScore: null,
+                        workerRankRate: 1,
+                        averageScore: 0.99,
                     },
                     file: undefined,
                     taskConf: undefined

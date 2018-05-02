@@ -66,7 +66,7 @@
         data() {
             return {
                 imageUrl: '',
-                imageSrc: '/src/assets/head.jpg',
+                imageSrc: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524925264310&di=352a1b66a7c3a19fbead4a34f647ceea&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171220%2F48ac3a79109e4cdfa853391fa37e6540.jpeg',
             }
         }
     }
