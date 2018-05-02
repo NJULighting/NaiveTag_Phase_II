@@ -41,10 +41,16 @@ public class RegisterController extends BaseController{
     private String register(HttpServletRequest request, GeneralUser user) {
         RegisterResponse registerResponse = new RegisterResponse();
         try {
+            if (user.getUserType() == UserType.worker)
+                user.setScore(0.0);
+            else if (user.getUserType() == UserType.requester)
+                user.setScore(10000.0);
+            else
+                user.setScore(0.0);
             userService.register(user);
             UserType userType = user.getUserType();
             registerResponse.setUserType(userType.toString());
-            user.setScore(0.0);
+
             registerResponse.setResult(RegisterResponse.SUCCESS);
             setSessionUser(request, user);
         } catch (EmailExistedException e) {
