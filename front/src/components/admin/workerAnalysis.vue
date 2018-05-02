@@ -3,7 +3,7 @@
 
             <div >
                 <h2>截止 {{new Date().toLocaleString()}}</h2>
-                <h2>共有 {{totalWorker}} 工人注册了 NaiveTag</h2>
+                <h2>共有 {{totalWorker}} 名工人注册了 NaiveTag</h2>
 
             </div>
 
@@ -14,7 +14,7 @@
                     :x-data="xData"
                     :series-name="seriesName"
                     :series-data="seriesData"
-                    title="工人人数随时间变化曲线">
+                    title="工人人数">
 
 
             </line-chart>
@@ -33,7 +33,7 @@
             return {
                 xData: [],
                 seriesData: [],
-                seriesName: ['当天活跃工人数', '总工人数'],
+                seriesName: ['当天活跃人次', '当天注册人数'],
                 totalWorker: Number
             }
         },

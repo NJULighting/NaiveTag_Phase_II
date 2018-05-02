@@ -2,6 +2,9 @@
    <div style="width: 100%;">
      <el-col :offset="3" :span="18">
          <el-card >
+             <h2>
+                 当前共有{{taskTotal}}个任务
+             </h2>
              <pie-chart
                      :name="this.pieChartName"
                      :data="this.pieChartData"
@@ -26,7 +29,8 @@
             return{
                 adminDetail:undefined,
                 pieChartName:['进行中的任务','已完成的任务'],
-                pieChartData:[]
+                pieChartData:[],
+                taskTotal:Number
             }
         },
         created:function () {
@@ -35,6 +39,7 @@
                 this.adminDetail=res;
                 this.pieChartData.push(res.taskQuantity-res.completedTask);
                 this.pieChartData.push(res.completedTask);
+                this.taskTotal=res.taskQuantity;
             })
         }
 

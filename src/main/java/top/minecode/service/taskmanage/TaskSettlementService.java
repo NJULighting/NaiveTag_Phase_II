@@ -239,7 +239,11 @@ public class TaskSettlementService {
             }
 
             flTask.setState(FirstLevelTaskState.completed);
+            Double repay = flTask.getTotalScore() - totalPayedScores;
             flTask.setTotalScore(totalPayedScores);
+
+            RequesterPO requesterPO = TableFactory.requesterTable().getPOBy(flTask.getOwnerId(), RequesterPO::getId);
+            requesterPO.setScore(requesterPO.getScore() + repay);
 
             String result = JsonConfig.getGson().toJson(taskResult); // 这个任务的结果
 

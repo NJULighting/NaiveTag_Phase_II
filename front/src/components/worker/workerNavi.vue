@@ -21,7 +21,7 @@
                     </el-input>
 
                     <div class="height center" style="float: right;">
-                        <img src="../../assets/head.jpg" alt="headPicture" class="headpic" v-on:click="showUserInfo"
+                        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524925264310&di=352a1b66a7c3a19fbead4a34f647ceea&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171220%2F48ac3a79109e4cdfa853391fa37e6540.jpeg" alt="headPicture" class="headpic" v-on:click="showUserInfo"
                              ondragstart="return false;"
                              oncontextmenu="return false;">
                     </div>
@@ -82,14 +82,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    $.ajax({
-                        url: "http://localhost:8000/naive/lgo.html",
-                        type: 'POST',
-                        data: {
-                            'username': localStorage.username,
-                        }
-                        // contentType:"application/x-www-form-urlencoded; charset=utf-8"
-                    });
+
                     this.$router.push("/login");
                 }).catch(() => {
 

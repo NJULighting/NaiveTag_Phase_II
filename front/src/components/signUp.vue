@@ -12,10 +12,10 @@
                     <el-input v-model="signUpForm.email"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                    <el-input v-model="signUpForm.password"></el-input>
+                    <el-input v-model="signUpForm.password" type="password"></el-input>
                 </el-form-item>
-                <el-form-item label="确认密码" prop="checkPass">
-                    <el-input v-model="signUpForm.checkPass"></el-input>
+                <el-form-item label="确认密码" prop="checkPass" >
+                    <el-input v-model="signUpForm.checkPass" type="password"></el-input>
                 </el-form-item>
                 <el-form-item label="用户类型">
                     <el-radio-group v-model="signUpForm.userType">
@@ -29,7 +29,7 @@
 
             </el-form>
         </el-col>
-        <el-button @click="fastSignUp">一键填充</el-button>
+
     </div>
 </template>
 

@@ -83,6 +83,7 @@
 <script type="text/javascript">
     import router from "../../router/index";
     import {taskName} from '../../api/taskName.js'
+    import {getUrl} from "~/api/tool";
 
     export default {
        // props: ['taskType'],
@@ -105,7 +106,7 @@
 
         computed: {
             getCover: function () {
-                return "http://localhost:8000/naive/" + this.cover;
+                return getUrl(this.cover);
             },
 
             getProcess: function () {

@@ -25,17 +25,14 @@
                 <el-collapse-item name="1" title="参与标注人员">
                     <el-table
                             :data="subTask.participants">
-                        <el-table-column
-                                prop="name"
-                                label="姓名">
-                        </el-table-column>
+
                         <el-table-column
                                 prop="ability"
                                 label="能力">
                         </el-table-column>
                         <el-table-column
                                 prop="rankRate"
-                                label="Unknown">
+                                label="排名率">
                         </el-table-column>
                         <el-table-column
                                 prop="rank"
