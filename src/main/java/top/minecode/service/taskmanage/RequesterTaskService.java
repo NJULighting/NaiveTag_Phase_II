@@ -91,7 +91,6 @@ public class RequesterTaskService {
                     participants.get(secondLvTaskId), taskInfoMap.get(secondLvTaskId)));
         }
 
-
         return details;
     }
 

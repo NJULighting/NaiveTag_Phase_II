@@ -56,6 +56,7 @@ public class RankTable implements Serializable {
     }
 
     public List<RankItem> getWorkerRank() {
+        updateRankTable();
         int length = rank.size() < StatisticConstant.RANK_BOARD_SHOW_COUNT
                 ? rank.size() : StatisticConstant.RANK_BOARD_SHOW_COUNT;
 
@@ -68,6 +69,6 @@ public class RankTable implements Serializable {
         rank.setPos(workerTable.getAll().stream().map(RankItem::new).collect(Collectors.toList()));
 
         // sort the table
-        rank.getAll().sort(Comparator.comparing(RankItem::getScore));
+        rank.getAll().sort(Comparator.comparing(RankItem::getScore, Comparator.reverseOrder()));
     }
 }

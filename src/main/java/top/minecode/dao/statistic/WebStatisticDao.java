@@ -29,6 +29,9 @@ public class WebStatisticDao {
         List<LoginLogPO> loginLogs = TableFactory.loginLogTable()
                 .getPOsBy(UserType.worker, LoginLogPO::getUserType);
 
+        System.out.println("active worker");
+        TableFactory.loginLogTable().printContent();
+
 
         return getTrend(loginLogs, log -> log.getLoginTime().toLocalDate());
     }
@@ -36,6 +39,9 @@ public class WebStatisticDao {
     public TimeNumberGraph totalWorkerTrend() {
         List<RegisterLogPO> registerLogs = TableFactory.registerLogTable()
                 .getPOsBy(UserType.worker, RegisterLogPO::getUserType);
+
+        System.out.println("total worker trend");
+        TableFactory.requesterTable().printContent();
 
         TimeNumberGraph result = getTrend(registerLogs, RegisterLogPO::getDate);
         return result.accumulateGraph();

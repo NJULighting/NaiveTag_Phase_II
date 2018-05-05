@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import top.minecode.dao.statistic.WebStatisticDao;
 import top.minecode.domain.statistic.TimeNumberGraph;
 import top.minecode.domain.statistic.WebStatisticInfo;
+import top.minecode.json.JsonConfig;
 import top.minecode.utils.Pair;
 
 /**
@@ -27,6 +28,8 @@ public class WebStatisticService {
         TimeNumberGraph activeWorkerTrend = webStatisticDao.activeWorkerTrend();
         TimeNumberGraph totalWorkerTrend = webStatisticDao.totalWorkerTrend();
         TimeNumberGraph totalRequesterTrend = webStatisticDao.totalRequesterTrend();
+
+        System.out.println(JsonConfig.getGson().toJson(totalRequesterTrend));
 
         return new WebStatisticInfo(completedTotalTaskNumPair.getRight(), completedTotalTaskNumPair.getLeft(),
                 activeWorkerTrend, totalWorkerTrend, totalRequesterTrend);

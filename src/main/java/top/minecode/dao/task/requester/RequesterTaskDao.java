@@ -54,8 +54,11 @@ public class RequesterTaskDao {
                     .flatMap(e -> e.getParticipants().stream()).distinct().map(e -> {
                         int rank = rankTable.getRankById(e);
                         double rankRatio = rankTable.getRankRatio(e);
-                        double ability = workerTable.getPOBy(e, WorkerPO::getId).getAverageScoreRatio();
-                        return new TaskParticipant(rank, ability, rankRatio);
+                        WorkerPO worker = workerTable.getPOBy(e, WorkerPO::getId);
+                        double ability = worker.getAverageScoreRatio();
+                        String name = worker.getName();
+
+                        return new TaskParticipant(rank, ability, rankRatio, name);
                     }).collect(toList());
 
             participantsMap.put(entry.getKey(), participants);

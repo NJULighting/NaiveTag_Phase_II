@@ -27,6 +27,12 @@ public class LoginLogPO implements Serializable {
         this.userType = userType;
     }
 
+    public LoginLogPO(Integer userId, UserType userType, LocalDateTime time) {
+        this.userId = userId;
+        this.userType = userType;
+        this.loginTime = time;
+    }
+
     public Integer getUserId() {
         return userId;
     }

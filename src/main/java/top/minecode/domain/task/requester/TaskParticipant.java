@@ -12,11 +12,13 @@ public class TaskParticipant {
     private Integer rank;
     private double ability; // Average score ratio
     private double rankRate;
+    private String name;
 
-    public TaskParticipant(Integer rank, double ability, double rankRate) {
+    public TaskParticipant(Integer rank, double ability, double rankRate, String name) {
         this.rank = rank;
         this.ability = ability;
         this.rankRate = rankRate;
+        this.name = name;
     }
 
     public String toJson() {
@@ -33,6 +35,10 @@ public class TaskParticipant {
 
     public double getRankRate() {
         return rankRate;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
