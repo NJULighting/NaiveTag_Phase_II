@@ -26,7 +26,7 @@ public class TaskSettlementController {
         this.taskSettlementService = taskSettlementService;
     }
 
-    @Scheduled(cron = "30 * * * * ?")  // 每天早上0点5分执行
+    @Scheduled(cron = "0 0 * * * ?")  // 每天早上0点5分执行
     public void settleTasks() {
         System.out.println("Task Settlement in controller");
         taskSettlementService.settle();
