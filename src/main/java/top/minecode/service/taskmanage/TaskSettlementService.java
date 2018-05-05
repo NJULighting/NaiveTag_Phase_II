@@ -142,13 +142,6 @@ public class TaskSettlementService {
 
     public void settle() {
         System.out.println("Start settlement task!");
-        LocalDateTime time = LocalDateTime.of(2018, 4, 28, 11, 36);
-        System.out.println("target_time " + time.toString());
-        LocalDateTime now = LocalDateTime.now();
-        System.out.println("now_time " + now.toString());
-        if (!now.isAfter(time)) {
-            return;
-        }
         settleRequesterCompletedTask();
         settleWorkerExpiredTask();
         TableFactory.saveAll();

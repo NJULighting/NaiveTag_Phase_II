@@ -94,7 +94,7 @@ public class WorkerTaskDao {
         Double lowBound =  TableFactory.workerFilterTable().getAll().stream()
                 .filter(e -> e.getId().equals(taskPO.getWorkerFilterId())).findFirst()
                 .orElse(null).getWorkerRankRatio();
-        return lowBound == null || lowBound > ratio;
+        return lowBound == null || lowBound >= ratio;
 
     }
 
