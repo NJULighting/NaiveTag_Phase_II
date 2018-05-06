@@ -33,7 +33,7 @@
             return {
                 xData: [],
                 seriesData: [],
-                seriesName: ['当天活跃人次', '当天注册人数'],
+                seriesName: ['当天活跃人次', '累计注册人数'],
                 totalWorker: Number
             }
         },

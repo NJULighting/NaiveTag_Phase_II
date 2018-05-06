@@ -25,7 +25,10 @@ const router = new VueRouter({
 
     mode: 'history',
 
-    routes: [
+    routes: [{
+     path:'/',
+     component:login
+    },
         {
             path: '/worker', component: worker_navi,
             children: [
@@ -44,7 +47,7 @@ const router = new VueRouter({
             children: [
                 {path: 'home', component: requesterHome,name:'requesterHome'},
                 {path: 'createTask', component: requesterCreateTask},
-                {path:'taskDetail',component:requesterTaskDetail,name:'taskDetail'},
+                {path:'taskDetail/:taskId',component:requesterTaskDetail,name:'taskDetail'},
                 {path:'requesterDetail',component:requesterDetail}
             ]
         },

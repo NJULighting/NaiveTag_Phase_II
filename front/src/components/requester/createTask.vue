@@ -27,16 +27,18 @@
             <el-form-item label="筛选条件">
                 <div>
                     <div class="filter-item">
-                        工人RankRate
-                        <el-input size="small" v-model="taskForm.workerFilter.workerRankRate"
+                        工人排名比率
+                        <el-slider size="small" v-model="taskForm.workerFilter.workerRankRate"
                                   clearable
-                                  class="filter-input"></el-input>
+                                  class="filter-input"></el-slider>
                     </div>
                     <div class="filter-item">
                         工人平均得分
-                        <el-input size="small" v-model="taskForm.workerFilter.averageScore"
-                                  clearable
-                                  class="filter-input"></el-input>
+                        <el-slider size="small" v-model="taskForm.workerFilter.averageScore"
+                                  :min="0"
+                                   :max="3"
+                                   :step="0.1"
+                                  class="filter-input"></el-slider>
                     </div>
 
                 </div>

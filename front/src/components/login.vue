@@ -72,7 +72,7 @@
                                 case  'invalid username':
                                     message='用户名错误';
                                     break;
-                                case  'invalid username':
+                                case  'invalid password':
                                     message='密码错误';
                                     break;
                             }
