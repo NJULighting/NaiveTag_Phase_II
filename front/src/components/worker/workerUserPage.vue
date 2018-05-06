@@ -8,7 +8,7 @@
 
             <el-col :span="8"><div class="grid-content" style="text-align: center;">
                 <div style="height: 90px;"></div>
-                <div style="width: 600px;">个人能力变换曲线</div>
+                <!--<div style="width: 600px;">个人能力变换曲线</div>-->
 
                 <line-chart
 

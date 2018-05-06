@@ -8,17 +8,28 @@
                     <div class="height center" style="width: 250px;float: left;">
                         <img src="../../assets/naive_tag.png" style="height: 50px;width: auto;"
                              ondragstart="return false;"
-                             oncontextmenu="return false;">
+                             oncontextmenu="return false;" @click="onClickLogo">
                     </div>
 
-                    <el-input
-                            v-model="inputText"
-                            placeholder="任务搜索"
-                            suffix-icon="el-icon-search"
+                    <el-autocomplete
                             class="height center"
                             style="width: 30%;float: left;width: 300px;"
-                            @keyup.enter.native="doSearch">
-                    </el-input>
+                            v-model="inputText"
+                            :fetch-suggestions="querySearch"
+                            placeholder="来找点事情做吧( •̀ ω •́ )y"
+                            suffix-icon="el-icon-search"
+                            @select="doSearch"
+                            @keyup.enter.native="doSearch"
+                    ></el-autocomplete>
+
+                    <!--<el-input-->
+                            <!--v-model="inputText"-->
+                            <!--placeholder="来找点事情做吧( •̀ ω •́ )y"-->
+                            <!--suffix-icon="el-icon-search"-->
+                            <!--class="height center"-->
+                            <!--style="width: 30%;float: left;width: 300px;"-->
+                            <!--@keyup.enter.native="doSearch">-->
+                    <!--</el-input>-->
 
                     <div class="height center" style="float: right;">
                         <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524925264310&di=352a1b66a7c3a19fbead4a34f647ceea&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171220%2F48ac3a79109e4cdfa853391fa37e6540.jpeg" alt="headPicture" class="headpic" v-on:click="showUserInfo"
@@ -60,11 +71,36 @@
         data () {
             return {
                 activeIndex : "/worker/home",
-                inputText: ""
+                inputText: "",
+                recommendations: [],
             }
         },
 
         methods:{
+            querySearch(queryString, cb) {
+                var recommendations = this.recommendations;
+                var results = queryString ? recommendations.filter(this.createFilter(queryString)) : recommendations;
+                // 调用 callback 返回建议列表的数据
+                cb(results);
+            },
+
+            createFilter(queryString) {
+                return (recommendation) => {
+                    return (recommendation.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+                };
+            },
+
+            loadAll() {
+                return [
+                    { "value": "try"},
+                    { "value": "tryagain"},
+                    { "value": "1"},
+                ];
+            },
+
+            onClickLogo(){
+                this.$router.push("/worker/home");
+            },
 
             showUserInfo() {
                 this.$router.push("/worker/user");
@@ -72,6 +108,7 @@
 
             doSearch() {
 //                this.$router.push("/worker/search");
+//                this.recommendations.push(this.inputText);
                 this.$router.push({ name: 'search', params: { key: this.inputText }});
             },
 
@@ -91,6 +128,10 @@
 
             },
 
+        },
+
+        mounted() {
+            this.recommendations = this.loadAll();
         },
     }
 

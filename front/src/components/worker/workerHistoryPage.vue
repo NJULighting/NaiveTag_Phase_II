@@ -2,8 +2,8 @@
     <div id="history">
 
         <!--历史人物记录-->
-        <div style="width: 100%;text-align: center;padding-top: 40px;padding-bottom: 20px">
-            <span style="font-size: 24px">历史任务记录</span>
+        <div style="width: 100%;text-align: center;padding-top: 30px;padding-bottom: 20px">
+            <img src="../../assets/history.png" style="height: 50px; width: auto;">
         </div>
 
         <div style="text-align: center">

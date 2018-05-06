@@ -4,9 +4,9 @@
 
         <!--<button v-on:click="getRecommendation">button</button>-->
         <!--任务进行中-->
-        <div v-if="taskDoingList && taskDoingList.length != 0" style="width: 100%;text-align: center;padding-top: 40px;padding-bottom: 20px">
-            <el-tooltip content="选择“历史任务”以查看更多" placement="right-start" effect="light">
-                <span style="font-size: 24px">任务进行中</span>
+        <div v-if="taskDoingList && taskDoingList.length != 0" style="width: 100%;text-align: center;padding-top: 30px;">
+            <el-tooltip content="“历史任务”可以查看更多哟 ˋ( ° ▽、° ) " placement="right-start" effect="light">
+                <img src="../../assets/doing.png" style="height: 50px; width: auto;">
             </el-tooltip>
         </div>
 
@@ -17,8 +17,23 @@
         </div>
 
         <!--任务推荐-->
-        <div v-if="taskRecommendList && taskRecommendList != 0" style="width: 100%;text-align: center;padding-top: 40px;padding-bottom: 20px">
-            <span style="font-size: 24px">任务推荐</span>
+        <div v-if="taskRecommendList && taskRecommendList != 0" style="width: 100%;height:100px;text-align: center;" class="center">
+            <div>
+                <div class="center">
+                    <img src="../../assets/recommedation.png" style="height: 50px; width: auto;">
+                    <img v-if="!this.isReflash" src="../../assets/reflash.png" style="width: 25px;height: auto;cursor: pointer;"
+                         ondragstart="return false;"
+                         oncontextmenu="return false;" @click="reTask">
+                    <img v-if="this.isReflash" src="../../assets/reflash.gif" style="width: 25px;height: auto;cursor: pointer;"
+                         ondragstart="return false;"
+                         oncontextmenu="return false;" @click="reTask">
+                    <div style="display: inline-block;cursor: pointer;" @click="reTask">
+                        <span>换一波</span>
+                        <span>{{faceText}}</span>
+                    </div>
+
+                </div>
+            </div>
         </div>
 
         <div style="width: 100%;text-align: center">
@@ -46,22 +61,47 @@
 //            'taskblock': taskblock,
 //        },
 
+        methods: {
+            reTask: function() {
+                console.log("reflash");
+                this.faceText = 'Σ(っ °Д °;)っ';
+                this.isReflash = true;
+                let result2 = recommendation(res=> {
+                    this.taskRecommendList = res;
+                    let that = this;
+                    setTimeout(function (){
+                        console.log('执行了');
+                        that.defaultReflash();
+                    }, 1000);
+                });
+//                this.faceText = 'ԅ(¯﹃¯ԅ)';
+//                this.isReflash = false;
+            },
+
+            defaultReflash: function() {
+                this.faceText = 'ԅ(¯﹃¯ԅ)';
+                this.isReflash = false;
+            },
+        },
+
         created: function () {
             var count = 3;
             let result1 = taskGoing(count, res=> {
-                console.log("taskGoing success");
-                console.log(res);
+//                console.log("taskGoing success");
+//                console.log(res);
                 this.taskDoingList = res;
             });
             let result2 = recommendation(res=> {
-                console.log("recommendation success");
-                console.log(res);
+//                console.log("recommendation success");
+//                console.log(res);
                 this.taskRecommendList = res;
             });
         },
 
         data() {
             return {
+                faceText: "ԅ(¯﹃¯ԅ)",
+                isReflash: false,
                 taskDoingList: [
 //                    {
 //                        "taskId": 100,

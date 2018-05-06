@@ -2,11 +2,17 @@
     <div id="search">
         <div>
             <!--搜索结果-->
-            <div style="width: 100%;text-align: center;padding-top: 40px;padding-bottom: 20px">
-                <span v-if="taskList.length === 0" style="font-size: 24px">无</span><span style="font-size: 24px">搜索结果</span>
+            <div v-if="taskList.length === 0" style="height: 600px;background-color: white;" class="center">
+                <div>
+                    <img src="../../assets/none.png" style="width: 250px;height: auto;">
+                    <div style="color: grey;">再怎么找也没有啦（＞人＜；）</div>
+                </div>
+            </div>
+            <div style="width: 100%;text-align: center;padding-top: 30px;padding-bottom: 20px">
+                <img v-if="taskList.length != 0" src="../../assets/search.png" style="height: 50px; width: auto;">
             </div>
 
-            <div style="text-align: center">
+            <div style="text-align: left">
                 <taskblock v-for="(taskData,key) in taskList" v-bind:key="key" v-bind="taskData"></taskblock>
             </div>
         </div>

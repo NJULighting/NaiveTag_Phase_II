@@ -6,11 +6,8 @@
                 <div class="height center" style="width: 250px;float: left;">
                     <img src="../../assets/naive_tag.png" style="height: 50px;width: auto;"
                          ondragstart="return false;"
-                         oncontextmenu="return false;">
-                </div>
-
-                <div class="height" style="width: 100px;float: left;">
-                    <button type="text" class="height center back"  v-on:click="back">返回</button>
+                         oncontextmenu="return false;"
+                         v-on:click="back">
                 </div>
 
             </el-row>
@@ -74,9 +71,21 @@
 
                     <el-tab-pane label="未标注" name="first">
                         <img v-on:click="clickPicList(picture)" v-for="(picture, index) in unfinishedPicList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
+                        <div v-if="unfinishedPicList.length == 0" style="text-align: center;height: 300px;" class="center">
+                            <div>
+                                <img src="../../assets/none.png" style="width: 250px;height: auto;">
+                                <div style="color: grey;">再怎么找也没有啦（＞人＜；）</div>
+                            </div>
+                        </div>
                     </el-tab-pane>
                     <el-tab-pane label="已标注" name="second">
                         <img v-on:click="clickPicList(picture)" v-for="(picture, index) in finishedPicList"  :src="getPicSrc(picture)" alt="Image" style="padding: 10px;width: 15%;">
+                        <div v-if="finishedPicList.length == 0" style="text-align: center;height: 400px;" class="center">
+                            <div>
+                                <img src="../../assets/none.png" style="width: 250px;height: auto;">
+                                <div style="color: grey;">再怎么找也没有啦（＞人＜；）</div>
+                            </div>
+                        </div>
                     </el-tab-pane>
                 </el-tabs>
             </div>

@@ -4,58 +4,71 @@
 
 
             <!--左侧画框画线界面-->
-            <el-col :span="20"><div class="grid-content bg-purple">
-                <div>
+            <el-col :span="17"><div class="grid-content bg-purple">
+                <div style="padding: 10px;">
 
-                    <!--背景图片-->
-                    <img :src="picUrl" alt="picture" class="picture"
-                         ondragstart="return false;"
-                         oncontextmenu="return false;"
-                         ref="image">
+                    <div style="padding: 10px;border: dashed;">
+                        <div ref="divBlock" style="height: 650px;width: 100%;text-align: center;display:flex;justify-content:center;align-items:center;">
 
-                    <!--已画的框-->
-                    <div class="rect" v-for="(item, index) in frames"
-                         v-bind:style="{
-                            'border-color': rectColor,
-                            left: item.leftTop.x + 'px',
-                            top: item.leftTop.y + 'px',
-                            width: item.rightDown.x - item.leftTop.x + 'px',
-                            height: item.rightDown.y - item.leftTop.y + 'px',
-                            'z-index': index,
-                            color: rectColor,
-                         }"
-                         v-bind:index="index"
-                         v-bind:key="item.id"><span v-if="isMoreThanOne">#{{index + 1}}</span></div>
+                            <div style="border: 1px solid gray;position: relative;display: inline-flex;">
 
-                    <!--框画板-->
-                    <div v-if="isRectsTypeNoLabel" ref="canvas" v-bind:style="getCanvasStyle()"
-                         v-on:mousedown="onMouseDown($event)"
-                         v-on:mouseup="onMouseUp($event)"
-                         v-on:mousemove="onMouseMove($event)"></div>
+                                <!--背景图片-->
+                                <img :src="picUrl" alt="picture" v-bind:style="getPicStyle()"
+                                     ondragstart="return false;"
+                                     oncontextmenu="return false;"
+                                     ref="image">
 
-                    <!--正在画的框-->
-                    <div v-if="this.drawRect" v-bind:style="getChangeRectStyle()"></div>
+                                <!--已画的框-->
+                                <div class="rect" v-for="(item, index) in frames"
+                                     v-bind:style="{
+                                        'border-color': rectColor,
+                                        left: item.leftTop.x + 'px',
+                                        top: item.leftTop.y + 'px',
+                                        width: item.rightDown.x - item.leftTop.x + 'px',
+                                        height: item.rightDown.y - item.leftTop.y + 'px',
+                                        'z-index': index,
+                                        color: rectColor,
+                                     }"
+                                     v-bind:index="index"
+                                     v-bind:key="item.id"><span v-if="isMoreThanOne">#{{index + 1}}</span></div>
 
-                    <!--<tagCanvas :points.sync="this.points"-->
-                               <!--v-bind:width="this.picWidth"-->
-                               <!--v-bind:height="this.picHeight"-->
-                               <!--v-bind:style="getTagCanvasStyle()"-->
-                               <!--&gt;</tagCanvas>-->
-                    <canvas ref="canvas" class="canvas"
-                            ondragstart="return false;" oncontextmenu="return false;"
-                            v-on:mousedown="onCanvasMouseDown($event)"
-                            v-on:mousemove="onCanvasMouseMove($event)"
-                            v-on:mouseup="onCanvasMouseUp($event)"
-                            v-bind:width="this.picWidth"
-                            v-bind:height="this.picHeight"
-                            v-bind:style="getTagCanvasStyle()"></canvas>
+                                <!--框画板-->
+                                <div v-if="isRectsTypeNoLabel" ref="canvas" v-bind:style="getCanvasStyle()"
+                                     v-on:mousedown="onMouseDown($event)"
+                                     v-on:mouseup="onMouseUp($event)"
+                                     v-on:mousemove="onMouseMove($event)"></div>
+
+                                <!--正在画的框-->
+                                <div v-if="this.drawRect" v-bind:style="getChangeRectStyle()"></div>
+
+                                <!--<tagCanvas :points.sync="this.points"-->
+                                <!--v-bind:width="this.picWidth"-->
+                                <!--v-bind:height="this.picHeight"-->
+                                <!--v-bind:style="getTagCanvasStyle()"-->
+                                <!--&gt;</tagCanvas>-->
+                                <canvas ref="canvas" class="canvas"
+                                        ondragstart="return false;" oncontextmenu="return false;"
+                                        v-on:mousedown="onCanvasMouseDown($event)"
+                                        v-on:mousemove="onCanvasMouseMove($event)"
+                                        v-on:mouseup="onCanvasMouseUp($event)"
+                                        v-bind:width="this.picWidth"
+                                        v-bind:height="this.picHeight"
+                                        v-bind:style="getTagCanvasStyle()"></canvas>
+
+                            </div>
+
+
+                        </div>
+                    </div>
 
                 </div>
+
+
             </div></el-col>
 
 
             <!--右侧标注界面-->
-            <el-col :span="4"><div class="grid-content bg-purple-light">
+            <el-col :span="7"><div class="grid-content bg-purple-light">
                 <div v-bind:style="getBlocksStyle()">
                     <div class="tagblocks">
 
@@ -154,6 +167,7 @@
                    this.drawPolygon();
                }
 
+               this.updatePic(this.picUrl);
 
            })
         },
@@ -170,6 +184,10 @@
         watch: {
             label: function (newLabel) {
                 this.updateLabel();
+            },
+
+            picUrl: function (newPicUrl) {
+                this.updatePic(newPicUrl);
             },
 
             points: function (newPoints) {
@@ -209,6 +227,8 @@
 
                 picHeight :  800,
                 picWidth : 600,
+                picWidthStyle: 'auto',
+                picHeightStyle: 'auto',
 
                 drawRect : false,
                 startPoint: {
@@ -372,6 +392,28 @@
         },
 
         methods: {
+
+            updatePic: function (picUrl) {
+                this.picWidthStyle = 'auto';
+                this.picHeightStyle = 'auto';
+                var newImg = new Image();
+                newImg.src = picUrl;
+//                newImg.onerror = () => { // 图片加载错误时的替换图片
+//                    newImg.src = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1489486509807&di=22213343ba71ad6436b561b5df999ff7&imgtype=0&src=http%3A%2F%2Fa0.att.hudong.com%2F77%2F31%2F20300542906611142174319458811.jpg'
+//                }
+                newImg.onload = () => { // 图片加载成功后把地址给原来的img
+                    this.picWidth = this.$refs.image.getBoundingClientRect().width;
+                    this.picHeight = this.$refs.image.getBoundingClientRect().height;
+                    if(this.picWidth > this.$refs.divBlock.getBoundingClientRect().width){
+                        this.picWidthStyle = this.$refs.divBlock.getBoundingClientRect().width+'px';
+                        this.picWidth = this.$refs.divBlock.getBoundingClientRect().width;
+                    }
+                    if(this.picHeight > this.$refs.divBlock.getBoundingClientRect().height){
+                        this.picHeightStyle = this.$refs.divBlock.getBoundingClientRect().height+'px';
+                        this.picHeight = this.$refs.divBlock.getBoundingClientRect().height;
+                    }
+                };
+            },
 
             updateLabel: function () {
                 if(!this.isRectsTypeNoLabel && this.getTagTypeNum!=400){
@@ -595,6 +637,17 @@
                 }
             },
 
+            getPicStyle: function () {
+                return {
+                    width: this.picWidthStyle,
+                    height: this.picHeightStyle,
+                    position:'relative',
+                    left:'0px',
+                    top:'0px',
+                    'z-index':'-1',
+                }
+            },
+
             getChangeRectStyle: function () {
                 var zIndex = 0;
                 if(this.frames){
@@ -647,6 +700,7 @@
                     width: this.picWidth + 'px',
                     height: this.picHeight + 'px',
                     position: 'absolute',
+//                    border: 'dashed red',
                 }
             },
 
@@ -704,7 +758,7 @@
     .picture {
         /*width: 800px;*/
         width: auto;
-        position:absolute;
+        position:relative;
         left:0px;
         top:0px;
         z-index:-1;
