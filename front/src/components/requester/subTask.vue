@@ -27,7 +27,7 @@
                             :data="subTask.participants">
                         <el-table-column
                                 prop="name"
-                                label="姓名">
+                                label="用户">
                         </el-table-column>
                         <el-table-column
                                 prop="ability"
@@ -35,7 +35,7 @@
                         </el-table-column>
                         <el-table-column
                                 prop="rankRate"
-                                label="排名率">
+                                label="排名比率">
                         </el-table-column>
                         <el-table-column
                                 prop="rank"

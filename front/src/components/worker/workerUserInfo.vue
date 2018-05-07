@@ -21,10 +21,10 @@
             <div class="text item">
                 排名：{{rank}}
             </div>
-            <div class="text item">
-                能力值：
-                <el-progress :percentage="averageScoreRatio*100"></el-progress>
-            </div>
+            <!--<div class="text item">-->
+                <!--能力值：-->
+                <!--<el-progress :percentage="averageScoreRatio*100"></el-progress>-->
+            <!--</div>-->
         </el-card>
     </div>
 </template>

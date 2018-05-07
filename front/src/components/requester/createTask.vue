@@ -29,16 +29,18 @@
                     <div class="filter-item">
                         工人排名比率
                         <el-slider size="small" v-model="taskForm.workerFilter.workerRankRate"
-                                  clearable
-                                  class="filter-input"></el-slider>
+                                   :min="0"
+                                   :max="1"
+                                   :step="0.01"
+                                   class="filter-input"></el-slider>
                     </div>
                     <div class="filter-item">
                         工人平均得分
                         <el-slider size="small" v-model="taskForm.workerFilter.averageScore"
-                                  :min="0"
+                                   :min="0"
                                    :max="3"
-                                   :step="0.1"
-                                  class="filter-input"></el-slider>
+                                   :step="0.01"
+                                   class="filter-input"></el-slider>
                     </div>
 
                 </div>

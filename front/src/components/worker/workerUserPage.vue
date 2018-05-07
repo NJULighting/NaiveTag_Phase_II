@@ -34,7 +34,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="score"
-                            label="能力"
+                            label="分数"
                             width="100">
                     </el-table-column>
                 </el-table>
@@ -87,7 +87,7 @@
             return {
 
                 lineData: [
-                    "个人能力变换曲线",
+                    "个人分数曲线",
                 ],
 
                 tableData: [
